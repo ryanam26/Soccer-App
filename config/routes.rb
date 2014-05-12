@@ -5,6 +5,10 @@ SoccerApp::Application.routes.draw do
   devise_scope :user do
     root to: "devise/sessions#new"
   end
+
+  scope "/admin" do
+    resources :users
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
