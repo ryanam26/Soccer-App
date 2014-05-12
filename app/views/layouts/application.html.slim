@@ -33,6 +33,12 @@ html lang="en"
               li= link_to "Link 1", "/path1"
               li= link_to "Link 2", "/path2"
               li= link_to "Link 3", "/path3"
+            ul.nav.navbar-nav.navbar-right
+              li
+                - if user_signed_in?
+                  = link_to('Logout', destroy_user_session_path, :method => 'delete')
+                - else
+                  = link_to 'Sign in', new_user_session_path
 
     .container
       .row

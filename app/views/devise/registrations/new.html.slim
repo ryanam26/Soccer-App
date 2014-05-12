@@ -6,21 +6,31 @@
     = devise_error_messages!
     
     .form-group
-      = f.label :email, class: "col-sm-2 control-label"
-      .col-sm-10
-        = f.email_field :email, autofocus: true, class: "form-control"
+      = f.label :email, class: "col-sm-3 control-label"
+      .col-sm-9
+        = f.email_field :email, autofocus: true, class: "form-control", placeholder: "example@test.com"
+    
+    .form-group
+      = f.label :first_name, class: "col-sm-3 control-label"
+      .col-sm-9
+        = f.text_field :first_name, class: "form-control", placeholder: "Matt"
 
     .form-group
-      = f.label :password, class: "col-sm-2 control-label"
-      .col-sm-10
-        = f.password_field :password, autocomplete: "off", class: "form-control"
+      = f.label :last_name, class: "col-sm-3 control-label"
+      .col-sm-9
+        = f.text_field :last_name, class: "form-control", placeholder: "Griffint"
 
     .form-group
-      = f.label :password_confirmation, class: "col-sm-2 control-label"
-      .col-sm-10
-        = f.password_field :password_confirmation, autocomplete: "off", class: "form-control"
+      = f.label :password, class: "col-sm-3 control-label"
+      .col-sm-9
+        = f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "mypass324Q%#"
 
     .form-group
-      .col-sm-offset-2.col-sm-6
+      = f.label :password_confirmation, class: "col-sm-3 control-label"
+      .col-sm-9
+        = f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "mypass324Q%#"
+
+    .form-group
+      .col-sm-offset-3.col-sm-6
         = f.submit "Sign up", class: "btn btn-primary"
 
