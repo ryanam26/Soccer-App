@@ -39,6 +39,20 @@ html lang="en"
                   = link_to('Logout', destroy_user_session_path, :method => 'delete')
                 - else
                   = link_to 'Sign in', new_user_session_path
+              li.dropdown
+                a.dropdown-toggle data-toggle="dropdown" href="#" 
+                  | Manage
+                  b.caret
+                ul.dropdown-menu
+                  li
+                    = link_to 'Users', users_path
+                  li
+                    a href="#"  Another action
+                  li
+                    a href="#"  Something else here
+                  li.divider
+                  li
+                    a href="#"  Separated link
 
     .container
       .row
