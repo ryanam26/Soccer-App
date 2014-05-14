@@ -19,6 +19,11 @@
     .controls
       = f.select :locations, options_from_collection_for_select(Location.all, :id, :name, f.object.location_ids), {placeholder: 'Please select your Locations'}, :class => 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select your Locations"
 
+  .form-group
+    = f.label :users, :class => 'control-label'
+    .controls
+      = f.select :users, options_from_collection_for_select(User.coach, :id, :full_name, f.object.user_ids), {placeholder: 'Please select your Coachs'}, :class => 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select your Coachs"
+
   = f.submit nil, :class => 'btn btn-primary'
   '
   = link_to t('.cancel', :default => t("helpers.links.cancel")), accounts_path, :class => 'btn'

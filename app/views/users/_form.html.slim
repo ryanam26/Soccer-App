@@ -1,5 +1,9 @@
 = form_for @user, :html => { :class => "form-horizontal" } do |f|
   .form-group
+    = f.label :email, :class => 'control-label'
+    .controls
+      = f.text_field :email, :class => 'form-control'
+  .form-group
     = f.label :first_name, :class => 'control-label'
     .controls
       = f.text_field :first_name, :class => 'form-control'
@@ -8,13 +12,13 @@
     .controls
       = f.text_field :last_name, :class => 'form-control'
   .form-group
+    = f.label :birthday, :class => 'control-label'
+    .controls
+      = f.date_select :birthday,{:start_year => 1920}, {:class => 'form-control-date'}
+  .form-group
     = f.label :type_user, :class => 'control-label'
     .controls
       = f.select(:type_user, options_for_select(Role.to_a, selected: f.object.type_user), {prompt: 'Please select your role the user'}, {class: 'form-control'})
-  .form-group
-    = f.label :email, :class => 'control-label'
-    .controls
-      = f.text_field :email, :class => 'form-control'
   .form-group
     = f.label :password, :class => 'control-label'
     .controls

@@ -18,6 +18,7 @@ before_action :set_account, only: [:show, :update, :edit, :canceled_account]
   def update
     @account.team_ids = params[:account][:teams]
     @account.location_ids = params[:account][:locations]
+    @account.user_ids = params[:account][:users]
 
     if @account.update(account_params)
       redirect_to accounts_url, notice: "Account updated successfully."
@@ -28,6 +29,10 @@ before_action :set_account, only: [:show, :update, :edit, :canceled_account]
 
   def create
     @account = Account.new(account_params)
+    @account.team_ids = params[:account][:teams]
+    @account.location_ids = params[:account][:locations]
+    @account.user_ids = params[:account][:users]
+    
     if @account.save
       redirect_to accounts_url, notice: "Account created successfully."
     else

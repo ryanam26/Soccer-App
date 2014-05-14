@@ -45,10 +45,11 @@ before_action :set_user, only: [:show, :update, :edit]
   end
 
 	def user_params
-    params.require(:user).permit(:first_name, :last_name, :type_user, :email, :password, :password_confirmation)
+    params.require(:user).permit(:birthday, :first_name, :last_name, :type_user, :email, :password, :password_confirmation)
   end
 
   def set_user
     @user = User.find_by(id: params[:id])
   end
+  
 end
