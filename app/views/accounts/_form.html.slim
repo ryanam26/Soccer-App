@@ -1,0 +1,24 @@
+= form_for @account, :html => { :class => "form-horizontal" } do |f|
+  .form-group
+    = f.label :name, :class => 'control-label'
+    .controls
+      = f.text_field :name, :class => 'form-control'
+  
+  .form-group
+    = f.label :status, :class => 'control-label'
+    .controls
+      = f.select(:status, options_for_select(Status.to_a, selected: f.object.status), {prompt: 'Please select your Status'}, {class: 'form-control'})
+
+  .form-group
+    = f.label :teams, :class => 'control-label'
+    .controls
+      = f.select :teams, options_from_collection_for_select(Team.all, :id, :name, f.object.team_ids), {placeholder: 'Please select your Teams'}, :class => 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select your Teams"
+
+  .form-group
+    = f.label :locations, :class => 'control-label'
+    .controls
+      = f.select :locations, options_from_collection_for_select(Location.all, :id, :name, f.object.location_ids), {placeholder: 'Please select your Locations'}, :class => 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select your Locations"
+
+  = f.submit nil, :class => 'btn btn-primary'
+  '
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), accounts_path, :class => 'btn'

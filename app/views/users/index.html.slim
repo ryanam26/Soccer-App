@@ -16,7 +16,7 @@ table class="table table-striped"
         td= link_to user.id, user_path(user)
         td= user.first_name
         td= user.last_name
-        td= user.type
+        td= Role.key_for(user.type_user)
         td= user.email
         td
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_user_path(user), :class => 'btn btn-default btn-xs'

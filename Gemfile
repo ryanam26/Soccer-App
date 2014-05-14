@@ -6,6 +6,9 @@ gem 'rails', '4.0.2'
 # Use pg as the database for Active Record
 gem 'pg'
 
+#Use for roles
+gem 'enumerate_it'
+
 #Assets for responsive 
 gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'
 

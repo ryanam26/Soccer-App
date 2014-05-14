@@ -30,9 +30,9 @@ html lang="en"
           a.navbar-brand href="#"SoccerApp
           .navbar-collapse.collapse.navbar-responsive-collapse
             ul.nav.navbar-nav
-              li= link_to "Link 1", "/path1"
-              li= link_to "Link 2", "/path2"
-              li= link_to "Link 3", "/path3"
+              li= link_to "Locations", "/locations"
+              li= link_to "Teams", "/teams"
+              li= link_to "Accounts", "/accounts"
             ul.nav.navbar-nav.navbar-right
               li
                 - if user_signed_in?
@@ -47,12 +47,12 @@ html lang="en"
                   li
                     = link_to 'Users', users_path
                   li
-                    a href="#"  Another action
+                    = link_to 'Teams', teams_path
                   li
-                    a href="#"  Something else here
+                    = link_to 'Locations', locations_path
                   li.divider
                   li
-                    a href="#"  Separated link
+                    = link_to 'Accounts', accounts_path
 
     .container
       .row

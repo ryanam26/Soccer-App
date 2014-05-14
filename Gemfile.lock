@@ -52,6 +52,8 @@ GEM
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    enumerate_it (1.2.1)
+      activesupport (>= 3.0.0)
     erubis (2.7.0)
     execjs (2.0.2)
     hike (1.2.3)
@@ -142,6 +144,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
+  enumerate_it
   jbuilder (~> 1.2)
   jquery-rails
   pg
