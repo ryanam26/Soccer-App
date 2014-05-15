@@ -1,12 +1,11 @@
 class TeamsController < ApplicationController
-before_action :set_team, only: [:show, :update, :edit]
+before_action :set_account
 
   def index
-    @teams = Team.all
+    
   end
 
   def new
-    @team = Team.new
   end
 
   def show
@@ -16,34 +15,32 @@ before_action :set_team, only: [:show, :update, :edit]
   end
 
   def update
-    if @team.update(team_params)
-      redirect_to teams_url, notice: "Team updated successfully."
+    if @account.teams.find(params[:id]).update(team_params)
+      redirect_to account_teams_path(@account), notice: "Team updated successfully."
     else
       render 'edit'
     end
   end
 
   def create
-    @team = Team.new(team_params)
-    if @team.save
-      redirect_to teams_url, notice: "Team created successfully."
+    if @account.teams.create(team_params)
+      redirect_to account_teams_path(@account), notice: "Team created successfully."
     else
       render 'new'
     end
   end
 
   def destroy
-    @team = Team.find_by(id: params[:id])
-    @team.destroy
+    @account.teams.find(params[:id]).destroy
 
-    redirect_to teams_url, notice: "Team deleted."
+    redirect_to account_teams_path(@account), notice: "Team deleted."
   end
 
   def team_params
     params.require(:team).permit(:name)
   end
 
-  def set_team
-    @team = Team.find_by(id: params[:id])
+  def set_account
+    @account = Account.find_by(id: params[:account_id])
   end
 end

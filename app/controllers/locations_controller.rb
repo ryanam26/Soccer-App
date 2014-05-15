@@ -1,12 +1,10 @@
 class LocationsController < ApplicationController
-before_action :set_location, only: [:show, :update, :edit]
+before_action :set_account
 
   def index
-    @locations = Location.all
   end
 
   def new
-    @location = Location.new
   end
 
   def show
@@ -16,34 +14,32 @@ before_action :set_location, only: [:show, :update, :edit]
   end
 
   def update
-    if @location.update(location_params)
-      redirect_to locations_url, notice: "Location updated successfully."
+    if @account.locations.find(params[:id]).update(location_params)
+      redirect_to account_locations_path(@account), notice: "location updated successfully."
     else
       render 'edit'
     end
   end
 
   def create
-    @location = Location.new(location_params)
-    if @location.save
-      redirect_to locations_url, notice: "Location created successfully."
+    if @account.locations.create(location_params)
+      redirect_to account_locations_path(@account), notice: "location created successfully."
     else
       render 'new'
     end
   end
 
   def destroy
-    @location = Location.find_by(id: params[:id])
-    @location.destroy
+    @account.locations.find(params[:id]).destroy
 
-    redirect_to locations_url, notice: "Location deleted."
+    redirect_to account_locations_path(@account), notice: "location deleted."
   end
 
   def location_params
     params.require(:location).permit(:name)
   end
 
-  def set_location
-    @location = Location.find_by(id: params[:id])
+  def set_account
+    @account = Account.find_by(id: params[:account_id])
   end
 end
