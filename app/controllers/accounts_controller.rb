@@ -16,8 +16,6 @@ before_action :set_account, only: [:show, :update, :edit, :canceled_account]
   end
 
   def update
-    @account.team_ids = params[:account][:teams]
-    @account.location_ids = params[:account][:locations]
     @account.user_ids = params[:account][:users]
 
     if @account.update(account_params)
@@ -29,8 +27,6 @@ before_action :set_account, only: [:show, :update, :edit, :canceled_account]
 
   def create
     @account = Account.new(account_params)
-    @account.team_ids = params[:account][:teams]
-    @account.location_ids = params[:account][:locations]
     @account.user_ids = params[:account][:users]
     
     if @account.save
@@ -55,7 +51,7 @@ before_action :set_account, only: [:show, :update, :edit, :canceled_account]
   end
 
   def account_params
-    params.require(:account).permit(:name, :status, :teams, :locations)
+    params.require(:account).permit(:name, :status)
   end
   
   def set_account

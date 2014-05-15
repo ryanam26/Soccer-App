@@ -30,7 +30,7 @@ html lang="en"
           a.navbar-brand href="#"SoccerApp
           .navbar-collapse.collapse.navbar-responsive-collapse
             ul.nav.navbar-nav
-              - if user_signed_in?
+              - if user_signed_in? and current_user.type_user == Role::ADMIN
                 li= link_to "Accounts", "/accounts"
                 li= link_to "Categories", "/categories"
 
