@@ -1,0 +1,55 @@
+.row
+  .col-sm-6
+    .well
+      h2.text-center
+        span.glyphicon.glyphicon-plus
+        span  Add new players
+      hr
+      .well
+        = link_to new_player_path, class: "btn btn-primary btn-lg btn-block" do
+          span.glyphicon.glyphicon-plus 
+          span  Go to add new players
+
+  .col-sm-6
+    .well
+      h2.text-center 
+        span.glyphicon.glyphicon-upload
+        span  Add players for csv
+      hr
+      .well
+        = file_field_tag "csv"
+
+.row
+  .col-sm-6
+    .well
+      h2.text-center
+        span.glyphicon.glyphicon-plus
+        span  Input test scores
+      hr
+
+      .panel.panel-primary
+        .panel-heading.text-center Categories
+        .panel-content
+          - Category.all.each do |c|
+              .btn-group style="margin:4px"
+                button.btn.btn-info.dropdown-toggle data-toggle="dropdown" type="button" 
+                  | #{c.name} 
+                  span.caret 
+                ul.dropdown-menu
+                  - c.tests.each do |t|
+                      li 
+                        a #{t.name}
+
+  .col-sm-6
+    .well
+      h2.text-center 
+        span.glyphicon.glyphicon-list-alt
+        span  Review Players Scores
+      hr
+      .well
+        form.form-horizontal role="form" 
+          .form-group
+            label.col-sm-2.control-label Select Player
+            .col-sm-10
+              = select_tag "player", options_from_collection_for_select(@players, :id, :full_name), {class: 'form-control'}
+

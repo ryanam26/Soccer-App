@@ -51,5 +51,14 @@ before_action :set_user, only: [:show, :update, :edit]
   def set_user
     @user = User.find_by(id: params[:id])
   end
+
+  def coach_profile
+    @players = []
+    current_user.accounts.last.teams.each do |t|
+      t.users.each do |u|
+        @players << u
+      end
+    end
+  end
   
 end

@@ -1,0 +1,10 @@
+class NotificationMailer < ActionMailer::Base
+  default :from => "soccer-app@gmail.com"
+
+  def notification_new_player(player)
+    @player = player
+    @admin = User.where("type_user = ?", Role::ADMIN).first
+    mail(:to => "#{@admin.full_name} <#{@admin.email}>", :subject => "Soccer-app new player Notification")
+  end
+
+end

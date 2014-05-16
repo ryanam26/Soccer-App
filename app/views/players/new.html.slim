@@ -1,0 +1,37 @@
+.page-header
+  h1 Add new Player
+= form_tag("/players/new", method: 'post', id: 'add_player' , class: 'form-horizontal') do
+
+  - unless @user.errors.empty?
+      ul.form-errors
+        - @user.errors.full_messages.each do |message|
+            li= message
+
+  .form-group
+    = label_tag 'teams', nil, class: 'control-label'
+    .controls
+      = select_tag :teams, options_from_collection_for_select(current_user.accounts.last.teams, :id, :name, params[:teams]), class: 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select the teams player"
+  .form-group
+    = label_tag :email, nil, :class => 'control-label'
+    .controls
+      = text_field_tag :email, params[:email], placeholder: "example@test.com",  :class => 'form-control'
+  .form-group
+    = label_tag :first_name, nil, :class => 'control-label'
+    .controls
+      = text_field_tag :first_name, params[:first_name], placeholder: "Matt",  :class => 'form-control'
+  .form-group
+    = label_tag :last_name, nil, :class => 'control-label'
+    .controls
+      = text_field_tag :last_name, params[:last_name], placeholder: "Obama",  :class => 'form-control'
+  .form-group
+    = label_tag :birthday, nil, :class => 'control-label'
+    .controls
+      = date_field_tag :birthday, params[:birthday], :class => 'form-control'
+  .form-group
+    .controls
+      = hidden_field_tag :password, "12345678", type: "password"
+  .form-group  
+    .controls
+      = hidden_field_tag :password_confirmation, "12345678", type: "password"
+
+  = button_to "Create Player", nil, :class => 'btn btn-primary'

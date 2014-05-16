@@ -1,0 +1,15 @@
+h3 New player notification
+p hello, #{@admin.full_name}
+p We've found that a new player is registered with the following information:
+br
+p Name: #{@player.full_name}
+p Email: #{@player.email}
+p Team: #{@player.teams.last.name}
+p Account: #{@player.teams.last.account.name}
+br
+h4 Added by:
+p Name: #{current_user.full_name}
+p Email: #{current_user.email}
+br
+p We are pleased to serve you 
+p Have a nice day!

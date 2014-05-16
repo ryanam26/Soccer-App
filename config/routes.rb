@@ -6,8 +6,11 @@ SoccerApp::Application.routes.draw do
     root to: "devise/sessions#new"
   end
 
-  resources :accounts do
+  scope "/admin" do
     resources :users
+  end
+
+  resources :accounts do
     resources :teams
     resources :locations
   end
@@ -17,6 +20,8 @@ SoccerApp::Application.routes.draw do
   end
 
   get 'coach' => 'users#coach_profile', as: :coach
+  get '/players/new' => 'players#new', as: :new_player
+  post '/players/new' => 'players#create'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
