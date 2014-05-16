@@ -32,7 +32,7 @@ html lang="en"
             ul.nav.navbar-nav
               - if user_signed_in? and current_user.type_user == Role::ADMIN
                 li= link_to "Accounts", "/accounts"
-                li= current_user.full_name
+                li= link_to "Categories", "/categories"
 
             ul.nav.navbar-nav.navbar-right
               li
