@@ -11,7 +11,7 @@ table class="table table-striped"
   tbody
     - @account.teams.each do |team|
       tr
-        td= link_to team.id, account_team_path(@account, team)
+        td= link_to team.id
         td= team.name
         td=l team.created_at
         td
