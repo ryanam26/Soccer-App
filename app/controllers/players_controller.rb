@@ -1,5 +1,9 @@
 class PlayersController < ApplicationController
 
+  def show
+    @user = User.find(params[:player])
+  end
+
   def new
     @user = User.new
   end

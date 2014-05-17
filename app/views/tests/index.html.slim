@@ -15,7 +15,7 @@ table class="table table-striped"
         td= test.id
         td= test.name
         td= test.file? ? test.file : "No file" 
-        td=l test.created_at
+        td= test.created_at.strftime("%A %B %Y")
         td
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_category_test_path(@category, test), :class => 'btn btn-default btn-xs'
           '

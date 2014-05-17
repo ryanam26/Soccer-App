@@ -12,6 +12,11 @@ div class="page-header"
     = f.label :file, :class => 'control-label'
     .controls
       = f.file_field :file, :class => 'form-control'
+  .form-group
+    = f.label :type_unit, :class => 'control-label'
+    .controls
+      = f.select(:type_unit, options_for_select(Unit.to_a, selected: f.object.type_unit), {prompt: 'Please select your type unit for test'}, {class: 'form-control'})
+
   = f.submit nil, :class => 'btn btn-primary'
   '
   = link_to t('.cancel', :default => t("helpers.links.cancel")), category_tests_path(@category), :class => 'btn'

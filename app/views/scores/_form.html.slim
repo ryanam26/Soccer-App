@@ -1,0 +1,16 @@
+= form_for @score, :html => { :class => "form-horizontal" } do |f|
+  .form-group
+    = f.label :user_id, :class => 'control-label'
+    .controls
+      = f.text_field :user_id, :class => 'form-control'
+  .form-group
+    = f.label :test_id, :class => 'control-label'
+    .controls
+      = f.text_field :test_id, :class => 'form-control'
+  .form-group
+    = f.label :value, :class => 'control-label'
+    .controls
+      = f.text_field :value, :class => 'form-control'
+  = f.submit nil, :class => 'btn btn-primary'
+  '
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), scores_path, :class => 'btn'

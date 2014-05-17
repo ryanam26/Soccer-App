@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :accounts
   has_and_belongs_to_many :teams
+  has_many :scores
+  has_many :tests, :through => :scores
 
   scope :coach, lambda{where(:type_user => Role::COACH)}
   scope :free, lambda{where("users.id not in (select user_id from accounts_users)")}

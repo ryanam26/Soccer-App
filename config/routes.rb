@@ -1,5 +1,5 @@
 SoccerApp::Application.routes.draw do
-  
+
   devise_for :users, :controllers => { registrations: 'registrations' }
 
   devise_scope :user do
@@ -19,9 +19,14 @@ SoccerApp::Application.routes.draw do
     resources :tests
   end
 
+  resources :test do
+    resources :scores
+  end
+
   get 'coach' => 'users#coach_profile', as: :coach
   get '/players/new' => 'players#new', as: :new_player
   post '/players/new' => 'players#create'
+  get '/players/show' => 'players#show', as: :players
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

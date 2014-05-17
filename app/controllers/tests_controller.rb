@@ -36,7 +36,7 @@ class TestsController < ApplicationController
   end
 
   def test_params
-    params.require(:test).permit(:name, :file)
+    params.require(:test).permit(:name, :file, :type_unit)
   end
 
   def set_category
