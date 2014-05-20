@@ -22,4 +22,8 @@ class User < ActiveRecord::Base
   def is_player?
     type_user == Role::PLAYER
   end
+
+  def age
+    ((DateTime.now - birthday) / 365.25).to_i
+  end
 end

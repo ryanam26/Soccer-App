@@ -16,6 +16,10 @@ div class="page-header"
     = f.label :type_unit, :class => 'control-label'
     .controls
       = f.select(:type_unit, options_for_select(Unit.to_a, selected: f.object.type_unit), {prompt: 'Please select your type unit for test'}, {class: 'form-control'})
+  .form-group
+    = f.label :level, :class => 'control-label'
+    .controls
+      = f.select(:level, options_for_select(Level.to_a, selected: f.object.level), {prompt: 'Please select level for test'}, {class: 'form-control'})
 
   = f.submit nil, :class => 'btn btn-primary'
   '

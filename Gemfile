@@ -9,12 +9,19 @@ gem 'pg'
 #Use for roles
 gem 'enumerate_it'
 
+#upload files
+gem 'carrierwave'
+
+#Fog
+gem 'fog', '~> 1.3.1'
+
 #Assets for responsive 
 gem 'twitter-bootstrap-rails', github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'
 
 #Authentication
 gem 'devise'
 
+#Slim for rails
 gem "slim-rails"
 
 # Use SCSS for stylesheets

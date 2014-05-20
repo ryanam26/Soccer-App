@@ -91,4 +91,8 @@ SoccerApp::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  ENV['AWS_KEY'] = "AKIAJCRBUKHDSNQARNWA"
+  ENV['AWS_SECRET_KEY'] = "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"
+  ENV['AWS_BUCKET'] = "tests_production"
 end

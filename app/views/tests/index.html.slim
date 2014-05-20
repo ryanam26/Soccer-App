@@ -6,6 +6,7 @@ table class="table table-striped"
     tr
       th= model_class.human_attribute_name(:id)
       th= model_class.human_attribute_name(:name)
+      th= model_class.human_attribute_name(:level)
       th= model_class.human_attribute_name(:file)
       th= model_class.human_attribute_name(:created_at)
       th=t '.actions', :default => t("helpers.actions")
@@ -14,7 +15,8 @@ table class="table table-striped"
       tr
         td= test.id
         td= test.name
-        td= test.file? ? test.file : "No file" 
+        td= Level.key_for(test.level)
+        td= link_to "Download Documentation", test.file.url, :target => ':_blank' if test.file?
         td= test.created_at.strftime("%A %B %Y")
         td
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_category_test_path(@category, test), :class => 'btn btn-default btn-xs'

@@ -51,5 +51,8 @@
           .form-group
             label.col-sm-3.control-label Select Player
             .col-sm-9
-              = select_tag "player", options_from_collection_for_select(@players, :id, :full_name), {class: 'form-control', :onchange => "this.form.submit();"}
+              = select_tag "player", options_from_collection_for_select(@players, :id, :full_name), {class: 'form-control'}
+            
+          = button_to "Get information", nil, :class => 'btn btn-primary pull-right'
+          .clearfix
 
