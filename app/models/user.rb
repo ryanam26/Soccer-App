@@ -38,12 +38,12 @@ class User < ActiveRecord::Base
   end
 
   def pos_age_rank_time(test_id, age)
-    sql = "select * from (SELECT row_number() OVER (order by to_char(to_timestamp(avg(s.value)) AT TIME ZONE 'UTC +04:30','HH24:MI:SS') ASC) as pos, EXTRACT(year from AGE(NOW(), u.birthday)) as age, u.first_name as name, to_char(to_timestamp(avg(s.value)) AT TIME ZONE 'UTC +04:30','HH24:MI:SS') as average, t.id as test_id, u.id as user_id from users u, scores s, tests t where s.user_id = u.id and s.test_id = t.id and t.id = #{test_id} and EXTRACT(year from AGE(NOW(), u.birthday)) = #{age} group by u.birthday, u.first_name, t.id, u.id) as h where user_id = #{id};"
+    sql = "select * from (SELECT row_number() OVER (order by to_char(to_timestamp(avg(s.value)) AT TIME ZONE 'UTC','HH24:MI:SS') ASC) as pos, EXTRACT(year from AGE(NOW(), u.birthday)) as age, u.first_name as name, to_char(to_timestamp(avg(s.value)) AT TIME ZONE 'UTC','HH24:MI:SS') as average, t.id as test_id, u.id as user_id from users u, scores s, tests t where s.user_id = u.id and s.test_id = t.id and t.id = #{test_id} and EXTRACT(year from AGE(NOW(), u.birthday)) = #{age} group by u.birthday, u.first_name, t.id, u.id) as h where user_id = #{id};"
     self.connection.execute(sql).to_a[0]["pos"]
   end
 
   def pos_overall_time_rank(test_id)
-    sql = "SELECT row_number() OVER (order by to_char(to_timestamp(avg(value)) AT TIME ZONE 'UTC +4:30','HH24:MI:SS') ASC) as pos, to_char(to_timestamp(avg(value)) AT TIME ZONE 'UTC +4:30','HH24:MI:SS'), user_id from scores where test_id = #{test_id} group by user_id;"
+    sql = "SELECT row_number() OVER (order by to_char(to_timestamp(avg(value)) AT TIME ZONE 'UTC','HH24:MI:SS') ASC) as pos, to_char(to_timestamp(avg(value)) AT TIME ZONE 'UTC +4:30','HH24:MI:SS'), user_id from scores where test_id = #{test_id} group by user_id;"
     self.connection.execute(sql).to_a[0]["pos"]
   end
 
