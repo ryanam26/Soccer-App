@@ -26,7 +26,8 @@ SoccerApp::Application.routes.draw do
   get 'coach' => 'users#coach_profile', as: :coach
   get '/players/new' => 'players#new', as: :new_player
   post '/players/new' => 'players#create'
-  get '/players/show' => 'players#show', as: :players
+  get '/players/show/' => 'players#show', as: :players
+  get '/player/history/:id/:test_id' => 'players#history', as: :player_history
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

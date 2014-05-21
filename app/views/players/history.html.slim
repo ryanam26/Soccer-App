@@ -1,0 +1,18 @@
+div class="page-header"
+  h1 
+    =@user.full_name
+    small  Test History
+
+
+table class="table table-striped"
+  thead
+    tr
+      th Test
+      th Score
+      th Test Day
+  tbody
+    - @user.scores.where(:test_id => params[:test_id]).each do |score|
+      tr
+        td= score.test.name
+        td= score.test.type_unit == Unit::NUMERIC ? score.value.to_i : Time.at(score.value).strftime("%H:%M:%S")
+        td= score.created_at.strftime("%A %B %Y at %H:%M")

@@ -4,6 +4,10 @@ class PlayersController < ApplicationController
     @user = User.find(params[:player])
   end
 
+  def history
+    @user = User.find(params[:id])
+  end
+
   def new
     @user = User.new
   end
