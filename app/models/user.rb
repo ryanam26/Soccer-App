@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   end
 
   def high_time_score(test_id)
-    sql = "select min(to_char(to_timestamp(value) AT TIME ZONE 'UTC +04:30','HH24:MI:SS')) as time from scores where user_id = #{id} and test_id = #{test_id}"
+    sql = "select min(to_char(to_timestamp(value) AT TIME ZONE 'UTC -04:30','HH24:MI:SS')) as time from scores where user_id = #{id} and test_id = #{test_id}"
     self.connection.execute(sql).to_a[0]["time"]
   end
 
