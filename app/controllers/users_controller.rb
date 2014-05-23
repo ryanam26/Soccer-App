@@ -55,7 +55,7 @@ before_action :set_user, only: [:show, :update, :edit]
   def coach_profile
     @categories = Category.all
     @players = []
-    current_user.accounts.last.teams.each do |t|
+    current_user.accounts.first.teams.each do |t|
       t.users.each do |u|
         @players << u
       end

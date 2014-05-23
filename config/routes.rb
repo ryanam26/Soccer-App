@@ -29,6 +29,7 @@ SoccerApp::Application.routes.draw do
   get '/players/show/' => 'players#show', as: :players
   get '/player/history/:id/:test_id' => 'players#history', as: :player_history
   get '/player/coach_report/' => 'players#coach_report', as: :coach_report
+  get '/players/compare_players/' => 'players#compare_players', as: :compare_players
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

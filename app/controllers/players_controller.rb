@@ -36,4 +36,10 @@ class PlayersController < ApplicationController
     @position = @test.type_unit == Unit::TIME ? @team.team_system_rank_time(@test.id) : @team.team_system_rank_numeric(@test.id).to_i.ordinalize
     @average = @test.type_unit == Unit::TIME ? @team.team_average_time(@test.id) : @team.team_average_numeric(@test.id)
   end
+
+  def compare_players
+    @user = User.find(params[:user])
+    @user_compare = User.find(params[:user_compare])
+    @test = Test.find(params[:test])
+  end
 end

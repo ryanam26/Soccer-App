@@ -28,7 +28,7 @@
                 ul.dropdown-menu
                   - c.tests.each do |t|
                       li 
-                        = link_to "#{t.name}", test_scores_path(t.id)                     
+                        = link_to "#{t.name} - #{Level.key_for(t.level)}", test_scores_path(t.id)                     
 .row
   .col-sm-6
     .well
@@ -77,7 +77,7 @@
                 - @categories.each do |category|
                     optgroup label=(category.name)
                     - category.tests.each do |test|
-                        option value="#{test.id}"  "#{test.name}"
+                        option value="#{test.id}"  #{test.name}
 
           = button_to "Create Report", nil, :class => 'btn btn-primary pull-right'
           .clearfix

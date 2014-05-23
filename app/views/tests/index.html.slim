@@ -1,6 +1,6 @@
 - model_class = Test
 div class="page-header"
-  h1 Tests of #{@category.name}
+  h1 #{@category.name} Test
 table class="table table-striped"
   thead
     tr
@@ -13,7 +13,7 @@ table class="table table-striped"
   tbody
     - @category.tests.each do |test|
       tr
-        td= test.id
+        td= link_to test.id, category_test_path(@category, test.id)
         td= test.name
         td= Level.key_for(test.level)
         td= link_to "Download Documentation", test.file.url, :target => ':_blank' if test.file?

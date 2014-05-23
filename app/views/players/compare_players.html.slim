@@ -1,0 +1,76 @@
+.col-sm-12
+.page-header
+  h1 
+    | Compare Scores
+    small  - #{@test.name} Test
+
+.col-sm-6
+  h1 = @user.full_name
+  ul.list-group
+  - if @user.has_scores?(@test.id)
+      - if @test.type_unit == Unit::TIME
+          li.list-group-item
+            span.badge style="font-size:16px"= @user.high_time_score(@test.id)
+            | High Score
+          - @user.teams.each do |t| 
+              li.list-group-item
+                span.badge style="font-size:16px"= t.team_average_time(@test.id)
+                | Team #{t.name}
+          li.list-group-item
+            span.badge style="font-size:16px"= @user.pos_age_rank_time(@test.id, @user.age).to_i.ordinalize
+            | Age Rank
+          li.list-group-item
+            span.badge style="font-size:16px"= @user.pos_overall_time_rank(@test.id).to_i.ordinalize
+            | Overall Rank
+      - else
+          li.list-group-item
+            span.badge style="font-size:16px"= @user.high_numeric_score(@test.id)
+            | High Score
+          - @user.teams.each do |t| 
+              li.list-group-item
+                span.badge style="font-size:16px"= t.team_average_numeric(@test.id)
+                | Team #{t.name}
+          li.list-group-item
+            span.badge style="font-size:16px"= @user.pos_age_rank_numeric(@test.id, @user.age).to_i.ordinalize
+            | Age Rank
+          li.list-group-item
+            span.badge style="font-size:16px"= @user.pos_overall_numeric_rank(@test.id).to_i.ordinalize
+            | Overall Rank
+  - else
+      .well
+        | No found result for this test
+.col-sm-6
+  h1 = @user_compare.full_name
+  ul.list-group
+  - if @user_compare.has_scores?(@test.id)
+      - if @test.type_unit == Unit::TIME
+          li.list-group-item
+            span.badge style="font-size:16px"= @user_compare.high_time_score(@test.id)
+            | High Score
+          - @user_compare.teams.each do |t| 
+              li.list-group-item
+                span.badge style="font-size:16px"= t.team_average_time(@test.id)
+                | Team #{t.name}
+          li.list-group-item
+            span.badge style="font-size:16px"= @user_compare.pos_age_rank_time(@test.id, @user_compare.age).to_i.ordinalize
+            | Age Rank
+          li.list-group-item
+            span.badge style="font-size:16px"= @user_compare.pos_overall_time_rank(@test.id).to_i.ordinalize
+            | Overall Rank
+      - else
+          li.list-group-item
+            span.badge style="font-size:16px"= @user_compare.high_numeric_score(@test.id)
+            | High Score
+          - @user_compare.teams.each do |t| 
+              li.list-group-item
+                span.badge style="font-size:16px"= t.team_average_numeric(@test.id)
+                | Team #{t.name}
+          li.list-group-item
+            span.badge style="font-size:16px"= @user_compare.pos_age_rank_numeric(@test.id, @user_compare.age).to_i.ordinalize
+            | Age Rank
+          li.list-group-item
+            span.badge style="font-size:16px"= @user_compare.pos_overall_numeric_rank(@test.id).to_i.ordinalize
+            | Overall Rank
+  - else
+      .well
+        | No found result for this test
