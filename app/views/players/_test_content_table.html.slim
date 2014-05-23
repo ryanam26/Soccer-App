@@ -17,4 +17,4 @@ tr
         td= @user.pos_overall_numeric_rank(test.id)
         td= link_to "HISTORY", player_history_path(@user.id, test.id), class: "btn btn-sm btn-info"
   - else
-      td 0
+      td.text-center colspan="5" No found scores

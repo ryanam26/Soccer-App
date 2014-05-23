@@ -47,12 +47,12 @@ class User < ActiveRecord::Base
   end
 
   def pos_overall_time_rank(test_id)
-    sql = "SELECT row_number() OVER (order by to_char(to_timestamp(avg(value)) AT TIME ZONE 'UTC','HH24:MI:SS') ASC) as pos, to_char(to_timestamp(avg(value)) AT TIME ZONE 'UTC +4:30','HH24:MI:SS'), user_id from scores where test_id = #{test_id} group by user_id;"
+    sql = "SELECT * from (SELECT row_number() OVER (order by to_char(to_timestamp(avg(value)) AT TIME ZONE 'UTC','HH24:MI:SS') ASC) as pos, to_char(to_timestamp(avg(value)) AT TIME ZONE 'UTC +4:30','HH24:MI:SS'), user_id from scores where test_id = #{test_id} group by user_id) as h where user_id = #{id};"
     self.connection.execute(sql).to_a[0]["pos"]
   end
 
   def pos_overall_numeric_rank(test_id)
-    sql = "SELECT row_number() OVER (order by avg(value) ASC) as pos, avg(value), user_id from scores where test_id = #{test_id} group by user_id;"
+    sql = "SELECT * FROM (SELECT row_number() OVER (order by avg(value) DESC) as pos, avg(value), user_id from scores where test_id = #{test_id} group by user_id) as h where user_id = #{id};"
     self.connection.execute(sql).to_a[0]["pos"]
   end
 
@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
   end
 
   def average_scores(test_id)
-    scores.where(:test_id => @test_id).average(:value)
+     get_score_test(test_id).average(:value)
   end
 
 end
