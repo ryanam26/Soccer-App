@@ -1,0 +1,13 @@
+p hello, #{@player.full_name}
+br
+|You have been added to the sstracker system with the following information:
+p Name: #{@player.full_name}
+p Email: #{@player.email}
+p Team: #{@player.teams.last.name}
+p Account: #{@player.teams.last.account.name}
+br
+p To access your account you must login with your email and password default: 12345678,  entering the following url
+a http://www.sstracker.com
+br
+p We are pleased to serve you 
+p Have a nice day!

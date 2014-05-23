@@ -12,7 +12,7 @@
   .form-group
     = f.label :users, :class => 'control-label'
     .controls
-      = f.select :users, options_from_collection_for_select(User.coach, :id, :full_name, f.object.user_ids), {placeholder: 'Please select your Coachs'}, :class => 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select your Coachs"
+      = f.select :users, options_from_collection_for_select(User.coach, :id, :full_name, f.object.user_ids), {prompt: 'Please select Coach'}, { class: 'form-control'}
 
   = f.submit nil, :class => 'btn btn-primary'
   '

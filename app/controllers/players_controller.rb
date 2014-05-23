@@ -20,6 +20,7 @@ class PlayersController < ApplicationController
 
     if @user.save
       NotificationMailer.notification_new_player(@user, current_user).deliver
+      NotificationMailer.notification_to_player(@user).deliver
       redirect_to coach_path, notice: "User created successfully."
     else
       render 'new'

@@ -1,4 +1,20 @@
+- content_for :head do
+  = javascript_include_tag "manage_fields.js"
 = form_for @user, :html => { :class => "form-horizontal" } do |f|
+  
+  - unless @user.errors.empty?
+    ul.form-errors
+      - @user.errors.full_messages.each do |message|
+          li= message
+
+  .form-group.user_teams
+    = label_tag 'teams', nil, class: 'control-label'
+    .controls
+      = select_tag :teams, options_from_collection_for_select(Team.all, :id, :name), class: 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select the Player's Team"
+  .form-group.user_birthday style="display:none"
+    = f.label :birthday, :class => 'control-label'
+    .controls
+      = f.date_select :birthday,{:start_year => 1920}, {:class => 'form-control-date'}
   .form-group
     = f.label :email, :class => 'control-label'
     .controls
@@ -11,10 +27,6 @@
     = f.label :last_name, :class => 'control-label'
     .controls
       = f.text_field :last_name, :class => 'form-control'
-  .form-group
-    = f.label :birthday, :class => 'control-label'
-    .controls
-      = f.date_select :birthday,{:start_year => 1920}, {:class => 'form-control-date'}
   .form-group
     = f.label :type_user, :class => 'control-label'
     .controls

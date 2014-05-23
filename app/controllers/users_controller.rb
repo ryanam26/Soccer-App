@@ -31,6 +31,7 @@ before_action :set_user, only: [:show, :update, :edit]
 	def create
 		@user = User.new(user_params)
     if @user.save
+      NotificationMailer.notification_to_user(@user, params[:user][:password]).deliver
       redirect_to users_url, notice: "User created successfully."
     else
       render 'new'

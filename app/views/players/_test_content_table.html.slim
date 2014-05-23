@@ -1,5 +1,5 @@
 tr
-  td= test.name
+  td= "#{test.name} - #{test.level}"
   -if @user.has_scores?(test.id)
     - if test.type_unit == Unit::TIME
         td= @user.high_time_score(test.id)
