@@ -1,0 +1,30 @@
+- content_for :head do
+  = javascript_include_tag "report.js"
+.page-header
+  h1 
+    ="Team #{@team.name}"
+    small  - #{@test.name} Test
+
+table class="table table-striped datetable"
+  thead
+    tr
+      th Player Name
+      th Score
+  tbody
+    - @team.users.each do |user|
+      tr
+        td= user.full_name
+        - if user.has_scores?(@test.id)
+          - if @test.type_unit == Unit::TIME
+              td= Time.at(user.average_scores(@test.id)).strftime("%H:%M:%S") 
+          - else
+              td= user.average_scores(@test.id).to_f.round(2)
+        - else
+            td No result
+.col-sm-12
+  .col-sm-6
+    .well
+      h3 = "Team Average Score = #{@average}"
+  .col-sm-6
+    .well
+      h3= "Team Rank In System = #{@position} Position"

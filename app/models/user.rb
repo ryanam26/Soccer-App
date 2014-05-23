@@ -32,6 +32,10 @@ class User < ActiveRecord::Base
     self.connection.execute(sql).to_a[0]["time"]
   end
 
+  def high_numeric_score(test_id)
+    get_score_test(test_id).maximum("value").to_f
+  end
+
   def pos_age_rank_numeric(test_id, age)
     sql = "select * from (SELECT row_number() OVER (order by avg(s.value) DESC) as pos, EXTRACT(year from AGE(NOW(), u.birthday)) as age, u.first_name as name, avg(s.value) as average, t.id as test_id, u.id as user_id from users u, scores s, tests t where s.user_id = u.id and s.test_id = t.id and t.id = #{test_id} and EXTRACT(year from AGE(NOW(), u.birthday)) = #{age} group by u.birthday, u.first_name, t.id, u.id) as h where user_id = #{id};"
     self.connection.execute(sql).to_a[0]["pos"]
@@ -47,9 +51,21 @@ class User < ActiveRecord::Base
     self.connection.execute(sql).to_a[0]["pos"]
   end
 
-    def pos_overall_numeric_rank(test_id)
+  def pos_overall_numeric_rank(test_id)
     sql = "SELECT row_number() OVER (order by avg(value) ASC) as pos, avg(value), user_id from scores where test_id = #{test_id} group by user_id;"
     self.connection.execute(sql).to_a[0]["pos"]
+  end
+
+  def has_scores?(test_id)
+    get_score_test(test_id).count > 0
+  end
+
+  def get_score_test(test_id)
+    scores.where("test_id = ?", test_id)
+  end
+
+  def average_scores(test_id)
+    scores.where(:test_id => @test_id).average(:value)
   end
 
 end

@@ -20,7 +20,7 @@
       .panel.panel-primary
         .panel-heading.text-center Categories
         .panel-content
-          - Category.all.each do |c|
+          - @categories.each do |c|
               .btn-group style="margin:4px"
                 button.btn.btn-info.dropdown-toggle data-toggle="dropdown" type="button" 
                   | #{c.name} 
@@ -54,5 +54,31 @@
               = select_tag "player", options_from_collection_for_select(@players, :id, :full_name), {class: 'form-control'}
             
           = button_to "Get information", nil, :class => 'btn btn-primary pull-right'
+          .clearfix
+
+.row
+  .col-sm-6
+    .well
+      h2.text-center 
+        span.glyphicon.glyphicon-th-list
+        span  Create Reports
+      hr
+      .well
+        = form_tag(coach_report_path, method: 'get', id:"show_players", class: "form-horizontal")
+          .form-group
+            label.col-sm-3.control-label Select Team
+            .col-sm-9
+              = select_tag "teams", options_from_collection_for_select(current_user.accounts.first.teams, :id, :name), {class: 'form-control'}
+            
+          .form-group
+            label.col-sm-3.control-label Select Test
+            .col-sm-9
+              select#tests name="tests" class="form-control"
+                - @categories.each do |category|
+                    optgroup label=(category.name)
+                    - category.tests.each do |test|
+                        option value="#{test.id}"  "#{test.name}"
+
+          = button_to "Create Report", nil, :class => 'btn btn-primary pull-right'
           .clearfix
 

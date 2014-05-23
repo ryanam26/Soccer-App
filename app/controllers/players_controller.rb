@@ -2,6 +2,7 @@ class PlayersController < ApplicationController
 
   def show
     @user = User.find(params[:player])
+    @categories = Category.all
   end
 
   def history
@@ -13,19 +14,15 @@ class PlayersController < ApplicationController
   end
   
   def create
-    unless player_exist?
-      @user = User.new(player_params)
-      @user.team_ids = params[:teams]
-      @user.type_user = Role::PLAYER
+    @user = User.new(player_params)
+    @user.team_ids = params[:teams]
+    @user.type_user = Role::PLAYER
 
-      if @user.save
-        NotificationMailer.notification_new_player(@user, current_user).deliver
-        redirect_to coach_path, notice: "User created successfully."
-      else
-        render 'new'
-      end
+    if @user.save
+      NotificationMailer.notification_new_player(@user, current_user).deliver
+      redirect_to coach_path, notice: "User created successfully."
     else
-      redirect_to new_player_path 
+      render 'new'
     end
   end
 
@@ -33,7 +30,10 @@ class PlayersController < ApplicationController
     params.permit(:teams, :birthday, :first_name, :last_name, :email, :password, :password_confirmation)
   end
 
-  def player_exist?
-    User.where("email = ? and type_user = ?", params[:email], Role::PLAYER).first.present?
+  def coach_report
+    @team = Team.find(params[:teams])
+    @test = Test.find(params[:tests])
+    @position = @test.type_unit == Unit::TIME ? @team.team_system_rank_time(@test.id) : @team.team_system_rank_numeric(@test.id).to_i.ordinalize
+    @average = @test.type_unit == Unit::TIME ? @team.team_average_time(@test.id) : @team.team_average_numeric(@test.id)
   end
 end

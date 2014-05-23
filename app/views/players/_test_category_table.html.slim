@@ -1,0 +1,16 @@
+h3= "#{category.name.titleize} Tests"
+table class="table table-striped"
+  thead
+    tr
+      th Test name
+      th High Score
+      th Team Average
+      th Age Rank
+      th Overall Rank
+      th History
+  tbody
+    - if category.tests.count > 0
+        = render partial: 'test_content_table', collection: category.tests, as: :test
+    - else
+        tr
+          td.text-center colspan="6" No found scores
