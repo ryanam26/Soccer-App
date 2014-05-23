@@ -8,6 +8,7 @@ SoccerApp::Application.routes.draw do
 
   scope "/admin" do
     resources :users
+    match 'users/:id/delete' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
   end
 
   resources :accounts do

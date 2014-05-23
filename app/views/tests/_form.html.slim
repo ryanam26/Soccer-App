@@ -15,7 +15,7 @@
   .form-group
     = f.label :level, :class => 'control-label'
     .controls
-      = f.select(:level, options_for_select(Level.to_a), {prompt: 'Please select level for test'}, {class: 'form-control'})
+      = f.select(:level, options_for_select(Level.to_a.sort_by{|e| e[1]}), {prompt: 'Please select level for test'}, {class: 'form-control'})
 
   = f.submit nil, :class => 'btn btn-primary'
   '
