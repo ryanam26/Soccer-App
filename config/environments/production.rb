@@ -1,6 +1,6 @@
 SoccerApp::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  config.action_mailer.default_url_options = { host: 'http://soccer-app.herokuapp.com/' }
+  config.action_mailer.default_url_options = { host: 'http://sstracker.com/' }
 
   config.action_mailer.raise_delivery_errors = true
 
