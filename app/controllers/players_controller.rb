@@ -17,6 +17,7 @@ class PlayersController < ApplicationController
     @user = User.new(player_params)
     @user.team_ids = params[:teams]
     @user.type_user = Role::PLAYER
+    @user.birthday = Date.civil(*params[:birthday].sort.map(&:last).map(&:to_i))
 
     if @user.save
       NotificationMailer.notification_new_player(@user, current_user).deliver
