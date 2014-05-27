@@ -38,6 +38,7 @@ before_action :set_account, only: [:show, :update, :edit, :canceled_account]
 
   def destroy
     @account = Account.find_by(id: params[:id])
+    @account.teams.destroy_all
     @account.destroy
 
     redirect_to accounts_url, notice: "Account deleted."

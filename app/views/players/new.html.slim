@@ -26,7 +26,7 @@
   .form-group
     = label_tag :birthday, nil, :class => 'control-label'
     .controls
-      = date_field_tag :birthday, params[:birthday], :class => 'form-control'
+      = date_select :birthday, params[:birthday], {:start_year => 1920}, {:class => 'form-control-date'}
   .form-group
     .controls
       = hidden_field_tag :password, "12345678", type: "password"

@@ -37,26 +37,20 @@
         span  Add players for csv
       hr
       .well
-        = file_field_tag "csv"
-
-
-  .col-sm-6
-    .well
-      h2.text-center 
-        span.glyphicon.glyphicon-list-alt
-        span  Review Players Scores
-      hr
-      .well
-        = form_tag(players_path, method: 'get', id:"show_players", class: "form-horizontal")
-          .form-group
-            label.col-sm-3.control-label Select Player
+        = form_tag(players_import_path, method: 'get', class: "form-horizontal")
+          .form-group 
+            label.col-sm-3.control-label Select Team
             .col-sm-9
-              = select_tag "player", options_from_collection_for_select(@players, :id, :full_name), {class: 'form-control'}
-            
-          = button_to "Get information", nil, :class => 'btn btn-primary pull-right'
+              = select_tag "player", options_from_collection_for_select(current_user.accounts.first.teams, :id, :name), {class: 'form-control'}
+
+          .form-group
+            label.col-sm-3.control-label Select File
+            .col-sm-9
+              = file_field_tag "csv_players", class: "form-control"
+
+          = button_to "Send information", nil, :class => 'btn btn-primary pull-right'
           .clearfix
 
-.row
   .col-sm-6
     .well
       h2.text-center 
@@ -80,5 +74,22 @@
                         option value="#{test.id}"  #{test.name}
 
           = button_to "Create Report", nil, :class => 'btn btn-primary pull-right'
+          .clearfix
+
+.row
+  .col-sm-6
+    .well
+      h2.text-center 
+        span.glyphicon.glyphicon-list-alt
+        span  Review Players Scores
+      hr
+      .well
+        = form_tag(players_path, method: 'get', id:"show_players", class: "form-horizontal")
+          .form-group
+            label.col-sm-3.control-label Select Player
+            .col-sm-9
+              = select_tag "player", options_from_collection_for_select(@players, :id, :full_name), {class: 'form-control'}
+            
+          = button_to "Get information", nil, :class => 'btn btn-primary pull-right'
           .clearfix
 

@@ -14,7 +14,7 @@
   .form-group.user_teams
     = label_tag 'teams', nil, class: 'control-label'
     .controls
-      = select_tag :teams, options_from_collection_for_select(Team.all, :id, :name, f.object.team_ids), class: 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select the Player's Team"
+      = select_tag :teams, options_for_select(Team.all.collect { |t| ["#{t.name} - #{t.account.name}", t.id]}, f.object.team_ids), class: 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select the Player's Team"
   .form-group.user_birthday style="display:none"
     = f.label :birthday, :class => 'control-label'
     .controls

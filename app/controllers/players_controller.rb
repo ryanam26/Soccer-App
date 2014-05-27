@@ -43,4 +43,16 @@ class PlayersController < ApplicationController
     @user_compare = User.find(params[:user_compare])
     @test = Test.find(params[:test])
   end
+
+  def import 
+=begin
+    csv_text = params[:csv_players]
+    csv = CSV.parse(csv_text, :headers => true)
+    csv.each do |row|
+      puts row.to_hash
+    end
+=end
+    redirect_to coach_path, notice: "Users created successfully."
+  end
+
 end
