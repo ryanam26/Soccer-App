@@ -25,6 +25,7 @@ SoccerApp::Application.routes.draw do
   end
 
   get 'coach' => 'users#coach_profile', as: :coach
+  get 'account_error' => 'users#account_error', as: :account_error
   get '/players/new' => 'players#new', as: :new_player
   post '/players/new' => 'players#create'
   get '/players/show/' => 'players#show', as: :players
