@@ -18,7 +18,7 @@
   .form-group.user_birthday style="display:none"
     = f.label :birthday, :class => 'control-label'
     .controls
-      = f.date_select :birthday,{:start_year => 1920}, {:class => 'form-control-date'}
+      = f.date_select :birthday, {:start_year => 1920, discard_month:true, discard_day:true}, {:class => 'form-control'}
   .form-group
     = f.label :email, :class => 'control-label'
     .controls

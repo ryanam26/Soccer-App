@@ -1,11 +1,11 @@
 tr
-  td= "#{test.name} - #{test.level}"
   -if @user.has_scores?(test.id)
+    td= "#{test.name} - #{test.level}"
     - if test.type_unit == Unit::TIME
         td= @user.high_time_score(test.id)
         - @user.teams.each do |t| 
             td= t.team_average_time(test.id)
-        td= @user.pos_age_rank_time(test.id, @user.age)
+        td= "#{@user.pos_age_rank_time(test.id, @user.age)} / #{@rank}"
         td= @user.pos_overall_time_rank(test.id)
         td= link_to "HISTORY", player_history_path(@user.id, test.id), class: "btn btn-sm btn-info"
 
@@ -16,5 +16,3 @@ tr
         td= @user.pos_age_rank_numeric(test.id, @user.age)
         td= @user.pos_overall_numeric_rank(test.id)
         td= link_to "HISTORY", player_history_path(@user.id, test.id), class: "btn btn-sm btn-info"
-  - else
-      td.text-center colspan="5" No found scores

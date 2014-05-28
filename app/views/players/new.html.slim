@@ -10,7 +10,7 @@
   .form-group
     = label_tag 'teams', nil, class: 'control-label'
     .controls
-      = select_tag :teams, options_from_collection_for_select(current_user.accounts.last.teams, :id, :name, params[:teams]), class: 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select the Player's Team"
+      = select_tag :teams, options_from_collection_for_select(@account.teams, :id, :name, params[:teams]), class: 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select the Player's Team"
   .form-group
     = label_tag :email, nil, :class => 'control-label'
     .controls
@@ -26,7 +26,7 @@
   .form-group
     = label_tag :birthday, nil, :class => 'control-label'
     .controls
-      = date_select :birthday, params[:birthday], {:start_year => 1920}, {:class => 'form-control-date'}
+      = date_select :birthday, params[:birthday], {start_year: 1920, discard_month:true, discard_day:true}, {:class => 'form-control'}
   .form-group
     .controls
       = hidden_field_tag :password, "12345678", type: "password"
@@ -35,5 +35,3 @@
       = hidden_field_tag :password_confirmation, "12345678", type: "password"
 
   = button_to "Create Player", nil, :class => 'btn btn-primary'
-  '  
-  = link_to 'Cancel', coach_path, :class => 'btn'

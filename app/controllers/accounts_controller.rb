@@ -16,7 +16,7 @@ before_action :set_account, only: [:show, :update, :edit, :canceled_account]
   end
 
   def update
-    @account.user_ids = params[:account][:users]
+    @account.user_ids = params[:users]
 
     if @account.update(account_params)
       redirect_to accounts_url, notice: "Account updated successfully."
@@ -27,7 +27,7 @@ before_action :set_account, only: [:show, :update, :edit, :canceled_account]
 
   def create
     @account = Account.new(account_params)
-    @account.user_ids = params[:account][:users]
+    @account.user_ids = params[:users]
     
     if @account.save
       redirect_to accounts_url, notice: "Account created successfully."

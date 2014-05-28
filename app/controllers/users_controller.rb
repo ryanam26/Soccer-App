@@ -42,7 +42,7 @@ before_action :set_user, only: [:show, :update, :edit]
     end
 
     if @user.save
-      NotificationMailer.notification_to_user(@user, params[:user][:password]).deliver
+      #NotificationMailer.notification_to_user(@user, params[:user][:password]).deliver
       redirect_to users_url, notice: "User created successfully."
     else
       render 'new'
@@ -51,7 +51,9 @@ before_action :set_user, only: [:show, :update, :edit]
 
   def destroy
     @user = User.find_by(id: params[:id])
+    @user.scores.destroy_all
     @user.destroy
+
 
     redirect_to users_url, notice: "User deleted."
   end
@@ -65,9 +67,10 @@ before_action :set_user, only: [:show, :update, :edit]
   end
 
   def coach_profile
+    @account = Account.find(params[:id])
     @categories = Category.all
     @players = []
-    current_user.accounts.first.teams.each do |t|
+    @account.teams.each do |t|
       t.users.each do |u|
         @players << u
       end

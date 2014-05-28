@@ -2,20 +2,18 @@
   h1 Scores for #{@test.name}
   hr
 .row
-    - @teams.each do |team|
-      .col-md-6
-        = form_tag(test_scores_path(@test), method: 'post', id: 'add_scores', class: 'form-horizontal') do
-          - unless team.users.empty?
-              h3= "Team #{team.name}"
-              - team.users.each do |user|
-                  .form-group 
-                    label.col-sm-3.control-label =user.full_name
-                    .input-group.col-md-2
-                      - if @test.type_unit == Unit::NUMERIC
-                          = number_field_tag "player[#{user.id}]", nil, class: "form-control"
-                          span.input-group-addon #
-                      - else
-                          = time_field_tag "player[#{user.id}]", nil, step: "1", class: "form-control"
-                          span.input-group-addon hh:mm:ss
-              = button_to "Send Scores", nil, :class => 'btn btn-primary'
-          hr
+  = form_tag(test_scores_path(@test), method: 'post', id: 'add_scores', class: 'form-horizontal') do
+    - unless @team.users.empty?
+        h3= "Team #{@team.name}"
+        - @team.users.each do |user|
+            .form-group 
+              label.col-sm-2.control-label =user.full_name
+              .input-group.col-md-2
+                - if @test.type_unit == Unit::NUMERIC
+                    = number_field_tag "player[#{user.id}]", nil, class: "form-control"
+                    span.input-group-addon #
+                - else
+                    = time_field_tag "player[#{user.id}]", nil, step: "1", class: "form-control"
+                    span.input-group-addon hh:mm:ss
+        = button_to "Send Scores", nil, :class => 'btn btn-primary'
+    hr

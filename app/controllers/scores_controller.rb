@@ -1,7 +1,7 @@
 class ScoresController < ApplicationController
   def index
-    @test = Test.find(params[:test_id])
-    @teams = current_user.accounts.last.teams
+    @test = Test.find(params[:tests])
+    @team = Team.find(params[:teams])
   end
 
   def create

@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     if current_user.type_user == Role::COACH
       if current_user.accounts.count > 0
-        coach_path
+        account_select_path
       else
         account_error_path
       end

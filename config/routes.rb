@@ -24,15 +24,17 @@ SoccerApp::Application.routes.draw do
     resources :scores
   end
 
-  get 'coach' => 'users#coach_profile', as: :coach
+  post 'scores' => 'scores#index', as: :scores
+  get 'coach/:id' => 'users#coach_profile', as: :coach
   get 'account_error' => 'users#account_error', as: :account_error
-  get '/players/new' => 'players#new', as: :new_player
+  get 'account_select' => 'users#account_select', as: :account_select
+  get '/players/new/:id' => 'players#new', as: :new_player
   post '/players/new' => 'players#create'
   get '/players/show/' => 'players#show', as: :players
   get '/player/history/:id/:test_id' => 'players#history', as: :player_history
   get '/player/coach_report/' => 'players#coach_report', as: :coach_report
   get '/players/compare_players/' => 'players#compare_players', as: :compare_players
-  get '/players/import/' => 'players#import', as: :players_import
+  post '/players/import/' => 'players#import', as: :players_import
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
