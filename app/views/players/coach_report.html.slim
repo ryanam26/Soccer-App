@@ -13,14 +13,12 @@ table class="table table-striped datetable"
   tbody
     - @team.users.each do |user|
       tr
-        td= user.full_name
-          - if user.has_scores?(@test.id)
+        - if user.has_scores?(@test.id)
+            td= user.full_name
             - if @test.type_unit == Unit::TIME
                 td= Time.at(user.high_time_score(@test.id)).strftime("%H:%M:%S") 
             - else
                 td= user.high_numeric_score(@test.id).to_f.round(2)
-          else
-            td= No result
 .col-sm-12
   .col-sm-6
     .well
