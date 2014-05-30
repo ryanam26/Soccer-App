@@ -12,7 +12,7 @@ class ScoresController < ApplicationController
         Score.create(:user_id => p[0].to_i, :test_id => params[:test_id].to_i, :value => value)
       end
     end
-    redirect_to coach_path, notice: "Scores successfully saved"
+    redirect_to coach_path(session[:account]), notice: "Scores successfully saved"
   end
 
 

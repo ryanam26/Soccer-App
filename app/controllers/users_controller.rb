@@ -2,7 +2,11 @@ class UsersController < ApplicationController
 before_action :set_user, only: [:show, :update, :edit]
 
 	def index
-		@users = User.all
+    if current_user.type_user == Role::COACH
+      @users = User.joins(:teams).where("teams.account_id = ?", session[:account])
+		else
+      @users = User.all
+    end
 	end
 
 	def new
@@ -13,6 +17,12 @@ before_action :set_user, only: [:show, :update, :edit]
 	end
 
 	def edit
+    if current_user.type_user == Role::COACH
+      @show = "display:none"
+      @teams = Team.all.where(account_id: session[:account])
+    else
+      @teams = Team.all
+    end
   end
 
   def update
@@ -20,7 +30,6 @@ before_action :set_user, only: [:show, :update, :edit]
 		  params[:user].delete(:password)
 		  params[:user].delete(:password_confirmation)
 		end
-
 
     if @user.update(user_params)
       if params[:user][:type_user].to_i == Role::PLAYER.to_i
@@ -68,13 +77,9 @@ before_action :set_user, only: [:show, :update, :edit]
 
   def coach_profile
     @account = Account.find(params[:id])
+    session[:account] = @account
     @categories = Category.all
-    @players = []
-    @account.teams.each do |t|
-      t.users.each do |u|
-        @players << u
-      end
-    end
+    @players = User.joins(:teams).where("teams.account_id = ?", session[:account]).order(:first_name)
   end
   
 end

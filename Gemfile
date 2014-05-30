@@ -12,6 +12,9 @@ gem 'enumerate_it'
 #upload files
 gem 'carrierwave'
 
+#Session active record store
+gem 'activerecord-session_store'
+
 #Fog
 gem 'fog', '~> 1.3.1'
 
