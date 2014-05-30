@@ -12,8 +12,8 @@ table class="table table-striped datetable"
       th Score
   tbody
     - @team.users.each do |user|
-      tr
-        - if user.has_scores?(@test.id)
+      - if user.has_scores?(@test.id)
+          tr
             td= user.full_name
             - if @test.type_unit == Unit::TIME
                 td= Time.at(user.high_time_score(@test.id)).strftime("%H:%M:%S") 
