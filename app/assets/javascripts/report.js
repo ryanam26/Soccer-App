@@ -31,7 +31,9 @@ $(document).ready(function() {
             ],
             
         },
-        "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+        "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+        "iDisplayLength": 100,
+        "iDisplayStart" : 0
       });
     $(".DTTT").addClass("pull-right");    
 
