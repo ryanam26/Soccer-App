@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 before_action :set_user, only: [:show, :update, :edit]
+before_action :charge_teams, only: [:edit, :new]
 
 	def index
     if current_user.type_user == Role::COACH
@@ -17,12 +18,6 @@ before_action :set_user, only: [:show, :update, :edit]
 	end
 
 	def edit
-    if current_user.type_user == Role::COACH
-      @show = "display:none"
-      @teams = Team.all.where(account_id: session[:account])
-    else
-      @teams = Team.all
-    end
   end
 
   def update
@@ -62,8 +57,7 @@ before_action :set_user, only: [:show, :update, :edit]
     @user = User.find_by(id: params[:id])
     @user.scores.destroy_all
     @user.destroy
-
-
+    
     redirect_to users_url, notice: "User deleted."
   end
 
@@ -80,6 +74,15 @@ before_action :set_user, only: [:show, :update, :edit]
     session[:account] = @account
     @categories = Category.all
     @players = User.joins(:teams).where("teams.account_id = ?", session[:account]).order(:first_name)
+  end
+
+  def charge_teams
+    if current_user.type_user == Role::COACH
+      @show = "display:none"
+      @teams = Team.all.where(account_id: session[:account])
+    else
+      @teams = Team.all
+    end
   end
   
 end

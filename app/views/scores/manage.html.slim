@@ -1,0 +1,24 @@
+div class="page-header"
+  h1 
+    =@user.full_name
+    small  Test History
+
+
+table class="table table-striped"
+  thead
+    tr
+      th Test
+      th Score
+      th Test Day
+  tbody
+    - @scores.each do |score|
+      tr
+        td= score.test.name
+        td= score.test.type_unit == Unit::NUMERIC ? score.value.to_f : Time.at(score.value).strftime("%H:%M:%S")
+        td= score.created_at.strftime("%A %B %Y at %H:%M")
+        td
+          = link_to t('.edit', :default => t("helpers.links.edit")), edit_test_score_path(@test,score), :class => 'btn btn-default btn-xs'
+          '
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), test_score_path(@test, score), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
+
+= link_to 'Back', coach_path(session[:account]), :class => 'btn btn-primary'

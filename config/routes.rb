@@ -24,6 +24,7 @@ SoccerApp::Application.routes.draw do
     resources :scores
   end
 
+  get 'manage_scores' => 'scores#manage', as: :manage_scores
   post 'scores' => 'scores#index', as: :scores
   get 'coach/:id' => 'users#coach_profile', as: :coach
   get 'account_error' => 'users#account_error', as: :account_error

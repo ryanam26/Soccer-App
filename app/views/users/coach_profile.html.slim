@@ -8,16 +8,16 @@
       .well
         = link_to new_player_path(@account), class: "btn btn-primary btn-lg btn-block" do
           span.glyphicon.glyphicon-plus 
-          span  Go to add new players
+          span  Add New Player
         = link_to users_path, class: "btn btn-warning btn-lg btn-block" do
           span.glyphicon.glyphicon-pencil
-          span  Go to manage players
+          span  Manage Players
 
   .col-sm-6
     .well
       h2.text-center
         span.glyphicon.glyphicon-plus
-        span  Input test scores
+        span  Add test scores
       hr
       .well
         = form_tag(scores_path, class: "form-horizontal")
@@ -35,14 +35,14 @@
                     - category.tests.each do |test|
                         option value="#{test.id}"  #{test.name}
 
-          = button_to "Input Scores", nil, :class => 'btn btn-primary pull-right'
+          = button_to "Add Scores", nil, :class => 'btn btn-primary pull-right'
           .clearfix                     
 .row
   .col-sm-6
     .well
       h2.text-center 
         span.glyphicon.glyphicon-upload
-        span  Add players for csv
+        span  Import Players
       hr
       .well
         = form_tag(players_import_path, multipart: true, class: "form-horizontal") do
@@ -52,11 +52,11 @@
               = select_tag :teams, options_from_collection_for_select(@account.teams, :id, :name), class: 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select the Player's Team"
 
           .form-group
-            label.col-sm-3.control-label Select File
+            label.col-sm-3.control-label Select CSV File
             .col-sm-9
               = file_field_tag "csv_players", class: "form-control"
 
-          = button_to "Send information", nil, :class => 'btn btn-primary pull-right'
+          = button_to "Submit", nil, :class => 'btn btn-primary pull-right'
           .clearfix
 
   .col-sm-6
@@ -96,8 +96,33 @@
           .form-group
             label.col-sm-3.control-label Select Player
             .col-sm-9
-              = select_tag "player", options_from_collection_for_select(@players, :id, :full_name), {class: 'form-control'}
+              = select_tag "player", options_from_collection_for_select(@players, :id, :full_name), {class: 'form-control chosen-select'}
             
-          = button_to "Get information", nil, :class => 'btn btn-primary pull-right'
+          = button_to "Submit", nil, :class => 'btn btn-primary pull-right'
+          .clearfix
+
+  .col-sm-6
+    .well
+      h2.text-center 
+        span.glyphicon.glyphicon-share
+        span  Manage Player Score
+      hr
+      .well
+        = form_tag(manage_scores_path, method: 'get', class: "form-horizontal")
+          .form-group
+            label.col-sm-3.control-label Select Player
+            .col-sm-9
+              = select_tag "player", options_from_collection_for_select(@players, :id, :full_name), {class: 'form-control chosen-select'}
+
+          .form-group
+            label.col-sm-3.control-label Select Test
+            .col-sm-9
+              select#tests name="tests" class="form-control"
+                - @categories.each do |category|
+                    optgroup label=(category.name)
+                    - category.tests.each do |test|
+                        option value="#{test.id}"  #{test.name}
+
+          = button_to "Submit", nil, :class => 'btn btn-primary pull-right'
           .clearfix
 
