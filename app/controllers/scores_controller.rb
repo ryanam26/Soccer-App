@@ -8,7 +8,7 @@ class ScoresController < ApplicationController
     @test = Test.find(params[:test_id])
     params[:player].each do |p|
       unless p[1] == ""
-        @test.type_unit == Unit::TIME ? value = Time.parse(p[1]).to_f : value =  p[1].to_f
+        @test.time? ? value = Time.parse(p[1]).to_f : value =  p[1].to_f
         Score.create(:user_id => p[0].to_i, :test_id => params[:test_id].to_i, :value => value)
       end
     end
@@ -26,7 +26,7 @@ class ScoresController < ApplicationController
     @user = User.find(score.user_id)
     @scores = @user.scores.where(:test_id => score.test_id)
 
-    @test.type_unit == Unit::TIME ? value = Time.parse(params[:score][:value]).to_f : value =  params[:score][:value].to_f
+    @test.time? ? value = Time.parse(params[:score][:value]).to_f : value =  params[:score][:value].to_f
     score.update_attribute(:value, value)
     render("manage")
   end

@@ -1,5 +1,5 @@
 = form_for ([@test, @score]), :html => { :class => "form-horizontal" } do |f|
-  - if @test.type_unit == Unit::NUMERIC
+  - if @test.numeric?
       .form-group
         = f.label :value, "Score", :class => 'control-label'
         .controls

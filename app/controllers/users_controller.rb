@@ -3,7 +3,7 @@ before_action :set_user, only: [:show, :update, :edit]
 before_action :charge_teams, only: [:edit, :new]
 
 	def index
-    if current_user.type_user == Role::COACH
+    if current_user.coach?
       @users = User.joins(:teams).where("teams.account_id = ?", session[:account])
 		else
       @users = User.all
@@ -77,7 +77,7 @@ before_action :charge_teams, only: [:edit, :new]
   end
 
   def charge_teams
-    if current_user.type_user == Role::COACH
+    if current_user.coach?
       @show = "display:none"
       @teams = Team.all.where(account_id: session[:account])
     else

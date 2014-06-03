@@ -39,9 +39,9 @@ html lang="en"
             ul.nav.navbar-nav
               - if user_signed_in? and current_user.type_user == Role::ADMIN
                 li= link_to "Accounts", "/accounts"
-                li= link_to "Test Categories", "/categories"
               - if user_signed_in? and current_user.type_user == Role::COACH
                 li= link_to "Change Account", account_select_path
+              li= link_to "Test Categories", "/categories"
             ul.nav.navbar-nav.navbar-right
               
               - if user_signed_in?

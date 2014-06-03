@@ -25,7 +25,7 @@ SoccerApp::Application.routes.draw do
     resources :scores
   end
 
-  get 'manage_scores' => 'scores#manage', as: :manage_scores
+  post 'manage_scores' => 'scores#manage', as: :manage_scores
   post 'scores' => 'scores#index', as: :scores
   get 'coach/:id' => 'users#coach_profile', as: :coach
   get 'account_error' => 'users#account_error', as: :account_error
@@ -34,8 +34,8 @@ SoccerApp::Application.routes.draw do
   post '/players/new' => 'players#create'
   get '/players/show/' => 'players#show', as: :players
   get '/player/history/:id/:test_id' => 'players#history', as: :player_history
-  get '/player/coach_report/' => 'players#coach_report', as: :coach_report
-  get '/players/compare_players/' => 'players#compare_players', as: :compare_players
+  post '/player/coach_report/' => 'players#coach_report', as: :coach_report
+  post '/players/compare_players/' => 'players#compare_players', as: :compare_players
   post '/players/import/' => 'players#import', as: :players_import
 
   # The priority is based upon order of creation: first created -> highest priority.

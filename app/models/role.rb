@@ -1,7 +1,7 @@
 class Role < EnumerateIt::Base
   associate_values(
-    :Admin   => [0, 'Administrator'],
-    :Coach  => [1, 'Coach'],
-    :Player    => [2, 'Player']
+    :admin   => [0, 'Administrator'],
+    :coach  => [1, 'Coach'],
+    :player    => [2, 'Player']
   )
 end

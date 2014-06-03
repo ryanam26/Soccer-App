@@ -36,7 +36,8 @@
                         option value="#{test.id}"  #{test.name}
 
           = button_to "Add Scores", nil, :class => 'btn btn-primary pull-right'
-          .clearfix                     
+          .clearfix
+
 .row
   .col-sm-6
     .well
@@ -66,7 +67,7 @@
         span  Create Reports
       hr
       .well
-        = form_tag(coach_report_path, method: 'get', id:"show_players", class: "form-horizontal")
+        = form_tag(coach_report_path, method: 'post', id:"show_players", class: "form-horizontal")
           .form-group
             label.col-sm-3.control-label Select Team
             .col-sm-9
@@ -108,7 +109,7 @@
         span  Manage Player Score
       hr
       .well
-        = form_tag(manage_scores_path, method: 'get', class: "form-horizontal")
+        = form_tag(manage_scores_path, method: 'post', class: "form-horizontal")
           .form-group
             label.col-sm-3.control-label Select Player
             .col-sm-9

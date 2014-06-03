@@ -15,8 +15,8 @@ table class="table table-striped datetable"
       - if user.has_scores?(@test.id)
           tr
             td= user.full_name
-            - if @test.type_unit == Unit::TIME
-                td= Time.at(user.high_time_score(@test.id)).strftime("%H:%M:%S") 
+            - if @test.time?
+                td= Time.parse(user.high_time_score(@test.id)).strftime("%H:%M:%S") 
             - else
                 td= user.high_numeric_score(@test.id).to_f.round(2)
 .col-sm-12

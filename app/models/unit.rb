@@ -1,6 +1,6 @@
 class Unit < EnumerateIt::Base
   associate_values(
-    :Time   => [0, 'Time'],
-    :Numeric  => [1, 'Numeric']
+    :time   => [0, 'Time'],
+    :numeric  => [1, 'Numeric']
   )
 end

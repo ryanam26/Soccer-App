@@ -1,7 +1,7 @@
 tr
   -if @user.has_scores?(test.id)
     td= "#{test.name} - #{test.level}"
-    - if test.type_unit == Unit::TIME
+    - if test.time?
         td= @user.high_time_score(test.id)
         - @user.teams.each do |t| 
             td= t.team_average_time(test.id)

@@ -5,4 +5,7 @@ class Test < ActiveRecord::Base
 
   mount_uploader :file, FileUploader
 
+  extend EnumerateIt
+  has_enumeration_for :type_unit, :with => Unit, :create_helpers => true
+
 end
