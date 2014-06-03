@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-before_action :set_account, only: [:show, :update, :edit, :canceled_account]
+before_action :set_account, only: [:report, :show, :update, :edit]
 
   def index
     @accounts = Account.all
@@ -42,6 +42,10 @@ before_action :set_account, only: [:show, :update, :edit, :canceled_account]
     @account.destroy
 
     redirect_to accounts_url, notice: "Account deleted."
+  end
+
+  def report
+    @account = Account.find_by(id: params[:account_id])
   end
 
   def canceled_account

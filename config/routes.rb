@@ -14,6 +14,7 @@ SoccerApp::Application.routes.draw do
   resources :accounts do
     resources :teams
     resources :locations
+    get "report" => 'accounts#report', as: :report
   end
 
   resources :categories do
