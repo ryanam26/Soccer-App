@@ -1,6 +1,6 @@
 tr
   -if @user.has_scores?(test.id)
-    td= "#{test.name} - #{test.level}"
+    td= "#{test.name}"
     - if test.time?
         td= @user.high_time_score(test.id)
         - @user.teams.each do |t| 
