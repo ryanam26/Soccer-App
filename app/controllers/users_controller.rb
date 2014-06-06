@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 before_action :set_user, only: [:show, :update, :edit]
-before_action :charge_teams, only: [:edit, :new]
+before_action :charge_teams
 
 	def index
     if current_user.coach?
@@ -26,11 +26,11 @@ before_action :charge_teams, only: [:edit, :new]
 		  params[:user].delete(:password_confirmation)
 		end
 
+    if params[:user][:type_user].to_i == Role::PLAYER.to_i
+      @user.team_ids = params[:teams]
+    end
+
     if @user.update(user_params)
-      if params[:user][:type_user].to_i == Role::PLAYER.to_i
-        @user.team_ids = params[:teams]
-        @user.save
-      end
       redirect_to users_url, notice: "User updated successfully."
     else
       render 'edit'
@@ -42,7 +42,6 @@ before_action :charge_teams, only: [:edit, :new]
     
     if params[:user][:type_user].to_i == Role::PLAYER.to_i
       @user.team_ids = params[:teams]
-      puts params[:teams]
     end
 
     if @user.save

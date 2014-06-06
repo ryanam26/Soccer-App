@@ -12,7 +12,7 @@
     .controls
       = f.select(:type_user, options_for_select(Role.to_a, selected: f.object.type_user), {prompt: 'Please select your role the user'}, {class: 'form-control'})
   .form-group.user_teams
-    = label_tag 'teams', nil, class: 'control-label'
+    = label_tag :teams, nil, class: 'control-label'
     .controls
       = select_tag :teams, options_for_select(@teams.all.collect { |t| ["#{t.name} - #{t.account.name}", t.id]}, f.object.team_ids), class: 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select the Player's Team"
   .form-group.user_birthday style="display:none"
