@@ -127,3 +127,15 @@
           = button_to "Submit", nil, :class => 'btn btn-primary pull-right'
           .clearfix
 
+.row
+  .col-sm-6
+    .well
+      h2.text-center
+        span.glyphicon.glyphicon-paperclip
+        span  Get Information About Tests
+      hr
+      .well
+        = link_to categories_path, class: "btn btn-primary btn-lg btn-block" do
+          span.glyphicon.glyphicon-paperclip 
+          span  Test Categories
+
