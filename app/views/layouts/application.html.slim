@@ -34,7 +34,8 @@ html lang="en"
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand href="/"SoccerApp
+          a.navbar-brand href="/"
+            = image_tag("blue_shield.png", width: "60px")
           .navbar-collapse.collapse.navbar-responsive-collapse
             ul.nav.navbar-nav
               - if user_signed_in? and current_user.type_user == Role::ADMIN
@@ -75,4 +76,4 @@ html lang="en"
     footer
       #footer
         .container 
-          p.text-muted &copy; SoftwareCriollo 2014
+          p.text-muted &copy; SoccerSkills 2014

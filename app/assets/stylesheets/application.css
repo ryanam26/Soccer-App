@@ -10,7 +10,7 @@
  *
  *= require_self
  *= require_tree .
-  =require twitter-bootstrap-static/bootstrap
+  = require twitter-bootstrap-static/bootstrap
  */
 
 @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
@@ -56,5 +56,14 @@ footer{
 }
 .table > thead > tr > td.active, .table > tbody > tr > td.active, .table > tfoot > tr > td.active, .table > thead > tr > th.active, .table > tbody > tr > th.active, .table > tfoot > tr > th.active, .table > thead > tr.active > td, .table > tbody > tr.active > td, .table > tfoot > tr.active > td, .table > thead > tr.active > th, .table > tbody > tr.active > th, .table > tfoot > tr.active > th{
   background-color: #017ebc !important;
+}
+
+.navbar-collapse .collapse .navbar-responsive-collapse{
+  padding-top: 7px;
+}
+
+.navbar-brand{
+  padding: 0;
+  height: auto;
 }
 
