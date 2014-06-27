@@ -4,13 +4,13 @@ tr
     - if test.time?
         td= @user.high_time_score(test.id)
         td= @user.teams.last.team_average_time(test.id)
-        td= "#{@user.pos_age_rank_time(test.id, @user.age)} / #{@rank}"
-        td= @user.pos_overall_time_rank(test.id)
+        td= "#{@user.pos_age_rank_time(test.id, @user.age)} / #{@rank_age}"
+        td= "#{@user.pos_overall_time_rank(test.id)} / #{@overall_rank}"
         td= link_to "HISTORY", player_history_path(@user.id, test.id), class: "btn btn-sm btn-info"
 
     - else
         td= @user.high_numeric_score(test.id)
         td =@user.teams.last.team_average_numeric(test.id)
         td= "#{@user.pos_age_rank_numeric(test.id, @user.age)} / #{@rank}"
-        td= @user.pos_overall_numeric_rank(test.id)
+        td= "#{@user.pos_overall_numeric_rank(test.id)} / #{@overall_rank}"
         td= link_to "HISTORY", player_history_path(@user.id, test.id), class: "btn btn-sm btn-info"

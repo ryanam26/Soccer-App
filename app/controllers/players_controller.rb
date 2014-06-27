@@ -3,7 +3,8 @@ class PlayersController < ApplicationController
   def show
     @user = User.find(params[:player])
     @categories = Category.all
-    @rank = @user.user_for_age.count
+    @rank_age = @user.user_for_age.count
+    @overall_rank = User.players.count
   end
 
   def history
