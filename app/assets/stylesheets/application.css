@@ -18,6 +18,11 @@ footer{
   margin-top: 50px;
 }
 
+a {
+  color: #EE1414;
+  text-decoration: none;
+}
+
 #error_explanation > h2{
 	font-size: 18px;
 	color: red;

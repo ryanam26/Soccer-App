@@ -14,3 +14,15 @@
   padding: 0;
   height: auto;
 }
+
+a {
+  color: #EE1414;
+  text-decoration: none;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #720000;
+}
+.dropdown-menu > li > a {
+  color: #720000; 
+}
