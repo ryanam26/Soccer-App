@@ -55,9 +55,13 @@ class PlayersController < ApplicationController
     csv.each do |row|
       @user = User.where(:email => row['email']).first
       if @user
-        puts "Ya tenemos al #{@user}"
-        @team = (@user.team_ids << params["teams"]).flatten.uniq
-        puts "grabo #{@user.save}"
+        puts "Ya tenemos al #{@user.inspect}"
+        params["teams"].each do |team_id|
+          t = Team.find(team_id)
+          @user.teams << t
+          puts "grabo #{@user.save}"
+          puts @user.teams.inspect
+        end
       else
         @user = User.new
         @user.team_ids = params[:teams]
