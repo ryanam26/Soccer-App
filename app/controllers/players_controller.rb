@@ -53,16 +53,22 @@ class PlayersController < ApplicationController
     csv_text = params[:csv_players].read
     csv = CSV.parse(csv_text, :headers => true)
     csv.each do |row|
-      @user = User.new
-      @user.team_ids = params[:teams]
-      @user.first_name = row['first name']
-      @user.last_name = row['last name']
-      @user.birthday = Date.civil(row['birthday'].to_i, 1,1)
-      @user.email = row['email']
-      @user.password = "12345678"
-      @user.password_confirmation = "12345678"
-      @user.type_user = Role::PLAYER
-      @user.save
+      @user = User.where(:email => row['email']).first
+      if @user
+        @team = (@user.team_ids << params[:teams]).flatten.uniq
+        @user.save
+      else
+        @user = User.new
+        @user.team_ids = params[:teams]
+        @user.first_name = row['first name']
+        @user.last_name = row['last name']
+        @user.birthday = Date.civil(row['birthday'].to_i, 1,1)
+        @user.email = row['email']
+        @user.password = "12345678"
+        @user.password_confirmation = "12345678"
+        @user.type_user = Role::PLAYER
+        @user.save
+      end
     end
 
     redirect_to coach_path(session[:account]), notice: "Users created successfully."
