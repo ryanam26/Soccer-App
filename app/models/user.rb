@@ -11,20 +11,17 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :teams
   has_many :scores
   has_many :tests, :through => :scores
+  has_many :players
 
   extend EnumerateIt
   has_enumeration_for :type_user, :with => Role, :create_helpers => true
 
   scope :coach, lambda{where(:type_user => Role::COACH)}
-  scope :players, lambda{where(:type_user => Role::PLAYER)}
+#  scope :players, lambda{where(:type_user => Role::PLAYER)}
   scope :scores_time, lambda{where("users.id not in (select user_id from accounts_users)")}
  
   def full_name
     "#{first_name} #{last_name}".titleize
-  end
-
-  def is_player?
-    type_user == Role::PLAYER
   end
 
   def age
