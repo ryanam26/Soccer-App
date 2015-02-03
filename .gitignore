@@ -16,3 +16,6 @@
 /tmp
 /public/uploads
 
+# Ignore the project file from Apptana Studio
+.project
+

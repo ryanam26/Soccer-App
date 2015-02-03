@@ -1,5 +1,7 @@
 SoccerApp::Application.routes.draw do
 
+  resources :players
+
   devise_for :users, :controllers => { registrations: 'registrations' }
 
   devise_scope :user do
@@ -30,9 +32,9 @@ SoccerApp::Application.routes.draw do
   get 'coach/:id' => 'users#coach_profile', as: :coach
   get 'account_error' => 'users#account_error', as: :account_error
   get 'account_select' => 'users#account_select', as: :account_select
-  get '/players/new/:id' => 'players#new', as: :new_player
-  post '/players/new' => 'players#create'
-  get '/players/show/' => 'players#show', as: :players
+#  get '/players/new/:id' => 'players#new', as: :new_player
+#  post '/players/new' => 'players#create'
+#  get '/players/show/' => 'players#show', as: :players
   get '/player/history/:id/:test_id' => 'players#history', as: :player_history
   post '/player/coach_report/' => 'players#coach_report', as: :coach_report
   post '/players/compare_players/' => 'players#compare_players', as: :compare_players
