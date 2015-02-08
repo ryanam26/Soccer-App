@@ -1,6 +1,7 @@
 class Team < ActiveRecord::Base
   belongs_to :account
   has_and_belongs_to_many :users
+  has_and_belongs_to_many :players
 
   def team_average_time(test_id)
     sql = "select to_char(to_timestamp(avg(s.value)) AT TIME ZONE 'UTC','HH24:MI:SS') as average from scores s, teams_users ts where s.test_id = #{test_id} and s.user_id = ts.user_id and ts.team_id = #{id};"
