@@ -1,12 +1,19 @@
 class MoveUserDataToPlayers < ActiveRecord::Migration
   def up
     User.all.each do |u|
-      if u.type_user == 2
+      if u.is_player? && u.valid?
         if u.email.last.to_i == 0 #If the email is not a duplicate
           p = u.players.new
           
         else
-          p = User.find_by_email(u.email[0..u.email.length-2]).players.new #If the email is a duplicate, create a player associated to the first user
+          first_user = User.find_by_email(u.email[0..u.email.length-2])
+          if first_user.nil? #If the email ends in a number but is the only one in the system, then make a player on that user.
+            p = u.players.new
+          elsif first_user.is_player? && first_user.valid?
+            p = first_user.players.new #Case for the other email being an admin or coach user
+          else
+            p = u.players.new #Else make a player on the original user
+          end
         end
         
         p.first_name = u.first_name
