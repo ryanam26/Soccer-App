@@ -1,7 +1,12 @@
 class Player < ActiveRecord::Base
+  
+  has_and_belongs_to_many :teams
   belongs_to :user
   has_many :scores
   has_many :tests, :through => :scores
+  
+  validates_presence_of :teams, :user, :first_name, :last_name, :birthday
+  
   
   def full_name
     "#{first_name} #{last_name}".titleize
