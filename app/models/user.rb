@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   has_enumeration_for :type_user, :with => Role, :create_helpers => true
 
   scope :coach, lambda{where(:type_user => Role::COACH)}
-#  scope :players, lambda{where(:type_user => Role::PLAYER)}
+  scope :players, lambda{where(:type_user => Role::PLAYER)}
   scope :scores_time, lambda{where("users.id not in (select user_id from accounts_users)")}
  
   def full_name
