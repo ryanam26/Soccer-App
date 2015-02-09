@@ -26,7 +26,7 @@ before_action :charge_teams
 		  params[:user].delete(:password_confirmation)
 		end
 
-    if params[:user][:type_user].to_i == Role::PLAYER.to_i
+    if params[:user][:type_user].to_i == Role::STANDARD.to_i
       @user.team_ids = params[:teams]
     end
 
@@ -40,7 +40,7 @@ before_action :charge_teams
 	def create
 		@user = User.new(user_params)
     
-    if params[:user][:type_user].to_i == Role::PLAYER.to_i
+    if params[:user][:type_user].to_i == Role::STANDARD.to_i
       @user.team_ids = params[:teams]
     end
 
