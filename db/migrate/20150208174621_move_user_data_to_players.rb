@@ -19,6 +19,7 @@ class MoveUserDataToPlayers < ActiveRecord::Migration
         p.first_name = u.first_name
         p.last_name = u.last_name
         p.teams = u.teams
+        p.scores = u.scores
         p.birthday = u.birthday
         p.save!
       end
