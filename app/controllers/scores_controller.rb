@@ -43,7 +43,7 @@ class ScoresController < ApplicationController
 
   def manage
     @player = Player.find(params[:player])
-    @scores = @user.scores.where(:test_id => params[:tests])
+    @scores = @player.scores.where(:test_id => params[:tests])
     @test = Test.find(params[:tests])
   end
 

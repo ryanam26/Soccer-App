@@ -1,38 +1,39 @@
 class PlayersController < ApplicationController
 
   def show
-    @user = User.find(params[:player])
+    @player = Player.find(params[:player])
     @categories = Category.all
-    @rank_age = @user.user_for_age.count
-    @overall_rank = User.players.count
+    @rank_age = @player.user_for_age.count
+    @overall_rank = Player.count
   end
 
   def history
-    @user = User.find(params[:id])
+    @player = Player.find(params[:id])
   end
 
   def new
-    @user = User.new
+    @user = User.find(params[:user])
+    @player = @user.players.new
     @account = Account.find(params[:id])
   end
   
   def create
-    @user = User.new(player_params)
-    @user.team_ids = params[:teams]
-    @user.type_user = Role::STANDARD
-    @user.birthday = Date.civil(*params[:birthday].sort.map(&:last).map(&:to_i))
+    @user = User.find(params[:user])
+    @player = @user.players.new(player_params)
+    @player.team_ids = params[:teams]
+    @player.birthday = params[:birthday].to_date
 
-    if @user.save
+    if @player.save
       #NotificationMailer.notification_new_player(@user, current_user).deliver
       #NotificationMailer.notification_to_player(@user).deliver
-      redirect_to coach_path(session[:account]), notice: "User created successfully."
+      redirect_to coach_path(session[:account]), notice: "Player created successfully."
     else
       render 'new'
     end
   end
 
   def player_params
-    params.permit(:teams, :birthday, :first_name, :last_name, :email, :password, :password_confirmation)
+    params.permit(:teams, :birthday, :first_name, :last_name)
   end
 
   def coach_report
@@ -43,8 +44,8 @@ class PlayersController < ApplicationController
   end
 
   def compare_players
-    @user = User.find(params[:user])
-    @user_compare = User.find(params[:user_compare])
+    @player = Player.find(params[:player])
+    @player_compare = Player.find(params[:player_compare])
     @test = Test.find(params[:test])
   end
 
@@ -52,30 +53,6 @@ class PlayersController < ApplicationController
 
     csv_text = params[:csv_players].read
     csv = CSV.parse(csv_text, :headers => true, :force_quotes => true)
-    # csv.each do |row|
-      # @user = User.where(:email => row['email']).first
-      # if @user
-        # puts "Ya tenemos al #{@user.inspect}"
-        # params["teams"].each do |team_id|
-          # t = Team.find(team_id)
-          # @user.teams << t
-          # puts "grabo #{@user.save}"
-          # puts @user.teams.inspect
-        # end
-      # else
-        # @user = User.new
-        # @user.team_ids = params[:teams]
-        # @user.first_name = row['first name']
-        # @user.last_name = row['last name']
-        # @user.birthday = Date.civil(row['birthday'].to_i, 1,1)
-        # @user.email = row['email']
-        # @user.password = "12345678"
-        # @user.password_confirmation = "12345678"
-        # @user.type_user = Role::PLAYER
-        # @user.save
-      # end
-    # end
-    
     csv.each do |row|
       user = User.find_by(:email => row['email'])
       if user.nil?
@@ -112,6 +89,31 @@ class PlayersController < ApplicationController
       end
 
       player.save!
+
+    # csv.each do |row|
+      # @user = User.where(:email => row['email']).first
+      # if @user
+        # puts "Ya tenemos al #{@user.inspect}"
+        # params["teams"].each do |team_id|
+          # t = Team.find(team_id)
+          # @user.teams << t
+          # puts "grabo #{@user.save}"
+          # puts @user.teams.inspect
+        # end
+      # else
+        # @user = User.new
+        # @user.team_ids = params[:teams]
+        # @user.first_name = row['first name']
+        # @user.last_name = row['last name']
+        # @user.birthday = Date.civil(row['birthday'].to_i, 1,1)
+        # @user.email = row['email']
+        # @user.password = "12345678"
+        # @user.password_confirmation = "12345678"
+        # @user.type_user = Role::PLAYER
+        # @user.save
+      # end
+    # end
+    
     end
 
     redirect_to coach_path(session[:account]), notice: "Users created successfully."
