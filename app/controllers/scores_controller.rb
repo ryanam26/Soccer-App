@@ -9,7 +9,7 @@ class ScoresController < ApplicationController
     params[:player].each do |p|
       unless p[1] == ""
         @test.time? ? value = Time.parse(p[1]).to_f : value =  p[1].to_f
-        Score.create(:user_id => p[0].to_i, :test_id => params[:test_id].to_i, :value => value)
+        Score.create(:player_id => p[0].to_i, :test_id => params[:test_id].to_i, :value => value)
       end
     end
     redirect_to coach_path(session[:account]), notice: "Scores successfully saved"
@@ -23,8 +23,8 @@ class ScoresController < ApplicationController
   def update
     score = Score.find(params[:id])
     @test = Test.find(score.test_id)
-    @user = User.find(score.user_id)
-    @scores = @user.scores.where(:test_id => score.test_id)
+    @player = player.find(score.player_id)
+    @scores = @player.scores.where(:test_id => score.test_id)
 
     @test.time? ? value = Time.parse(params[:score][:value]).to_f : value =  params[:score][:value].to_f
     score.update_attribute(:value, value)
@@ -33,8 +33,8 @@ class ScoresController < ApplicationController
 
   def destroy
     score = Score.find(params[:id])
-    @user = User.find(score.user_id)
-    @scores = @user.scores.where(:test_id => score.test_id)
+    @player = Player.find(score.player_id)
+    @scores = @player.scores.where(:test_id => score.test_id)
     @test = Test.find(score.test_id)
     score.destroy
 
@@ -42,7 +42,7 @@ class ScoresController < ApplicationController
   end
 
   def manage
-    @user = User.find(params[:player])
+    @player = Player.find(params[:player])
     @scores = @user.scores.where(:test_id => params[:tests])
     @test = Test.find(params[:tests])
   end

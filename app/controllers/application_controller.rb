@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     elsif current_user.admin?
       edit_user_registration_path(current_user)
     else
-      players_path(:player => current_user.id)
+      users_path(:user => current_user.id)
     end
   end
 end
