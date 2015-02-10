@@ -7,12 +7,12 @@ hr
     ul.list-group
       - @account.teams.each do |team|
         li.list-group-item 
-          span.badge = "Scores = #{team.users.joins(:scores).count}"
+          span.badge = "Scores = #{team.players.joins(:scores).count}"
           = team.name
 
 .col-md-6
   .panel.panel-default
-    .panel-heading Manager Users
+    .panel-heading Manage Users
     ul.list-group
       - @account.users.each do |user|
         li.list-group-item 
