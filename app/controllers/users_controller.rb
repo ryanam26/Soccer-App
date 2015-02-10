@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 before_action :set_user, only: [:show, :update, :edit]
-# before_action :charge_teams
+before_action :charge_teams
 
 	def index
     if current_user.coach?
@@ -36,10 +36,6 @@ before_action :set_user, only: [:show, :update, :edit]
 
 	def create
 		@user = User.new(user_params)
-    
-    if params[:user][:type_user].to_i == Role::STANDARD.to_i
-      @user.team_ids = params[:teams]
-    end
 
     if @user.save
       #NotificationMailer.notification_to_user(@user, params[:user][:password]).deliver
