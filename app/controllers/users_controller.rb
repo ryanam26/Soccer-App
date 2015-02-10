@@ -72,7 +72,7 @@ before_action :charge_teams
     @account = Account.find(params[:id])
     session[:account] = @account
     @categories = Category.all
-    @players = User.joins(:teams).where("teams.account_id = ?", session[:account]).order(:first_name)
+    @players = Player.joins(:teams).where("teams.account_id = ?", session[:account]).order(:first_name)
   end
 
   def charge_teams
