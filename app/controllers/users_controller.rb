@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
 before_action :set_user, only: [:show, :update, :edit]
-before_action :charge_teams
+# before_action :charge_teams
 
 	def index
     if current_user.coach?
-      @users = User.joins(:teams).where("teams.account_id = ?", session[:account])
+      @users = User.joins(:accounts).where("account_id = ?", session[:account].id)
 		else
       @users = User.all
     end
@@ -15,7 +15,7 @@ before_action :charge_teams
 	end
 
 	def show
-	  @user = User.find(params[:id])
+    @user = User.find(params[:id])
 	end
 
 	def edit
@@ -26,10 +26,6 @@ before_action :charge_teams
 		  params[:user].delete(:password)
 		  params[:user].delete(:password_confirmation)
 		end
-
-    if params[:user][:type_user].to_i == Role::STANDARD.to_i
-      @user.team_ids = params[:teams]
-    end
 
     if @user.update(user_params)
       redirect_to users_url, notice: "User updated successfully."
@@ -55,7 +51,7 @@ before_action :charge_teams
 
   def destroy
     @user = User.find_by(id: params[:id])
-    @user.scores.destroy_all
+    @user.players.destroy_all
     @user.destroy
     
     redirect_to users_url, notice: "User deleted."
