@@ -8,9 +8,9 @@ class User < ActiveRecord::Base
                         # :teams, if: :is_player?
 
   has_and_belongs_to_many :accounts
-  has_and_belongs_to_many :teams
-  has_many :scores
-  has_many :tests, :through => :scores
+  # has_and_belongs_to_many :teams
+  # has_many :scores
+  # has_many :tests, :through => :scores
   has_many :players
 
   extend EnumerateIt
@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
   scope :coach, lambda{where(:type_user => Role::COACH)}
   scope :standard, lambda{where(:type_user => Role::STANDARD)}
-  # scope :scores_time, lambda{where("users.id not in (select user_id from accounts_users)")}
+  scope :scores_time, lambda{where("users.id not in (select user_id from accounts_users)")}
  
   def full_name
     "#{first_name} #{last_name}".titleize
