@@ -2,7 +2,7 @@ class AccountsController < ApplicationController
 before_action :set_account, only: [:report, :show, :update, :edit]
 
   def index
-    @accounts = Account.all
+    @accounts = Account.active
   end
 
   def new
@@ -50,7 +50,7 @@ before_action :set_account, only: [:report, :show, :update, :edit]
 
   def canceled_account
     @account = Account.find_by(id: params[:account_id])
-    @account.update_attribute(:status, Status::ACTIVE)
+    @account.update_attribute(:status, Status::INACTIVE)
 
     redirect_to accounts_url, notice: "Account canceled."
   end

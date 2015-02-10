@@ -10,7 +10,7 @@ class NotificationMailer < ActionMailer::Base
 
   def notification_to_player(player)
      @player = player
-     mail(:to => "#{@player.full_name} <#{@player.email}>", :subject => "Soccer-app new player Notification")
+     mail(:to => "#{@player.full_name} <#{@player.user.email}>", :subject => "Soccer-app new player Notification")
   end
 
   def notification_to_user(user, password)
