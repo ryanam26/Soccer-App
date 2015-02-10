@@ -1,15 +1,21 @@
 - model_class = User
 div class="page-header"
-  h1=t '.title', :default => model_class.model_name.human.titleize
+  h1=t '.title', :default => "Welcome, " + @user.full_name
 
-p
-  strong= model_class.human_attribute_name(:first_name) + ':'
-  br
-  = @user.first_name
-p
-  strong= model_class.human_attribute_name(:last_name) + ':'
-  br
-  = @user.last_name
+p  
+  -if @user.standard? && @user.has_players?
+    table class= "table table-striped"
+      thead
+        tr
+          th= "Link to player page"
+          th= "Most recent score"
+      tbody  
+      - @user.players.each do |player|
+  	    tr
+          td= link_to player.full_name, player_path(player), :class => 'btn btn-default'
+          -unless player.scores.empty?
+            td= player.scores.last.test.name + ": " + player.scores.last.value.to_s
+
 p
   strong= model_class.human_attribute_name(:type_user) + ':'
   br
@@ -18,13 +24,10 @@ p
   strong= model_class.human_attribute_name(:email) + ':'
   br
   = @user.email
-p
-  strong= model_class.human_attribute_name(:last_sign_in_at) + ':'
-  br
-  = @user.last_sign_in_at
 
 = link_to t('.back', :default => t("helpers.links.back")), users_path, :class => 'btn btn-default'
 '
 = link_to t('.edit', :default => t("helpers.links.edit")), edit_user_path(@user), :class => 'btn btn-default'
 '
-= link_to t('.destroy', :default => t("helpers.links.destroy")), user_path(@user), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'
+-unless current_user.standard?
+  = link_to t('.destroy', :default => t("helpers.links.destroy")), user_path(@user), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'

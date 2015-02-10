@@ -1,7 +1,7 @@
 class PlayersController < ApplicationController
 
   def show
-    @player = Player.find(params[:player])
+    @player = Player.find(params[:id])
     @categories = Category.all
     @rank_age = @player.user_for_age.count
     @overall_rank = Player.count

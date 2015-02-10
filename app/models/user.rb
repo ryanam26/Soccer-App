@@ -17,15 +17,15 @@ class User < ActiveRecord::Base
   has_enumeration_for :type_user, :with => Role, :create_helpers => true
 
   scope :coach, lambda{where(:type_user => Role::COACH)}
-  # scope :players, lambda{where(:type_user => Role::STANDARD)}
+  scope :standard, lambda{where(:type_user => Role::STANDARD)}
   # scope :scores_time, lambda{where("users.id not in (select user_id from accounts_users)")}
  
   def full_name
     "#{first_name} #{last_name}".titleize
   end
   
-  def is_standard?
-    type_user == Role::STANDARD
+  def has_players?
+    players.count > 0
   end
 
   # def age
