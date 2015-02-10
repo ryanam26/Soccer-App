@@ -1,6 +1,6 @@
 div class="page-header"
   h1 
-    =@user.full_name
+    =@player.full_name
     small  Player Information
 
 = render partial: 'test_category_table', collection: @categories, as: :category
@@ -28,14 +28,14 @@ hr
             label.col-sm-2.control-label Select Player
             .col-sm-9
               select#tests name="user_compare" class="form-control"
-                - @user.teams.each do |team|
+                - @player.teams.each do |team|
                     optgroup label=(team.name)
-                    - team.users.each do |user|
-                      - unless user.id == @user.id
-                          option value="#{user.id}"  #{user.full_name}
+                    - team.players.each do |player|
+                      - unless player.id == @player.id
+                          option value="#{player.id}"  #{player.full_name}
 
             .form-group
-              = hidden_field_tag 'user', @user.id
+              = hidden_field_tag 'player', @player.id
           .col-md-11
             = button_to "Compare Scores", nil, :class => 'btn btn-primary pull-right'
         .clearfix

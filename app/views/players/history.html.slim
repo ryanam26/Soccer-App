@@ -1,6 +1,6 @@
 div class="page-header"
   h1 
-    =@user.full_name
+    =@player.full_name
     small  Test History
 
 
@@ -11,7 +11,7 @@ table class="table table-striped"
       th Score
       th Test Day
   tbody
-    - @user.scores.where(:test_id => params[:test_id]).each do |score|
+    - @player.scores.where(:test_id => params[:test_id]).each do |score|
       tr
         td= score.test.name
         td= score.test.numeric? ? score.value.to_f : Time.at(score.value).strftime("%H:%M:%S")
