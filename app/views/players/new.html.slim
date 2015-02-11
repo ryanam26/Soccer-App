@@ -1,6 +1,6 @@
 .page-header
   h1 Add new Player
-= form_tag("/players/new", method: 'post', id: 'add_player' , class: 'form-horizontal') do
+= form_tag("/players", method: 'post', id: 'add_player' , class: 'form-horizontal') do
 
   - unless @player.errors.empty?
       ul.form-errors
@@ -10,28 +10,26 @@
   .form-group
     = label_tag 'teams', nil, class: 'control-label'
     .controls
-      = select_tag :teams, options_from_collection_for_select(@account.teams, :id, :name, params[:teams]), class: 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select the Player's Team"
-  /.form-group
-    = label_tag :email, nil, :class => 'control-label'
-    .controls
-      = text_field_tag :email, params[:email], placeholder: "example@test.com",  :class => 'form-control'
+      = select_tag :teams, options_from_collection_for_select(@account.teams, :id, :name, params[:teams]), class: 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select the Player's Team", :required => true
   .form-group
     = label_tag :first_name, nil, :class => 'control-label'
     .controls
-      = text_field_tag :first_name, params[:first_name], placeholder: "Matt",  :class => 'form-control'
+      = text_field_tag :first_name, params[:first_name],  :class => 'form-control', :required => true
   .form-group
     = label_tag :last_name, nil, :class => 'control-label'
     .controls
-      = text_field_tag :last_name, params[:last_name], placeholder: "Obama",  :class => 'form-control'
+      = text_field_tag :last_name, params[:last_name],  :class => 'form-control', :required => true
   .form-group
     = label_tag :birthday, nil, :class => 'control-label'
     .controls
-      = date_select :birthday, params[:birthday], {start_year: 1920, discard_month:true, discard_day:true}, {:class => 'form-control'}
-  /.form-group
-    .controls
-      = hidden_field_tag :password, "12345678", type: "password"
-  /.form-group  
-    .controls
-      = hidden_field_tag :password_confirmation, "12345678", type: "password"
-
+      = date_select :birthday, params[:birthday], {start_year: 1920, discard_month:false, discard_day:false}, {:class => 'form-control'}
+  - if @users.nil?
+    .form-group
+      = hidden_field_tag :user_id, :value => current_user.id
+  - else
+    .form-group.user_teams
+	  = label_tag :users, nil, class: 'control-label'
+	  .controls
+	    = select_tag :user_id, options_from_collection_for_select(@account.users, :id, :email), class: 'form-control chosen-select', multiple: false, "data-placeholder" => "Please select the Player's Team"
+	    
   = button_to "Create Player", nil, :class => 'btn btn-primary'

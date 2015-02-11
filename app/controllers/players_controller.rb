@@ -12,16 +12,21 @@ class PlayersController < ApplicationController
   end
 
   def new
-    @user = User.find(params[:user])
-    @player = @user.players.new
-    @account = Account.find(params[:id])
+    if current_user.standard?
+      @player = current_user.players.new
+    else
+      @users = User.joins(:accounts).where("account_id = ?", session[:account].id)
+      @player = Player.new
+    end
+    @account = session[:account]
+    @teams = @account.teams
   end
   
   def create
-    @user = User.find(params[:user])
+    @user = User.find(params[:user_id])
     @player = @user.players.new(player_params)
     @player.team_ids = params[:teams]
-    @player.birthday = params[:birthday].to_date
+    @player.birthday = Date.new params[:birthday]['(1i)'].to_i, params[:birthday]['(2i)'].to_i, params[:birthday]['(3i)'].to_i
 
     if @player.save
       #NotificationMailer.notification_new_player(@user, current_user).deliver

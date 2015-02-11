@@ -8,9 +8,9 @@ class User < ActiveRecord::Base
                         # :teams, if: :is_player?
 
   has_and_belongs_to_many :accounts
-  has_and_belongs_to_many :teams
-  has_many :scores
-  has_many :tests, :through => :scores
+  # has_and_belongs_to_many :teams
+  # has_many :scores
+  # has_many :tests, :through => :scores
   has_many :players
 
   extend EnumerateIt
