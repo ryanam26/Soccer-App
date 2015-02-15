@@ -4,13 +4,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates_presence_of :first_name, :last_name, :birthday,
-                        :teams, if: :is_player?
+  # validates_presence_of :first_name, :last_name, :birthday,
+                        # :teams, if: :is_player?
 
   has_and_belongs_to_many :accounts
-  has_and_belongs_to_many :teams
-  has_many :scores
-  has_many :tests, :through => :scores
+  # has_and_belongs_to_many :teams
+  # has_many :scores
+  # has_many :tests, :through => :scores
   has_many :players
 
   extend EnumerateIt
