@@ -4,5 +4,9 @@
       h3.panel-title Select Account
     .panel-body
       .list-group
-        - current_user.accounts.each do |a|
-          = link_to a.name, coach_path(a.id), class: "list-group-item"
+      	-if current_user.admin?
+      	  -Account.active.each do |a|
+      	    =link_to a.name, coach_path(a.id), class: "list-group-item"
+      	-else
+          - current_user.accounts.active.each do |a|
+          	= link_to a.name, coach_path(a.id), class: "list-group-item"

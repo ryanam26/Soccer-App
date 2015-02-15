@@ -12,8 +12,14 @@ class PlayersController < ApplicationController
   end
   
   def index
-    @account = session[:account]
-    @players = Player.joins(:teams).where("account_id = ?", @account.id).order(:last_name)
+    if current_user.standard?
+      redirect_to root
+    elsif session[:account].nil?
+      redirect_to account_select_path
+    else
+      @account = session[:account]
+      @players = Player.joins(:teams).where("account_id = ?", @account.id).order(:last_name)
+    end
   end
 
   def new
