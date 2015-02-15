@@ -27,7 +27,7 @@ hr
           .form-group
             label.col-sm-2.control-label Select Player
             .col-sm-9
-              select#tests name="user_compare" class="form-control"
+              select#tests name="player_compare" class="form-control"
                 - @player.teams.each do |team|
                     optgroup label=(team.name)
                     - team.players.each do |player|
