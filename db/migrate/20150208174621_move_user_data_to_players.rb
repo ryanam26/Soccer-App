@@ -51,6 +51,6 @@ class MoveUserDataToPlayers < ActiveRecord::Migration
           q.user.save!
         end
       end
-    end
+    # end
   end
 end

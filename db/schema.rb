@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150209205340) do
+ActiveRecord::Schema.define(version: 20150210231050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,7 +61,6 @@ ActiveRecord::Schema.define(version: 20150209205340) do
   add_index "players_teams", ["team_id"], name: "index_players_teams_on_team_id", using: :btree
 
   create_table "scores", force: true do |t|
-    t.integer  "user_id"
     t.integer  "test_id"
     t.decimal  "value"
     t.datetime "created_at"
@@ -86,11 +85,6 @@ ActiveRecord::Schema.define(version: 20150209205340) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "account_id"
-  end
-
-  create_table "teams_users", id: false, force: true do |t|
-    t.integer "team_id"
-    t.integer "user_id"
   end
 
   create_table "tests", force: true do |t|
@@ -119,7 +113,6 @@ ActiveRecord::Schema.define(version: 20150209205340) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.date     "birthday"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

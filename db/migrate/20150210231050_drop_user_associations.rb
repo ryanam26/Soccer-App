@@ -1,8 +1,8 @@
 class DropUserAssociations < ActiveRecord::Migration
   def up
     drop_table :teams_users
-    drop_column :users, :birthday
-    drop_column :scores, :user_id
+    remove_column :users, :birthday
+    remove_column :scores, :user_id
     
   end
   
