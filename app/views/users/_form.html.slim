@@ -11,14 +11,6 @@
     = f.label :type_user, :class => 'control-label'
     .controls
       = f.select(:type_user, options_for_select(Role.to_a, selected: f.object.type_user), {prompt: 'Please select your role for the user'}, {class: 'form-control'})
-  .form-group.user_teams
-    = label_tag :teams, nil, class: 'control-label'
-    .controls
-      = select_tag :teams, options_for_select(@teams.all.collect { |t| ["#{t.name} - #{t.account.name}", t.id]}, f.object.team_ids), class: 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select the Player's Team"
-  .form-group.user_birthday style="display:none"
-    = f.label :birthday, :class => 'control-label'
-    .controls
-      = f.date_select :birthday, {:start_year => 1920, discard_month:false, discard_day:false}, {:class => 'form-control'}
   .form-group
     = f.label :email, :class => 'control-label'
     .controls
@@ -42,4 +34,4 @@
   
   = f.submit nil, :class => 'btn btn-primary'
   '
-  = link_to t('.cancel', :default => t("helpers.links.cancel")), users_path, :class => 'btn'
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), user_path(@user), :class => 'btn'

@@ -16,7 +16,14 @@ class Player < ActiveRecord::Base
     ((DateTime.now - birthday) / 365.25).to_i
   end
 
-#Todo
+  def list_teams
+    str = ""
+    teams.each do |team|
+      str += team.name + ", "
+    end
+    return str[0..str.length-3]
+  end
+  
   def high_time_score(test_id)
     sql = "select min(to_char(to_timestamp(value) AT TIME ZONE 'UTC','HH24:MI:SS')) as time from scores where player_id = #{id} and test_id = #{test_id}"
     self.connection.execute(sql).to_a[0]["time"]

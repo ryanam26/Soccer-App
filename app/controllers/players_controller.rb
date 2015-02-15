@@ -1,4 +1,5 @@
 class PlayersController < ApplicationController
+  before_action :check_user_type, only: [:edit, :index, :destroy, :new, :create, :update, :import]
 
   def show
     @player = Player.find(params[:id])
@@ -10,18 +11,36 @@ class PlayersController < ApplicationController
   def history
     @player = Player.find(params[:id])
   end
+  
+  def index
+    if current_user.standard?
+      redirect_to root
+    elsif !session[:account].nil?
+      @account = session[:account]
+      @players = Player.joins(:teams).where("account_id = ?", @account.id).order(:last_name)
+    elsif current_user.admin?
+      @players = Player.all.order(:last_name)
+    else
+      redirect_to account_select_path
+    end
+  end
 
   def new
-    @user = User.find(params[:user])
-    @player = @user.players.new
-    @account = Account.find(params[:id])
+    if current_user.standard?
+      @player = current_user.players.new
+    else
+      @users = User.joins(:accounts).where("account_id = ?", session[:account].id)
+      @player = Player.new
+    end
+    @account = session[:account]
+    @teams = @account.teams
   end
   
   def create
-    @user = User.find(params[:user])
+    @user = User.find(params[:user_id])
     @player = @user.players.new(player_params)
     @player.team_ids = params[:teams]
-    @player.birthday = params[:birthday].to_date
+    @player.birthday = Date.new params[:birthday]['(1i)'].to_i, params[:birthday]['(2i)'].to_i, params[:birthday]['(3i)'].to_i
 
     if @player.save
       #NotificationMailer.notification_new_player(@user, current_user).deliver
@@ -32,8 +51,22 @@ class PlayersController < ApplicationController
     end
   end
 
-  def player_params
-    params.permit(:teams, :birthday, :first_name, :last_name)
+  def edit
+    if session[:account].nil?
+      redirect_to account_select_path, notice: "Please select which account you're acting under first."
+    else
+      @account = session[:account]
+      @player = Player.find(params[:id])
+    end
+  end
+  
+  def update
+    @player = Player.find(params[:id])
+    if @player.update(player_params)
+      redirect_to player_path(@player), :notice => "Player updated successfully"
+    else
+      render 'edit'
+    end
   end
 
   def coach_report
@@ -119,4 +152,22 @@ class PlayersController < ApplicationController
     redirect_to coach_path(session[:account]), notice: "Users created successfully."
   end
 
+  def destroy
+    player = Player.find(params[:id]).destroy
+    flash[:notice] = "Player " + player.full_name + " deleted."
+    redirect_to players_path 
+  end
+  
+  private
+  
+  def player_params
+    params.permit(:teams, :birthday, :first_name, :last_name)
+  end
+  
+  def check_user_type
+    if current_user.standard?
+      redirect_to root_path, notice: "You do not have the permissions to do that action."
+    end
+  end
+  
 end
