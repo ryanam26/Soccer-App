@@ -49,10 +49,12 @@ class PlayersController < ApplicationController
   end
 
   def edit
+    @account = session[:account]
     @player = Player.find(params[:id])
   end
   
   def update
+    @player = Player.find(params[:id])
     if @player.update(player_params)
       redirect_to player_path(@player), :notice => "Player updated successfully"
     else

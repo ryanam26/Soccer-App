@@ -3,10 +3,10 @@ before_action :set_user, only: [:show, :update, :edit]
 before_action :charge_teams
 
 	def index
-    if current_user.coach?
-      @users = User.joins(:accounts).where("account_id = ?", session[:account].id)
-		else
-      @users = User.all
+    if current_user.standard?
+      @users = User.standard.order(:last_name)
+    else
+      @users = User.all.order(:type_user).order(:last_name)
     end
 	end
 
