@@ -13,6 +13,10 @@ div class="page-header"
     .controls
       = f.file_field :file, :class => 'form-control'
   .form-group
+    = f.label :link, :class => 'control-label'
+    .controls
+      =f.text_field :link, :class => 'form-control'
+  .form-group
     = f.label :type_unit, :class => 'control-label'
     .controls
       = f.select(:type_unit, options_for_select(Unit.to_a, selected: f.object.type_unit), {prompt: 'Please select your type unit for test'}, {class: 'form-control'})
