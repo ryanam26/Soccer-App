@@ -18,6 +18,11 @@ p
   strong= model_class.human_attribute_name(:file) + ':'
   br
   = link_to "Download Documentation", @test.file.url, :target => ':_blank' if @test.file?
+  
+p
+  strong= model_class.human_attribute_name(:link) + ':'
+  br
+  = link_to 'View Video link', @test.link, :target => ':_blank' if @test.link.nil?
 
 = link_to t('.back', :default => t("helpers.links.back")), category_tests_path(@category), :class => 'btn btn-default'
 '

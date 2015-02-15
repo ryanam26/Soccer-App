@@ -1,10 +1,10 @@
 class SessionPlansController < ApplicationController
-  before_action :set_session_plan, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_category
+  before_action :set_session_plan, only: [:edit, :update, :destroy, :show]
   # GET /session_plans
   # GET /session_plans.json
   def index
-    @session_plans = SessionPlan.all
+    @session_plans = @category.session_plans
   end
 
   # GET /session_plans/1
@@ -14,7 +14,6 @@ class SessionPlansController < ApplicationController
 
   # GET /session_plans/new
   def new
-    @session_plan = SessionPlan.new
   end
 
   # GET /session_plans/1/edit
@@ -24,11 +23,11 @@ class SessionPlansController < ApplicationController
   # POST /session_plans
   # POST /session_plans.json
   def create
-    @session_plan = SessionPlan.new(session_plan_params)
+    @session_plan = @category.session_plans.new(session_plan_params)
 
     respond_to do |format|
       if @session_plan.save
-        format.html { redirect_to @session_plan, notice: 'Session plan was successfully created.' }
+        format.html { redirect_to @category, notice: 'Session plan was successfully created.' }
         format.json { render action: 'show', status: :created, location: @session_plan }
       else
         format.html { render action: 'new' }
@@ -42,7 +41,7 @@ class SessionPlansController < ApplicationController
   def update
     respond_to do |format|
       if @session_plan.update(session_plan_params)
-        format.html { redirect_to @session_plan, notice: 'Session plan was successfully updated.' }
+        format.html { redirect_to @category, notice: 'Session plan was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -63,12 +62,16 @@ class SessionPlansController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_category
+      @category = Category.find(params[:category_id])
+    end
+    
     def set_session_plan
       @session_plan = SessionPlan.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def session_plan_params
-      params[:session_plan]
+      params.require(:session_plan).permit(:name, :file)
     end
 end

@@ -1,7 +1,5 @@
 SoccerApp::Application.routes.draw do
 
-  resources :session_plans
-
   resources :players
 
   devise_for :users, :controllers => { registrations: 'registrations' }
@@ -23,6 +21,7 @@ SoccerApp::Application.routes.draw do
 
   resources :categories do
     resources :tests
+    resources :session_plans
   end
 
   resources :test do

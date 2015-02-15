@@ -36,8 +36,10 @@ class TestsController < ApplicationController
     redirect_to category_tests_path(@category), notice: "Test deleted."
   end
 
+private
+
   def test_params
-    params.require(:test).permit(:name, :file, :type_unit, :level)
+    params.require(:test).permit(:name, :file, :type_unit, :level, :link)
   end
 
   def set_category
