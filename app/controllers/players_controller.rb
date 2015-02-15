@@ -10,6 +10,11 @@ class PlayersController < ApplicationController
   def history
     @player = Player.find(params[:id])
   end
+  
+  def index
+    @account = session[:account]
+    @players = Player.joins(:teams).where("account_id = ?", @account.id).order(:last_name)
+  end
 
   def new
     if current_user.standard?
@@ -124,4 +129,9 @@ class PlayersController < ApplicationController
     redirect_to coach_path(session[:account]), notice: "Users created successfully."
   end
 
+  def destroy
+    player = Player.find(params[:id]).destroy
+    flash[:notice] = "Player " + player.full_name + " deleted."
+    redirect_to players_path 
+  end
 end

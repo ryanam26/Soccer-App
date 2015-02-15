@@ -1,0 +1,17 @@
+.page-header
+  h1= "Players for " + @account.name
+table class= 'table table-striped'
+  thead
+    tr
+      th Name
+      th Teams
+      th colspan=3 Controls
+  
+  -@players.each do |player|
+    tr
+      td= player.full_name
+      td= player.list_teams
+      td= link_to 'View Scores', player_path(player), class: 'btn btn-small'
+      td= link_to 'Edit', edit_player_path(player), class: 'btn btn-small'
+      td= link_to 'Delete', player_path(player), method: :delete, class: 'btn btn-warning', confirm: 'Are you sure?'
+  
