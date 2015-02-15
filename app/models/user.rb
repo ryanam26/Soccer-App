@@ -27,6 +27,10 @@ class User < ActiveRecord::Base
   def has_players?
     players.count > 0
   end
+  
+  def is_player?
+    type_user == 2
+  end
 
   # def age
     # ((DateTime.now - birthday) / 365.25).to_i
