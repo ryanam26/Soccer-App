@@ -1,15 +1,29 @@
-= form_for @player do |f|
-  - if @player.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@player.errors.count, "error")} prohibited this player from being saved:"
-      ul
-        - @player.errors.full_messages.each do |message|
-          li = message
-
-  .field
-    = f.label :first_name
-    = f.text_field :first_name
-  .field
-    = f.label :last_name
-    = f.text_field :last_name
-  .actions = f.submit 'Save'
+- content_for :head do
+  = javascript_include_tag "manage_fields.js"
+= form_for @player, :html => { :class => "form-horizontal" } do |f|
+  
+  - unless @player.errors.empty?
+    ul.form-errors
+      - @player.errors.full_messages.each do |message|
+          li= message
+  
+  .form-group
+    = f.label :first_name, :class => 'control-label'
+    .controls
+      = f.text_field :first_name, :class => 'form-control'
+  .form-group
+    = f.label :last_name, :class => 'control-label'
+    .controls
+      = f.text_field :last_name, :class => 'form-control'
+  .form-group
+    = label_tag :birthday, nil, :class => 'control-label'
+    .controls
+      = date_select :birthday, params[:birthday], {start_year: 1920, discard_month:false, discard_day:false}, {:class => 'form-control'}
+  .form-group
+    = label_tag 'teams', nil, class: 'control-label'
+    .controls
+      = select_tag :teams, options_from_collection_for_select(@account.teams, :id, :name, params[:teams]), class: 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select the Player's Team", :required => true
+  
+  = f.submit nil, :class => 'btn btn-primary'
+  '
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), users_path, :class => 'btn'

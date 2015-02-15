@@ -42,8 +42,16 @@ class PlayersController < ApplicationController
     end
   end
 
-  def player_params
-    params.permit(:teams, :birthday, :first_name, :last_name)
+  def edit
+    @player = Player.find(params[:id])
+  end
+  
+  def update
+    if @player.update(player_params)
+      redirect_to player_path(@player), :notice => "Player updated successfully"
+    else
+      render 'edit'
+    end
   end
 
   def coach_report
@@ -134,4 +142,11 @@ class PlayersController < ApplicationController
     flash[:notice] = "Player " + player.full_name + " deleted."
     redirect_to players_path 
   end
+  
+  private
+  
+  def player_params
+    params.permit(:teams, :birthday, :first_name, :last_name)
+  end
+  
 end
