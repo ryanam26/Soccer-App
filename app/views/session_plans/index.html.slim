@@ -1,0 +1,19 @@
+h1 Listing session_plans
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @session_plans.each do |session_plan|
+      tr
+        td = link_to 'Show', session_plan
+        td = link_to 'Edit', edit_session_plan_path(session_plan)
+        td = link_to 'Destroy', session_plan, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Session plan', new_session_plan_path

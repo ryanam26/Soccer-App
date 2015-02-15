@@ -1,0 +1,2 @@
+module SessionPlansHelper
+end

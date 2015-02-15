@@ -1,0 +1,9 @@
+= form_for @session_plan do |f|
+  - if @session_plan.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@session_plan.errors.count, "error")} prohibited this session_plan from being saved:"
+      ul
+        - @session_plan.errors.full_messages.each do |message|
+          li = message
+
+  .actions = f.submit 'Save'
