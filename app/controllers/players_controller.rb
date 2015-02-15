@@ -37,7 +37,18 @@ class PlayersController < ApplicationController
   end
   
   def create
-    @user = User.find(params[:user_id])
+    @user = User.find_by_email(params[:user_email]) 
+    if @user.nil?
+      @user = User.new
+      @user.email = params[:user_email]
+      @user.password = "12345678"
+      @user.password_confirmation = "12345678"
+      @user.first_name = params[:first_name]
+      @user.last_name = params[:last_name]
+      @user.accounts << session[:account]
+      @user.type_user = Role::STANDARD
+      @user.save!
+    end
     @player = @user.players.new(player_params)
     @player.team_ids = params[:teams]
     @player.birthday = Date.new params[:birthday]['(1i)'].to_i, params[:birthday]['(2i)'].to_i, params[:birthday]['(3i)'].to_i
