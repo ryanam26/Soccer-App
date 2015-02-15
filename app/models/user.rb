@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   validates_presence_of :first_name, :last_name, :birthday,
-                        # :teams, if: :is_player?
+                        :teams, if: :is_player?
 
   has_and_belongs_to_many :accounts
   has_and_belongs_to_many :teams
