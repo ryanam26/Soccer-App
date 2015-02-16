@@ -25,8 +25,8 @@ SoccerApp::Application.routes.draw do
      resources :session_plans
   end
 
-  resources :players
-
+  resources :players 
+  
   resources :test do
     resources :scores
   end
@@ -43,6 +43,7 @@ SoccerApp::Application.routes.draw do
   post '/player/coach_report/' => 'players#coach_report', as: :coach_report
   post '/players/compare_players/' => 'players#compare_players', as: :compare_players
   post '/players/import/' => 'players#import', as: :players_import
+  post '/players/search/' => 'players#search', as: :players_search
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

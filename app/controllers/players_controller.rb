@@ -190,6 +190,14 @@ class PlayersController < ApplicationController
     redirect_to players_path 
   end
   
+  def search
+    @player = Player.find(params[:player])
+    @categories = Category.all
+    @rank_age = @player.user_for_age.count
+    @overall_rank = Player.count
+    render 'show'
+  end
+  
   private
   
   def player_params
