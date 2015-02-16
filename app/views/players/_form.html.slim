@@ -19,15 +19,15 @@
   .form-group
     = label_tag :birthday, nil, :class => 'control-label'
     .controls
-      = date_select :birthday, params[:birthday], {start_year: 1920, discard_month:false, discard_day:false}, {:class => 'form-control'}
+      = date_select :birthday, params[:birthday], {start_year: 1920, discard_month:false, discard_day:false, default:@player.birthday}, {:class => 'form-control'}
   .form-group
-    = f.label 'teams', nil, class: 'control-label'
+    = label_tag 'teams', nil, class: 'control-label'
     .controls
-      = f.select :teams, options_from_collection_for_select(@teams, :id, :name, params[:teams]), class: 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select the Player's Team", :required => true
+      = select_tag :teams, options_from_collection_for_select(@teams, :id, :name, params[:teams]), class: 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select the Player's Team", :required => true
   .form-group
-    = f.label :user_email, class: 'control-label'
+    = f.label :user_id, class: 'control-label'
     .control
-      = f.text_field :user_email, :class => 'form-control'
+      = f.select :user_id, options_from_collection_for_select(@users, :id, :email, params[:users]), class: 'form-control chosen-select', multiple: false, "data-placeholder" => "Please select the user for this Player if you wish to change it"
   
   = f.submit nil, :class => 'btn btn-primary'
   '

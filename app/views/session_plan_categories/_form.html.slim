@@ -1,9 +1,8 @@
-= form_for @session_plan_category do |f|
-  - if @session_plan_category.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@session_plan_category.errors.count, "error")} prohibited this session_plan_category from being saved:"
-      ul
-        - @session_plan_category.errors.full_messages.each do |message|
-          li = message
-
-  .actions = f.submit 'Save'
+= form_for @session_plan_category, :html => { :class => "form-horizontal" } do |f|
+  .form-group
+    = f.label :name, :class => 'control-label'
+    .controls
+      = f.text_field :name, :class => 'form-control'
+  = f.submit nil, :class => 'btn btn-primary'
+  '
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), session_plan_categories_path, :class => 'btn'

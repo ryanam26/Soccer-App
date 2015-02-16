@@ -34,14 +34,16 @@ class PlayersController < ApplicationController
     if current_user.coach?
       @account = session[:account]
       @teams = @account.teams
+      @users = @account.users
     else
       @account = Account.all
       @teams = Team.all
+      @users = User.all
     end
   end
   
   def create
-    @user = User.find_by_email(params[:user_email]) 
+    @user = User.find(params[:user_id]) 
     if @user.nil?
       @user = User.new
       @user.email = params[:user_email]
@@ -78,10 +80,12 @@ class PlayersController < ApplicationController
       else
         @teams = session[:account].teams
         @player = Player.find(params[:id])
+        @users = User.standard
       end
     elsif current_user.admin?
       @teams = Team.all
       @player = Player.find(params[:id])
+      @users = User.standard
     else
       redirect_to root_path, notice: "You do not have the required permissions to edit this player.  Please contact your coach or an administrator."
     end
@@ -189,7 +193,7 @@ class PlayersController < ApplicationController
   private
   
   def player_params
-    params.permit(:teams, :birthday, :first_name, :last_name)
+    params.permit(:teams, :birthday, :first_name, :last_name, :user_id)
   end
   
   def check_user_type

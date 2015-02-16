@@ -25,8 +25,8 @@ class SessionPlanCategoriesController < ApplicationController
 
   def create
     @session_plan_category = SessionPlanCategory.new(session_plan_category_params)
-    if @category.save
-      redirect_to categories_url, notice: "Category created successfully."
+    if @session_plan_category.save
+      redirect_to session_plan_categories_url, notice: "Category created successfully."
     else
       render 'new'
     end
@@ -39,7 +39,7 @@ class SessionPlanCategoriesController < ApplicationController
     redirect_to session_plan_categories_url, notice: "category deleted."
   end
 
-  def category_params
+  def session_plan_category_params
     params.require(:session_plan_category).permit(:name)
   end
 
