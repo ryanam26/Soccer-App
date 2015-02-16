@@ -29,11 +29,15 @@ class PlayersController < ApplicationController
     if current_user.standard?
       @player = current_user.players.new
     else
-      @users = User.joins(:accounts).where("account_id = ?", session[:account].id)
       @player = Player.new
     end
-    @account = session[:account]
-    @teams = @account.teams
+    if current_user.coach?
+      @account = session[:account]
+      @teams = @account.teams
+    else
+      @account = Account.all
+      @teams = Team.all
+    end
   end
   
   def create
@@ -56,19 +60,32 @@ class PlayersController < ApplicationController
     if @player.save
       #NotificationMailer.notification_new_player(@user, current_user).deliver
       #NotificationMailer.notification_to_player(@user).deliver
-      redirect_to coach_path(session[:account]), notice: "Player created successfully."
+      if session[:account].nil?
+        redirect_to players_path, notice: "Players created successfully."
+      else
+        redirect_to coach_path(session[:account]), notice: "Player created successfully."  
+      end
+      
     else
       render 'new'
     end
   end
 
   def edit
-    if session[:account].nil?
-      redirect_to account_select_path, notice: "Please select which account you're acting under first."
-    else
-      @account = session[:account]
+    if current_user.coach?
+      if session[:account].nil?
+        redirect_to account_select_path, notice: "Please select which account you're acting under first."
+      else
+        @teams = session[:account].teams
+        @player = Player.find(params[:id])
+      end
+    elsif current_user.admin?
+      @teams = Team.all
       @player = Player.find(params[:id])
+    else
+      redirect_to root_path, notice: "You do not have the required permissions to edit this player.  Please contact your coach or an administrator."
     end
+      
   end
   
   def update

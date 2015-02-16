@@ -5,15 +5,15 @@
   = form_tag(test_scores_path(@test), method: 'post', id: 'add_scores', class: 'form-horizontal') do
     - unless @team.players.empty?
         h3= "Team #{@team.name}"
-        - @team.players.order(:first_name).each do |user|
+        - @team.players.order(:first_name).each do |player|
             .form-group 
-              label.col-sm-2.control-label =user.full_name
+              label.col-sm-2.control-label =player.full_name
               .input-group.col-md-2
                 - if @test.type_unit == Unit::NUMERIC
                     = number_field_tag "player[#{player.id}]", nil, step: "0.1", min:"0", class: "form-control"
                     span.input-group-addon #
                 - else
-                    = time_field_tag "player[#{user.id}]", nil, step: "1", class: "form-control"
+                    = time_field_tag "player[#{player.id}]", nil, step: "1", class: "form-control"
                     span.input-group-addon hh:mm:ss
         = button_to "Send Scores", nil, :class => 'btn btn-primary'
     hr
