@@ -8,8 +8,6 @@ table class="table table-striped"
         th= model_class.human_attribute_name(:id)
       th= model_class.human_attribute_name(:name)
       th= model_class.human_attribute_name(:tests)
-      - unless current_user.standard?
-        th= model_class.human_attribute_name(:session_plans)
       - if current_user.admin?
         th=t '.actions', :default => t("helpers.actions")
   tbody
@@ -18,9 +16,7 @@ table class="table table-striped"
         - if current_user.admin?
           td= link_to category.id, category_path(category)
         td= category.name
-        td= link_to 'View Test documentation', category_tests_path(category)
-        - unless current_user.standard?
-          td= link_to 'View Session Plans', category_session_plans_path(category)
+        td= link_to 'View Tests', category_tests_path(category)
         td
           - if current_user.admin?
               = link_to t('.edit', :default => t("helpers.links.edit")), edit_category_path(category), :class => 'btn btn-default btn-xs'
