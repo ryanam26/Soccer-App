@@ -1,10 +1,10 @@
 class SessionPlansController < ApplicationController
-  before_action :set_category
+  before_action :set_session_plan_category
   before_action :set_session_plan, only: [:edit, :update, :destroy, :show]
   # GET /session_plans
   # GET /session_plans.json
   def index
-    @session_plans = @category.session_plans
+    @session_plans = @session_plan_category.session_plans
   end
 
   # GET /session_plans/1
@@ -23,11 +23,11 @@ class SessionPlansController < ApplicationController
   # POST /session_plans
   # POST /session_plans.json
   def create
-    @session_plan = @category.session_plans.new(session_plan_params)
+    @session_plan = @session_plan_category.session_plans.new(session_plan_params)
 
     respond_to do |format|
       if @session_plan.save
-        format.html { redirect_to @category, notice: 'Session plan was successfully created.' }
+        format.html { redirect_to @session_plan_category, notice: 'Session plan was successfully created.' }
         format.json { render action: 'show', status: :created, location: @session_plan }
       else
         format.html { render action: 'new' }
@@ -41,7 +41,7 @@ class SessionPlansController < ApplicationController
   def update
     respond_to do |format|
       if @session_plan.update(session_plan_params)
-        format.html { redirect_to @category, notice: 'Session plan was successfully updated.' }
+        format.html { redirect_to @session_plan_category, notice: 'Session plan was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -63,7 +63,7 @@ class SessionPlansController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_category
-      @category = Category.find(params[:category_id])
+      @session_plan_category = SessionPlanCategory.find(params[:session_plan_category_id])
     end
     
     def set_session_plan

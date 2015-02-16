@@ -3,7 +3,7 @@ div class="page-header"
   h1=t '.title', :default => model_class.model_name.human.titleize
 
 p
-  strong= model_class.human_attribute_name(:category_id) + ':'
+  strong= model_class.human_attribute_name(:session_plan_category_id) + ':'
   br
   = @category.name
 p
@@ -13,10 +13,10 @@ p
 p
   strong= model_class.human_attribute_name(:file) + ':'
   br
-  = link_to "Download Documentation", @session_plan.file.url, :target => ':_blank' if @test.file?
+  = link_to "Download Documentation", @session_plan.file.url, :target => ':_blank' if @session_plan.file?
 
-= link_to t('.back', :default => t("helpers.links.back")), category_session_plans_path(@category), :class => 'btn btn-default'
+= link_to t('.back', :default => t("helpers.links.back")), session_plan_category_session_plans_path(@session_plan_category), :class => 'btn btn-default'
 '
-= link_to t('.edit', :default => t("helpers.links.edit")), edit_category_session_plan_path(@category, @session_plan), :class => 'btn btn-default'
+= link_to t('.edit', :default => t("helpers.links.edit")), edit_session_plan_category_session_plan_path(@session_plan_category, @session_plan), :class => 'btn btn-default'
 '
-= link_to t('.destroy', :default => t("helpers.links.destroy")), category_session_plan_path(@category,@session_plan), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'
+= link_to t('.destroy', :default => t("helpers.links.destroy")), session_plan_category_session_plan_path(@session_plan_category,@session_plan), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'

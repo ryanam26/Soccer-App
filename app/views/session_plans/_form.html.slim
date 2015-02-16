@@ -1,4 +1,4 @@
-= form_for ([@category, @category.session_plans.build]), :html => { :class => "form-horizontal" } do |f|
+= form_for ([@session_plan_category, @session_plan_category.session_plans.build]), :html => { :class => "form-horizontal" } do |f|
 
   .form-group
     = f.label :name, :class => 'control-label'
@@ -11,4 +11,4 @@
 
   = f.submit nil, :class => 'btn btn-primary'
   '
-  = link_to t('.cancel', :default => t("helpers.links.cancel")), category_session_plans_path(@category), :class => 'btn'
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), session_plan_category_session_plans_path(@session_plan_category), :class => 'btn'
