@@ -1,0 +1,19 @@
+h1 Listing session_plan_categories
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @session_plan_categories.each do |session_plan_category|
+      tr
+        td = link_to 'Show', session_plan_category
+        td = link_to 'Edit', edit_session_plan_category_path(session_plan_category)
+        td = link_to 'Destroy', session_plan_category, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Session plan category', new_session_plan_category_path
