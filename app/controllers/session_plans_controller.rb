@@ -62,7 +62,7 @@ class SessionPlansController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_category
+    def set_session_plan_category
       @session_plan_category = SessionPlanCategory.find(params[:session_plan_category_id])
     end
     

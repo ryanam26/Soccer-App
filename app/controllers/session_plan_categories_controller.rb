@@ -1,4 +1,4 @@
-class CategoriesController < ApplicationController
+class SessionPlanCategoriesController < ApplicationController
   before_action :set_session_plan_category, only: [:show, :update, :edit]
 
   def index
@@ -17,7 +17,7 @@ class CategoriesController < ApplicationController
 
   def update
     if @session_plan_category.update(session_plan_category_params)
-      redirect_to session_plan_categories_url, notice: "category updated successfully."
+      redirect_to session_plan_categories_url, notice: "Category updated successfully."
     else
       render 'edit'
     end
@@ -26,7 +26,7 @@ class CategoriesController < ApplicationController
   def create
     @session_plan_category = SessionPlanCategory.new(session_plan_category_params)
     if @category.save
-      redirect_to categories_url, notice: "category created successfully."
+      redirect_to categories_url, notice: "Category created successfully."
     else
       render 'new'
     end
