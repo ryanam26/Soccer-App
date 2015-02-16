@@ -23,11 +23,11 @@
   .form-group
     = label_tag 'teams', nil, class: 'control-label'
     .controls
-      = select_tag :teams, options_from_collection_for_select(@teams, :id, :name, params[:teams]), class: 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select the Player's Team", :required => true
+      = select_tag :teams, options_from_collection_for_select(@teams, :id, :name, params[:teams]), class: 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select the Player's Team"
   .form-group
     = f.label :user_id, class: 'control-label'
     .control
-      = f.select :user_id, options_from_collection_for_select(@users, :id, :email, params[:users]), class: 'form-control chosen-select', multiple: false, "data-placeholder" => "Please select the user for this Player if you wish to change it"
+      = f.select :user_id, options_from_collection_for_select(@users, :id, :email, @player.user_id.to_s), class: 'form-control chosen-select', selected: @player.user_id.to_s
   
   = f.submit nil, :class => 'btn btn-primary'
   '
