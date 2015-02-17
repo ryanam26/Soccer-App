@@ -137,11 +137,12 @@ class PlayersController < ApplicationController
       player = user.players.new
       player.first_name = row['first name'].capitalize
       player.last_name = row['last name'].capitalize
-            
+           
       if user.players.count > 0
         user.players.each do |existing_player|
           if existing_player.full_name.downcase == player.full_name.downcase
             player = existing_player
+            break
           end
         end
       end
@@ -149,9 +150,12 @@ class PlayersController < ApplicationController
       #CSV will overwrite birthdays but not names because I'm currently using names as the searchable field
       player.birthday = row['birthday'].to_date
       
-      #Assign teams.  Will not overwrite old teams.
+      #Assign teams.  Will not overwrite old teams and will not duplicate teams.
       params[:teams].each do |team_id|
-        player.teams << Team.find(team_id)
+        team = Team.find(team_id)
+        unless player.teams.include? team
+          player.teams << team
+        end
       end
 
       player.save!
@@ -182,7 +186,7 @@ class PlayersController < ApplicationController
     
     end
 
-    redirect_to coach_path(session[:account]), notice: "Users created successfully."
+    redirect_to coach_path(session[:account]), notice: "Players created successfully."
   end
 
   def destroy
