@@ -17,7 +17,7 @@ class PlayersController < ApplicationController
       redirect_to root
     elsif !session[:account].nil?
       @account = session[:account]
-      @players = Player.joins(:teams).where("account_id = ?", @account.id).order(:last_name)
+      @players = (Player.joins(:teams).where("account_id = ?", @account.id).order(:last_name)).uniq
     elsif current_user.admin?
       @players = Player.all.order(:last_name)
     else
@@ -120,28 +120,28 @@ class PlayersController < ApplicationController
     csv_text = params[:csv_players].read
     csv = CSV.parse(csv_text, :headers => true, :force_quotes => true)
     csv.each do |row|
-      user = User.find_by(:email => row['email'])
+      user = User.find_by(:email => row['email'].downcase)
       if user.nil?
+        puts row['email'].downcase!
         user = User.new
-        user.first_name = row['first name']
-        user.last_name = row['last name']
+        user.first_name = row['first name'].capitalize
+        user.last_name = row['last name'].capitalize
         user.email = row['email']
         user.password = '12345678'
         user.password_confirmation = '12345678'
         user.type_user = Role::STANDARD
-        user.team_ids = params[:teams]
         user.save!
       end
-
+      
+      
       player = user.players.new
-      player.first_name = row['first name']
-      player.last_name = row['last name']
+      player.first_name = row['first name'].capitalize
+      player.last_name = row['last name'].capitalize
             
       if user.players.count > 0
         user.players.each do |existing_player|
-          if existing_player.full_name == player.full_name
+          if existing_player.full_name.downcase == player.full_name.downcase
             player = existing_player
-            break
           end
         end
       end
