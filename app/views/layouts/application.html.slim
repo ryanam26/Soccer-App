@@ -38,10 +38,12 @@ html lang="en"
             = image_tag("logo_ss_colors_white.png", width: "60px")
           .navbar-collapse.collapse.navbar-responsive-collapse
             ul.nav.navbar-nav
-              - if user_signed_in? and current_user.type_user == Role::COACH
-                li= link_to "Change Account", account_select_path
-              li= link_to "Test Categories", "/categories"
-              li= link_to "Session Plan Categories", "/session_plan_categories"
+              - if user_signed_in? 
+                - if current_user.type_user == Role::COACH
+                  li= link_to "Change Account", account_select_path
+                li= link_to "Test Categories", "/categories"
+                - unless current_user.standard?
+                  li= link_to "Session Plan Categories", "/session_plan_categories"
             ul.nav.navbar-nav.navbar-right
               
               - if user_signed_in?

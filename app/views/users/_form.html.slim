@@ -6,11 +6,12 @@
     ul.form-errors
       - @user.errors.full_messages.each do |message|
           li= message
-  
-  .form-group style="#{@show}"
-    = f.label :type_user, :class => 'control-label'
-    .controls
-      = f.select(:type_user, options_for_select(Role.to_a, selected: f.object.type_user), {prompt: 'Please select your role for the user'}, {class: 'form-control'})
+          
+  - unless current_user.admin?
+    .form-group style="#{@show}"
+      = f.label :type_user, :class => 'control-label'
+      .controls
+        = f.select(:type_user, options_for_select(Role.to_a, selected: f.object.type_user), {prompt: 'Please select your role for the user'}, {class: 'form-control'})
   .form-group
     = f.label :email, :class => 'control-label'
     .controls
