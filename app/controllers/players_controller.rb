@@ -95,6 +95,14 @@ class PlayersController < ApplicationController
   def update
     @player = Player.find(params[:id])
     @player.user = User.find(params[:player][:user_id])
+    if params[:teams]
+      params[:teams].each do |team_id|
+        team = Team.find(team_id)
+        unless @player.teams.include? team
+          @player.teams << team
+        end
+      end
+    end
     if @player.update(player_params)
       redirect_to player_path(@player), :notice => "Player updated successfully"
     else
