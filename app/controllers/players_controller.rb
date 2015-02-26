@@ -110,6 +110,17 @@ class PlayersController < ApplicationController
   def coach_report
     @team = Team.find(params[:teams])
     @test = Test.find(params[:tests])
+    ps = Hash.new
+    @team.players.each do |player|
+      if player.has_scores?(@test.id)
+        if @test.time?
+          ps[player.full_name] = player.high_time_score(@test.id, params[:date])
+        else
+          ps[player.full_name] = player.high_numeric_score(@test.id, params[:date])
+        end
+      end
+    end
+    @players_scores = Hash[ps.sort_by{|k,v| v}.reverse]
     @position = @test.type_unit == Unit::TIME ? @team.team_system_rank_time(@test.id) : @team.team_system_rank_numeric(@test.id).to_i.ordinalize
     @average = @test.type_unit == Unit::TIME ? @team.team_average_time(@test.id) : @team.team_average_numeric(@test.id)
   end

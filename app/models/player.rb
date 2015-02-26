@@ -24,13 +24,31 @@ class Player < ActiveRecord::Base
     return str[0..str.length-3]
   end
   
-  def high_time_score(test_id)
-    sql = "select min(to_char(to_timestamp(value) AT TIME ZONE 'UTC','HH24:MI:SS')) as time from scores where player_id = #{id} and test_id = #{test_id}"
-    self.connection.execute(sql).to_a[0]["time"]
+  def high_time_score(test_id, date)
+    # sql = "select min(to_char(to_timestamp(value) AT TIME ZONE 'UTC','HH24:MI:SS')) as time from scores where player_id = #{id} and test_id = #{test_id}"
+    # self.connection.execute(sql).to_a[0]["time"]
+    if date.eql? 'Today'
+      date = 24.hours.ago
+    else
+      date = 100.years.ago
+    end
+
+    get_score_test.where('updated_at > ? ', date).minimum("value").to_s.to_time
   end
 
-  def high_numeric_score(test_id)
-    get_score_test(test_id).maximum("value").to_f
+  def high_numeric_score(test_id, date)
+    if date.eql? 'Today'
+      time = 24.hours.ago
+    else
+      time = 100.years.ago
+    end
+
+    scores = get_score_test(test_id).where('updated_at > ?', time)
+    if scores.empty?
+      nil
+    else
+      scores.maximum("value").to_f
+    end
   end
   
 #Todo

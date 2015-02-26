@@ -8,17 +8,19 @@
 table class="table table-striped datetable"
   thead
     tr
+      th Position
       th Player Name
       th Score
   tbody
-    - @team.players.each do |player|
-      - if player.has_scores?(@test.id)
-          tr
-            td= player.full_name
-            - if @test.time?
-                td= Time.parse(player.high_time_score(@test.id)).strftime("%H:%M:%S") 
-            - else
-                td= player.high_numeric_score(@test.id).to_f.round(2)
+    - @players_scores.each_with_index do |(player, score), index|
+      -unless score.nil?
+        tr
+          td= index + 1
+          td= player
+          - if @test.time?
+              td= Time.parse(score).strftime("%H:%M:%S") 
+          - else
+              td= score.round(2)
 .col-sm-12
   .col-sm-6
     .well

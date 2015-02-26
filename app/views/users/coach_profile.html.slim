@@ -72,6 +72,11 @@
             label.col-sm-3.control-label Select Team
             .col-sm-9
               = select_tag "teams", options_from_collection_for_select(@account.teams, :id, :name), {class: 'form-control'}
+              
+          .form-group
+            label.col-sm-3.control-label Choose Date
+            .col-sm-9
+              = select_tag "date", options_for_select(['Today', 'All Time'], params[:date]), {class: 'form-control'}
             
           .form-group
             label.col-sm-3.control-label Select Test
