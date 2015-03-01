@@ -10,7 +10,7 @@
   - if @player.has_scores?(@test.id)
       - if @test.time?
           li.list-group-item
-            span.badge style="font-size:16px"= @player.high_time_score(@test.id)
+            span.badge style="font-size:16px"= @player.high_time_score(@test.id, 'All Time')
             | High Score
           - @player.teams.each do |t| 
               li.list-group-item
@@ -24,7 +24,7 @@
             | Overall Rank
       - else
           li.list-group-item
-            span.badge style="font-size:16px"= @player.high_numeric_score(@test.id)
+            span.badge style="font-size:16px"= @player.high_numeric_score(@test.id, 'All Time')
             | High Score
           - @user.teams.each do |t| 
               li.list-group-item
@@ -45,7 +45,7 @@
   - if @player_compare.has_scores?(@test.id)
       - if @test.time?
           li.list-group-item
-            span.badge style="font-size:16px"= @player_compare.high_time_score(@test.id)
+            span.badge style="font-size:16px"= @player_compare.high_time_score(@test.id, 'All Time')
             | High Score
           - @user_compare.teams.each do |t| 
               li.list-group-item
@@ -59,7 +59,7 @@
             | Overall Rank
       - else
           li.list-group-item
-            span.badge style="font-size:16px"= @player_compare.high_numeric_score(@test.id)
+            span.badge style="font-size:16px"= @player_compare.high_numeric_score(@test.id, 'All Time')
             | High Score
           - @user_compare.teams.each do |t| 
               li.list-group-item
