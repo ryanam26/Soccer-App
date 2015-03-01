@@ -1,4 +1,5 @@
 class SessionPlanCategoriesController < ApplicationController
+  before_action :validate_visibility
   before_action :set_session_plan_category, only: [:show, :update, :edit]
 
   def index
@@ -39,11 +40,20 @@ class SessionPlanCategoriesController < ApplicationController
     redirect_to session_plan_categories_url, notice: "category deleted."
   end
 
-  def session_plan_category_params
-    params.require(:session_plan_category).permit(:name)
-  end
+  private
 
-  def set_session_plan_category
-    @session_plan_category = SessionPlanCategory.find_by(id: params[:id])
-  end
+    def validate_visibility
+      unless current_user.session_plans_visible
+        redirect_to root_path, notice: 'You do not have the required permissions to view this page.'
+      end
+    end
+    
+    def session_plan_category_params
+      params.require(:session_plan_category).permit(:name)
+    end
+  
+    def set_session_plan_category
+      @session_plan_category = SessionPlanCategory.find_by(id: params[:id])
+    end
+  
 end

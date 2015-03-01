@@ -42,7 +42,7 @@ html lang="en"
                 - if current_user.type_user == Role::COACH
                   li= link_to "Change Account", account_select_path
                 li= link_to "Test Categories", "/categories"
-                - unless current_user.standard?
+                - if current_user.session_plans_visible?
                   li= link_to "Session Plan Categories", "/session_plan_categories"
             ul.nav.navbar-nav.navbar-right
               
