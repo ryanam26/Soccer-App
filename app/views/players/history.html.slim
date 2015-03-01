@@ -11,8 +11,8 @@ table class="table table-striped"
       th Score
       th Test Day
   tbody
-    - @player.scores.where(:test_id => params[:test_id]).each do |score|
+    - @scores.each do |score|
       tr
         td= score.test.name
         td= score.test.numeric? ? score.value.to_f : Time.at(score.value).strftime("%H:%M:%S")
-        td= score.created_at.strftime("%A %B %Y at %H:%M")
+        td= score.created_at.strftime("%A, %B %d %Y")

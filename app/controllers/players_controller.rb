@@ -10,6 +10,7 @@ class PlayersController < ApplicationController
 
   def history
     @player = Player.find(params[:id])
+    @scores = @player.scores.where(:test_id => params[:test_id]).order('created_at')
   end
   
   def index
