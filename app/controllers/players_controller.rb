@@ -4,12 +4,11 @@ class PlayersController < ApplicationController
   def show
     @player = Player.find(params[:id])
     @categories = Category.all
-    @rank_age = @player.user_for_age.count
-    @overall_rank = Player.count
   end
 
   def history
     @player = Player.find(params[:id])
+    @scores = @player.scores.where(:test_id => params[:test_id]).order('created_at')
   end
   
   def index
@@ -216,7 +215,14 @@ class PlayersController < ApplicationController
     @categories = Category.all
     @rank_age = @player.user_for_age.count
     @overall_rank = Player.count
-    render 'show'
+    render 'players_scores'
+  end
+  
+  def players_scores
+    @player = Player.find(params[:id])
+    @categories = Category.all
+    @rank_age = @player.user_for_age.count
+    @overall_rank = Player.count
   end
   
   private

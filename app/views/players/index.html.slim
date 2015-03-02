@@ -5,9 +5,9 @@
     h1= "Players for " + @account.name
 
 - if current_user.coach?
-  = link_to t('.new', :default => t("helpers.links.new")), new_player_path(session[:account]), :class => 'btn btn-primary'
+  = link_to t('.new', :default => t("helpers.links.new")), new_player_path(session[:account]), :class => 'btn btn-info'
 - else
-  = link_to t('.new', :default => t("helpers.links.new")), new_player_path(session[:account]), :class => 'btn btn-primary'
+  = link_to t('.new', :default => t("helpers.links.new")), new_player_path(session[:account]), :class => 'btn btn-info'
 table class= 'table table-striped'
   thead
     tr
@@ -19,7 +19,7 @@ table class= 'table table-striped'
     tr
       td= player.full_name
       td= player.list_teams
-      td= link_to 'View Scores', player_path(player), class: 'btn btn-small'
-      td= link_to 'Edit', edit_player_path(player), class: 'btn btn-small'
-      td= link_to 'Delete', player_path(player), method: :delete, class: 'btn btn-warning', confirm: 'Are you sure?'
+      td= link_to 'View Scores', players_scores_path(player), class: 'btn btn-info btn-xs'
+      td= link_to 'Edit', edit_player_path(player), class: 'btn btn-default btn-xs'
+      td= link_to 'Delete', player_path(player), method: :delete, class: 'btn btn-danger btn-xs', confirm: 'Are you sure?'
   

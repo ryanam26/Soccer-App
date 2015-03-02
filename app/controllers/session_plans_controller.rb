@@ -1,4 +1,5 @@
 class SessionPlansController < ApplicationController
+  before_action :validate_visibility
   before_action :set_session_plan_category
   before_action :set_session_plan, only: [:edit, :update, :destroy, :show]
   # GET /session_plans
@@ -61,6 +62,13 @@ class SessionPlansController < ApplicationController
   end
 
   private
+  
+    def validate_visibility
+      unless current_user.session_plans_visible
+        redirect_to root_path, notice: 'You do not have the required permissions to view this page.'
+      end
+    end
+  
     # Use callbacks to share common setup or constraints between actions.
     def set_session_plan_category
       @session_plan_category = SessionPlanCategory.find(params[:session_plan_category_id])

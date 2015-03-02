@@ -7,11 +7,15 @@
       - @user.errors.full_messages.each do |message|
           li= message
           
-  - unless current_user.admin?
+  - if current_user.admin?
     .form-group style="#{@show}"
-      = f.label :type_user, :class => 'control-label'
+      = label_tag :type_user, "Select user type", :class => 'control-label'
       .controls
         = f.select(:type_user, options_for_select(Role.to_a, selected: f.object.type_user), {prompt: 'Please select your role for the user'}, {class: 'form-control'})
+    .form-group
+      = label_tag :session_plans_visible, "Are session plans visible for this user?", :class => 'control-label'
+      .controls
+        = f.check_box :session_plans_visible
   .form-group
     = f.label :email, :class => 'control-label'
     .controls

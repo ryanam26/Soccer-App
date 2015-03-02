@@ -1,0 +1,44 @@
+div class="page-header"
+  h1 
+    =@player.full_name
+    small  Scores Information        
+  
+= render partial: 'test_category_table', collection: @categories, as: :category
+
+hr
+.row
+  .col-sm-12
+    .well
+      h2.text-center 
+        span.glyphicon.glyphicon-th-list
+        span  Compare Scores
+      hr
+      .well
+        = form_tag(compare_players_path, method: 'post', id:"compare_players", class: "form-horizontal")
+          .form-group
+            label.col-sm-2.control-label Select Test
+            .col-sm-9
+              select#tests name="test" class="form-control"
+                - @categories.each do |category|
+                    optgroup label=(category.name)
+                    - category.tests.each do |test|
+                        option value="#{test.id}"  #{test.name}
+            
+          .form-group
+            label.col-sm-2.control-label Select Player
+            .col-sm-9
+              select#tests name="player_compare" class="form-control"
+                - @player.teams.each do |team|
+                    optgroup label=(team.name)
+                    - team.players.each do |player|
+                      - unless player.id == @player.id
+                          option value="#{player.id}"  #{player.full_name}
+
+            .form-group
+              = hidden_field_tag 'player', @player.id
+          .col-md-11
+            = button_to "Compare Scores", nil, :class => 'btn btn-primary pull-right'
+        .clearfix
+        
+=link_to "Back", player_path(@player), class: 'btn btn-info text-right'
+        

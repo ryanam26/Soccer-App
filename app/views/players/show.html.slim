@@ -1,42 +1,87 @@
 div class="page-header"
   h1 
     =@player.full_name
-    small  Player Information         
-    =link_to "Player's User", user_path(@player.user), class: 'btn btn-info'
-
-= render partial: 'test_category_table', collection: @categories, as: :category
-
-hr
+    small  Home         
+    =link_to "Player's User", user_path(@player.user), class: 'btn btn-info text-right'
 .row
-  .col-sm-12
+  .col-sm-6
     .well
-      h2.text-center 
-        span.glyphicon.glyphicon-th-list
-        span  Compare Scores
+      h2.text-center
+        span.glyphicon.glyphicon-star-empty
+        span  View Scores
       hr
       .well
-        = form_tag(compare_players_path, method: 'post', id:"compare_players", class: "form-horizontal")
+        = link_to players_scores_path(@player), class: "btn btn-primary btn-lg btn-block" do
+          span  View Scores
+
+  .col-sm-6
+    .well
+      h2.text-center
+        span.glyphicon.glyphicon-star
+        span  View Challenges
+      hr
+      .well
+        = link_to categories_path, class: "btn btn-primary btn-lg btn-block" do
+          span  Challenges
+          
+.row
+  .col-sm-6
+    h2.text-center 
+      span.glyphicon.glyphicon-star-empty
+      span  Compare Scores
+    hr
+    .well
+      = form_tag(compare_players_path, method: 'post', id:"compare_players", class: "form-horizontal")
+        .form-group
+          label.col-sm-2.control-label Select Test
+          .col-sm-9
+            select#tests name="test" class="form-control"
+              - @categories.each do |category|
+                  optgroup label=(category.name)
+                  - category.tests.each do |test|
+                      option value="#{test.id}"  #{test.name}
+            
+        .form-group
+          label.col-sm-2.control-label Select Player
+          .col-sm-9
+            select#tests name="player_compare" class="form-control"
+              - @player.teams.each do |team|
+                  optgroup label=(team.name)
+                  - team.players.each do |player|
+                    - unless player.id == @player.id
+                        option value="#{player.id}"  #{player.full_name}
+
           .form-group
-            label.col-sm-2.control-label Select Test
+            = hidden_field_tag 'player', @player.id
+        .col-md-11
+          = button_to "Compare Scores", nil, :class => 'btn btn-primary pull-right'
+      .clearfix   
+             
+  .col-sm-6
+    .well
+      h2.text-center 
+        span.glyphicon.glyphicon-pencil
+        span  Create A Report
+      hr
+      .well
+        = form_tag(coach_report_path, method: 'post', id:"show_players", class: "form-horizontal")
+          .form-group
+            label.col-sm-3.control-label Select Team
             .col-sm-9
-              select#tests name="test" class="form-control"
+              = select_tag "teams", options_from_collection_for_select(@player.teams, :id, :name), {class: 'form-control'}
+              
+          .form-group
+            label.col-sm-3.control-label Choose Date
+            .col-sm-9
+              = select_tag "date", options_for_select(['Today', 'All Time'], params[:date]), {class: 'form-control'}
+            
+          .form-group
+            label.col-sm-3.control-label Select Test
+            .col-sm-9
+              select#tests name="tests" class="form-control"
                 - @categories.each do |category|
                     optgroup label=(category.name)
                     - category.tests.each do |test|
                         option value="#{test.id}"  #{test.name}
-            
-          .form-group
-            label.col-sm-2.control-label Select Player
-            .col-sm-9
-              select#tests name="player_compare" class="form-control"
-                - @player.teams.each do |team|
-                    optgroup label=(team.name)
-                    - team.players.each do |player|
-                      - unless player.id == @player.id
-                          option value="#{player.id}"  #{player.full_name}
-
-            .form-group
-              = hidden_field_tag 'player', @player.id
-          .col-md-11
-            = button_to "Compare Scores", nil, :class => 'btn btn-primary pull-right'
-        .clearfix
+          = button_to "Create Report", nil, :class => 'btn btn-primary pull-right'
+          .clearfix

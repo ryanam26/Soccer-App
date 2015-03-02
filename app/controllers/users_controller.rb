@@ -53,19 +53,21 @@ before_action :charge_teams
     redirect_to users_url, notice: "User deleted."
   end
 
-	def user_params
-    params.require(:user).permit(:birthday, :first_name, :last_name, :type_user, :email, :password, :password_confirmation)
-  end
-
-  def set_user
-    @user = User.find_by(id: params[:id])
-  end
-
   def coach_profile
     @account = Account.find(params[:id])
     session[:account] = @account
     @categories = Category.all
     @players = Player.joins(:teams).where("teams.account_id = ?", session[:account]).order(:first_name)
+  end
+  
+private
+
+	def user_params
+    params.require(:user).permit(:birthday, :first_name, :last_name, :type_user, :email, :password, :password_confirmation, :session_plans_visible)
+  end
+
+  def set_user
+    @user = User.find_by(id: params[:id])
   end
 
   def charge_teams

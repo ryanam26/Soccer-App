@@ -2,14 +2,14 @@ tr
   -if @player.has_scores?(test.id)
     td= "#{test.name}"
     - if test.time?
-        td= @player.high_time_score(test.id)
+        td= @player.high_time_score(test.id, 'All Time')
         td= @player.teams.last.team_average_time(test.id)
         td= "#{@player.pos_age_rank_time(test.id, @user.age)} / #{@rank_age}"
         td= "#{@player.pos_overall_time_rank(test.id)} / #{@overall_rank}"
         td= link_to "HISTORY", player_history_path(@player.id, test.id), class: "btn btn-sm btn-info"
 
     - else
-        td= @player.high_numeric_score(test.id)
+        td= @player.high_numeric_score(test.id, 'All Time')
         td =@player.teams.last.team_average_numeric(test.id)
         td= "#{@player.pos_age_rank_numeric(test.id, @player.age)} / #{@rank_age}"
         td= "#{@player.pos_overall_numeric_rank(test.id)} / #{@overall_rank}"
