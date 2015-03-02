@@ -4,8 +4,6 @@ class PlayersController < ApplicationController
   def show
     @player = Player.find(params[:id])
     @categories = Category.all
-    @rank_age = @player.user_for_age.count
-    @overall_rank = Player.count
   end
 
   def history
@@ -217,7 +215,14 @@ class PlayersController < ApplicationController
     @categories = Category.all
     @rank_age = @player.user_for_age.count
     @overall_rank = Player.count
-    render 'show'
+    render 'players_scores'
+  end
+  
+  def players_scores
+    @player = Player.find(params[:id])
+    @categories = Category.all
+    @rank_age = @player.user_for_age.count
+    @overall_rank = Player.count
   end
   
   private
