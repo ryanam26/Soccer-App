@@ -1,9 +1,8 @@
 div class="page-header"
   h1 
     =@player.full_name
-    small  Player Information         
-    =link_to "Player's User", user_path(@player.user), class: 'btn btn-info text-right'
-
+    small  Scores Information        
+  
 = render partial: 'test_category_table', collection: @categories, as: :category
 
 hr
@@ -40,3 +39,6 @@ hr
           .col-md-11
             = button_to "Compare Scores", nil, :class => 'btn btn-primary pull-right'
         .clearfix
+        
+=link_to "Back", player_path(@player), class: 'btn btn-info text-right'
+        
