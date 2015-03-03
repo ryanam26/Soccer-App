@@ -113,9 +113,15 @@ class PlayersController < ApplicationController
     @team.players.each do |player|
       if player.has_scores?(@test.id)
         if @test.time?
-          ps[player.full_name] = player.high_time_score(@test.id, params[:date])
+          score = player.high_time_score(@test.id, params[:date])
+          unless score.nil?
+            ps[player.full_name] = score
+          end
         else
-          ps[player.full_name] = player.high_numeric_score(@test.id, params[:date])
+          score = player.high_numeric_score(@test.id, params[:date])
+          unless score.nil?
+            ps[player.full_name] = score
+          end
         end
       end
     end
