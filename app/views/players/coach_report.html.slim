@@ -13,9 +13,7 @@ table class="table table-striped datetable"
       th Score
   tbody
     - @players_scores.each_with_index do |(player, score), index|
-      -if score.nil?
-        =continue
-      -else
+      -unless score.nil?
         tr
           td= index + 1
           td= player
