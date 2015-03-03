@@ -38,13 +38,13 @@
           .form-group
             label.col-sm-3.control-label Select Category
             .col-sm-9
-              = select_tag "category", options_from_collection_for_select(@categories, :id, :name), {class: 'form-control', wrapper_html: {id: 'category'}}
+              = select_tag "category", options_from_collection_for_select(@categories, :id, :name), {class: 'form-control'}
+          		= observe_field "category", :url => "tests/get_tests", :with => "category_id"
           
-          -@categories.each do |category|  
-  	        .form-group *{:id => "#{category.id}"}
-	          label.col-sm-3.control-label Select Test
-	          .col-sm-9
-	            = select_tag "tests", options_from_collection_for_select(category.tests, :id, :name), {class: 'form-control', wrapper_html: {id: 'tests'}}
+          .form-group#tests_form_group
+	        label.col-sm-3.control-label Select Test
+	        .col-sm-9
+	          = select_tag "tests", options_from_collection_for_select(@tests, :id, :name), {class: 'form-control'}
 
           = button_to "Add Scores", nil, :class => 'btn btn-primary pull-right'
           .clearfix

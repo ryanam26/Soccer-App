@@ -1,14 +1,10 @@
+// Append the function to the "document ready" chain 
 $(function(){
-  // $(var populate_tests = function(category_id) {
-        // if (category_id == test){
-            // $("#category_id").show();
-        // } else {
-            // $("#rationcard_no").hide();
-        // }
-    // }
-
-	$("#category").change(function(){
-		$(this).val().show();
-	    // populate_tests($(this).val())
-	})
-)});
+	// when the #search field changes 
+	$("#category").change(function() { 
+		// make a POST call and replace the content 
+		$.post( test_get_tests_path, function( data ) {
+  			$( "#tests" ).html( data );
+		});
+	}); 
+});
