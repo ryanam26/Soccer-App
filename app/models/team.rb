@@ -1,6 +1,5 @@
 class Team < ActiveRecord::Base
   belongs_to :account
-  has_and_belongs_to_many :users
   has_and_belongs_to_many :players
 
   def team_average_time(test_id)
