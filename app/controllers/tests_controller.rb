@@ -35,6 +35,10 @@ class TestsController < ApplicationController
 
     redirect_to category_tests_path(@category), notice: "Test deleted."
   end
+  
+  def get_tests
+    @tests = Category.find(params[:category_id]).tests
+  end
 
 private
 
