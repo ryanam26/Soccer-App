@@ -26,7 +26,7 @@
           li.list-group-item
             span.badge style="font-size:16px"= @player.high_numeric_score(@test.id, 'All Time')
             | High Score
-          - @user.teams.each do |t| 
+          - @player.teams.each do |t| 
               li.list-group-item
                 span.badge style="font-size:16px"= t.team_average_numeric(@test.id)
                 | Team #{t.name}
