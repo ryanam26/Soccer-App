@@ -17,7 +17,7 @@ div class="page-header"
   .col-sm-6
     .well
       h2.text-center
-        span.glyphicon.glyphicon-star
+        span.glyphicon.glyphicon-bookmark
         span  View Challenges
       hr
       .well
@@ -26,9 +26,10 @@ div class="page-header"
           
 .row
   .col-sm-6
-    h2.text-center 
-      span.glyphicon.glyphicon-star-empty
-      span  Compare Scores
+    .well
+      h2.text-center 
+        span.glyphicon.glyphicon-star-empty
+        span  Compare Scores
     hr
     .well
       = form_tag(compare_players_path, method: 'post', id:"compare_players", class: "form-horizontal")
