@@ -28,7 +28,8 @@ html lang="en"
 
 
   body
-    .navbar.navbar-default.navbar-static-top
+    -if user_signed_in?
+      .navbar.navbar-default.navbar-static-top
         .container
           button.navbar-toggle type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse"
             span.icon-bar
@@ -67,7 +68,6 @@ html lang="en"
                       = link_to 'Users', users_path
                     li
                       = link_to 'Players', players_path
-
     .container
       .row
         .col-lg-12
