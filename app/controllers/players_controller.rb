@@ -42,7 +42,7 @@ class PlayersController < ApplicationController
   end
   
   def create
-    @user = User.find(params[:user_id]) 
+    @user = User.find_by(:email => params[:user_email]) 
     if @user.nil?
       @user = User.new
       @user.email = params[:user_email]
@@ -50,7 +50,7 @@ class PlayersController < ApplicationController
       @user.password_confirmation = "12345678"
       @user.first_name = params[:first_name]
       @user.last_name = params[:last_name]
-      @user.accounts << session[:account]
+      @user.accounts << session[:account] unless session[:account].nil?
       @user.type_user = Role::STANDARD
       @user.save!
     end
