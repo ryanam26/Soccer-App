@@ -38,14 +38,16 @@ html lang="en"
           a.navbar-brand href="/"
             = image_tag("soccer_skills_tracker_logo.jpg", width: "60px")
           .navbar-collapse.collapse.navbar-responsive-collapse
-            - if user_signed_in? 
-              ul.nav.navbar-nav
+            ul.nav.navbar-nav
+              - if user_signed_in? 
                 - if current_user.standard?
                   = render :partial => 'shared/player_navbar'
-                - else
+                - elsif current_user.coach?
                   = render :partial => 'shared/coach_navbar'
-                  - if current_user.admin?
-                    = render :partial => 'shared/admin_navbar'
+                - elsif current_user.admin?
+                  = render :partial => 'shared/admin_navbar'
+                - else
+                  Please contact your system adminstrator with issue #1875F
             ul.nav.navbar-nav.navbar-right
               - if user_signed_in?
                 li

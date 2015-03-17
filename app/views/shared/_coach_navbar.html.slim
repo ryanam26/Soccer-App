@@ -1,24 +1,57 @@
-li.dropdown
+/li.dropdown
   a.dropdown-toggle data-toggle="dropdown" href="#" 
-    | Coach Controls
+    | Teams
     b.caret
   ul.dropdown-menu
     li
-      = link_to 'Manage my Accounts', accounts_path
-    li.divider
+      = link_to 'Add a new Team', new_account_team_path(@account)
     li
-      = link_to 'Manage all Users', users_path
-    li
-      = link_to 'Manage all Players', players_path
+      = link_to 'View/Manage my Teams', account_teams_path(@account)
 li.dropdown
   a.dropdown-toggle data-toggle="dropdown" href="#" 
-    | Coach Controls
+    | Tests and Scores
     b.caret
   ul.dropdown-menu
     li
-      = link_to 'Manage my Accounts', accounts_path
+      = link_to 'View available Test Categories', categories_path
+    li
+      = link_to 'Add a new Test Category', new_category_path
+    li.divider  
+/    li
+      = link_to 'Add a new Test', new_test_path
+/    li
+      = link_to 'Add Scores for a test', choose_test_for_scores_path
+- if current_user.session_plans_visible?
+  li.dropdown
+    a.dropdown-toggle data-toggle="dropdown" href="#" 
+      | Session Plans
+      b.caret
+    ul.dropdown-menu
+      li
+        = link_to 'View available Categories for Session Plans', session_plan_categories_path 
+      li.divider
+      li
+        = link_to 'Add a new Category for Session Plans', new_session_plan_category_path
+/      li
+        = link_to 'Add a new Session Plan', new_session_plan_path
+li.dropdown
+  a.dropdown-toggle data-toggle="dropdown" href="#" 
+    | Players
+    b.caret
+  ul.dropdown-menu
+    li
+      = link_to 'Manage my players', players_path 
     li.divider
     li
-      = link_to 'Manage all Users', users_path
+      = link_to 'Add a new Player', new_player_path
+/    li
+      = link_to 'Import Players via CSV', players_import_path
+li.dropdown
+  a.dropdown-toggle data-toggle="dropdown" href="#" 
+    | Scores
+    b.caret
+  ul.dropdown-menu
     li
-      = link_to 'Manage all Players', players_path
+      = link_to "Review my teams' scores", scores_path
+/   li
+      = link_to 'Add new Scores', new_score_path
