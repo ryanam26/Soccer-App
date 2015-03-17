@@ -17,6 +17,7 @@ validates_presence_of :first_name, :last_name, :email, :type_user
 
   scope :coach, lambda{where(:type_user => Role::COACH)}
   scope :standard, lambda{where(:type_user => Role::STANDARD)}
+  scope :admin, lambda{where(:type_user => Role::ADMIN)}
 #  scope :scores_time, lambda{where("users.id not in (select user_id from accounts_users)")}
   scope :can_see_session_plans, lambda{where(:session_plans_visible => true)}
  
