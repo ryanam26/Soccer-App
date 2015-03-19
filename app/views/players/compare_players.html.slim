@@ -47,7 +47,7 @@
           li.list-group-item
             span.badge style="font-size:16px"= @player_compare.high_time_score(@test.id, 'All Time')
             | High Score
-          - @user_compare.teams.each do |t| 
+          - @player_compare.teams.each do |t| 
               li.list-group-item
                 span.badge style="font-size:16px"= t.team_average_time(@test.id)
                 | Team #{t.name}
@@ -61,7 +61,7 @@
           li.list-group-item
             span.badge style="font-size:16px"= @player_compare.high_numeric_score(@test.id, 'All Time')
             | High Score
-          - @user_compare.teams.each do |t| 
+          - @player_compare.teams.each do |t| 
               li.list-group-item
                 span.badge style="font-size:16px"= t.team_average_numeric(@test.id)
                 | Team #{t.name}
