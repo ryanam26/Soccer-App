@@ -3,23 +3,19 @@
     .well
       h2.text-center
         span.glyphicon.glyphicon-paperclip
-        span  Get Information About Tests
+        span  View Soccer Skills Challenges
       hr
-      .well
-        = link_to categories_path, class: "btn btn-primary btn-lg btn-block" do
-          span.glyphicon.glyphicon-paperclip 
-          span  Test Categories
+      = link_to "View", categories_path, class: "btn btn-primary pull-right"
+      .clearfix
 
   .col-sm-6
     .well
       h2.text-center
         span.glyphicon.glyphicon-paperclip
-        span  Get Information About Session Plans
+        span  View Weekly Session Plans
       hr
-      .well
-        = link_to session_plan_categories_path, class: "btn btn-primary btn-lg btn-block" do
-          span.glyphicon.glyphicon-paperclip 
-          span  Session Plan Categories
+      = link_to "View", session_plan_categories_path, class: "btn btn-primary pull-right" 
+      .clearfix
           
 .row
   .col-sm-6
@@ -76,8 +72,6 @@
 
           = button_to "Create Report", nil, :class => 'btn btn-primary pull-right'
           .clearfix
-
-
 .row
   .col-sm-6
     .well

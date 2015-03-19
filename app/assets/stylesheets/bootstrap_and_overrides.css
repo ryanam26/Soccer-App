@@ -19,6 +19,9 @@ a {
   color: #EE1414;
   text-decoration: none;
 }
+a.btn-primary:visited {
+  color: #FFF;
+}
 
 .navbar-default .navbar-nav > li > a {
   color: #720000;
@@ -26,9 +29,10 @@ a {
 .dropdown-menu > li > a {
   color: #720000; 
 }
-.btn-primary{
+a.btn-primary, .btn-primary{
   background-color: #e5a430;
   border-color: #da941b;
+  color: #FFF;
 }
 .btn-primary:hover,
 .btn-primary:focus,
