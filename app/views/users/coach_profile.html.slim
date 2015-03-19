@@ -1,7 +1,8 @@
+h1.text-center.text-orange Coach Controls
 .row
   .col-sm-6
     .well
-      h2.text-center
+      h2.text-center.text-red
         span.glyphicon.glyphicon-paperclip
         span  View Soccer Skills Challenges
       hr
@@ -10,7 +11,7 @@
 
   .col-sm-6
     .well
-      h2.text-center
+      h2.text-center.text-red
         span.glyphicon.glyphicon-paperclip
         span  View Weekly Session Plans
       hr
@@ -20,10 +21,9 @@
 .row
   .col-sm-6
     .well
-      h2.text-center
+      h2.text-center.text-red
         span.glyphicon.glyphicon-plus
         span  Add Test Scores
-      hr
       .well
         = form_tag(scores_path, class: "form-horizontal")
           .form-group
@@ -39,16 +39,16 @@
                     optgroup label=(category.name)
                     - category.tests.each do |test|
                         option value="#{test.id}"  #{test.name}
-
+          hr
+          hr
           = button_to "Add Scores", nil, :class => 'btn btn-primary pull-right'
           .clearfix
           
   .col-sm-6
     .well
-      h2.text-center 
+      h2.text-center.text-red 
         span.glyphicon.glyphicon-th-list
         span  Create Reports
-      hr
       .well
         = form_tag(coach_report_path, method: 'post', id:"show_players", class: "form-horizontal")
           .form-group
@@ -72,7 +72,7 @@
 
           = button_to "Create Report", nil, :class => 'btn btn-primary pull-right'
           .clearfix
-.row
+/.row
   .col-sm-6
     .well
       h2.text-center 
@@ -114,7 +114,7 @@
           = button_to "Submit", nil, :class => 'btn btn-primary pull-right'
           .clearfix
 
-.row
+/.row
   .col-sm-6
     .well
       h2.text-center

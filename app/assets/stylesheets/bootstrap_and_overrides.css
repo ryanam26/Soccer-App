@@ -74,3 +74,12 @@ a.list-group-item:focus {
   text-decoration: none;
   background-color: #428bca;
 }
+.red-background {
+  background-color:rgba(163, 36, 48, 0.5);
+}
+.text-red {
+  color: #a32430;
+}
+.text-orange {
+  color: #e5a430
+}
