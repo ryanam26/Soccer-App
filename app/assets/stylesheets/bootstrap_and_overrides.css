@@ -19,7 +19,7 @@ a {
   color: #EE1414;
   text-decoration: none;
 }
-a.btn-primary:visited {
+a.btn-primary:visited, a.btn-secondary:visited {
   color: #FFF;
 }
 
@@ -42,7 +42,7 @@ a.btn-primary, .btn-primary{
   background-color: #da941b;
   border-color: #d18e1a;
 }
-.btn-secondary{
+.btn-secondary, a.btn-secondary {
   color: #fff;
   background-color: #428bca;
   border-color: #357cbb;

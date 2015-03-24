@@ -8,7 +8,6 @@ h1.text-center.text-orange Coach Controls
       hr
       = link_to "View", categories_path, class: "btn btn-primary pull-right"
       .clearfix
-
   .col-sm-6
     .well
       h2.text-center.text-red
@@ -17,7 +16,6 @@ h1.text-center.text-orange Coach Controls
       hr
       = link_to "View", session_plan_categories_path, class: "btn btn-primary pull-right" 
       .clearfix
-          
 .row
   .col-sm-6
     .well
@@ -72,10 +70,10 @@ h1.text-center.text-orange Coach Controls
 
           = button_to "Create Report", nil, :class => 'btn btn-primary pull-right'
           .clearfix
-/.row
+.row
   .col-sm-6
     .well
-      h2.text-center 
+      h2.text-center.text-red
         span.glyphicon.glyphicon-share
         span  Manage Player Score
       hr
@@ -95,12 +93,12 @@ h1.text-center.text-orange Coach Controls
                     - category.tests.each do |test|
                         option value="#{test.id}"  #{test.name}
 
-          = button_to "Submit", nil, :class => 'btn btn-primary pull-right'
+          = button_to "Manage", nil, :class => 'btn btn-primary pull-right'
           .clearfix
 
   .col-sm-6
     .well
-      h2.text-center 
+      h2.text-center.text-red
         span.glyphicon.glyphicon-list-alt
         span  Review Players Scores
       hr
@@ -111,27 +109,27 @@ h1.text-center.text-orange Coach Controls
             .col-sm-9
               = select_tag "player", options_from_collection_for_select(@players, :id, :full_name), {class: 'form-control chosen-select'}
             
-          = button_to "Submit", nil, :class => 'btn btn-primary pull-right'
+          = button_to "Review", nil, :class => 'btn btn-primary pull-right'
           .clearfix
 
-/.row
+.row
   .col-sm-6
     .well
-      h2.text-center
+      h2.text-center.text-red
         span.glyphicon.glyphicon-plus
-        span  Add New Players
+        span  Manage Players
       hr
       .well
-        = link_to new_player_path(@account), class: "btn btn-primary btn-lg btn-block" do
+        = link_to new_player_path(@account), class: "btn btn-primary pull-left" do
           span.glyphicon.glyphicon-plus 
           span  Add New Player
-        = link_to players_path, class: "btn btn-warning btn-lg btn-block" do
+        = link_to players_path, class: "btn btn-secondary pull-right" do
           span.glyphicon.glyphicon-pencil
           span  Manage Players
           
   .col-sm-6
     .well
-      h2.text-center 
+      h2.text-center.text-red
         span.glyphicon.glyphicon-upload
         span  Import Players
       hr
@@ -147,5 +145,5 @@ h1.text-center.text-orange Coach Controls
             .col-sm-9
               = file_field_tag "csv_players", class: "form-control"
 
-          = button_to "Submit", nil, :class => 'btn btn-primary pull-right'
+          = button_to "Import", nil, :class => 'btn btn-primary pull-right'
           .clearfix
