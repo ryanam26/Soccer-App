@@ -23,7 +23,7 @@ class ScoresController < ApplicationController
   def update
     score = Score.find(params[:id])
     @test = Test.find(score.test_id)
-    @player = player.find(score.player_id)
+    @player = Player.find(score.player_id)
     @scores = @player.scores.where(:test_id => score.test_id)
 
     @test.time? ? value = Time.parse(params[:score][:value]).to_f : value =  params[:score][:value].to_f

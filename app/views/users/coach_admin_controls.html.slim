@@ -1,0 +1,82 @@
+h1 Admin Control Panel
+.row
+  .col-sm-6
+    .well
+      h2.text-center
+        span.glyphicon.glyphicon-share
+        span  Manage Player Score
+      hr
+      .well
+        = form_tag(manage_scores_path, method: 'post', class: "form-horizontal")
+          .form-group
+            label.col-sm-3.control-label Select Player
+            .col-sm-9
+              = select_tag "player", options_from_collection_for_select(@players, :id, :full_name), {class: 'form-control chosen-select'}
+
+          .form-group
+            label.col-sm-3.control-label Select Test
+            .col-sm-9
+              select#tests name="tests" class="form-control"
+                - @categories.each do |category|
+                    optgroup label=(category.name)
+                    - category.tests.each do |test|
+                        option value="#{test.id}"  #{test.name}
+
+          = button_to "Manage", nil, :class => 'btn btn-primary pull-right'
+          .clearfix
+
+  .col-sm-6
+    .well
+      h2.text-center
+        span.glyphicon.glyphicon-list-alt
+        span  Review Players Scores
+      hr
+      .well
+        = form_tag(players_search_path, action: 'search', class: "form-horizontal")
+          .form-group
+            label.col-sm-3.control-label Select Player
+            .col-sm-9
+              = select_tag "player", options_from_collection_for_select(@players, :id, :full_name), {class: 'form-control chosen-select'}
+          hr  
+          hr
+          = button_to "Review", nil, :class => 'btn btn-primary pull-right'
+          .clearfix
+
+.row
+  .col-sm-6
+    .well
+      h2.text-center
+        span.glyphicon.glyphicon-plus
+        span  Manage Players
+      .well
+        - 3.times do
+          hr
+        = link_to new_player_path(@account), class: "btn btn-primary pull-left" do
+          span.glyphicon.glyphicon-plus 
+          span  Add New Player
+        = link_to players_path, class: "btn btn-primary pull-right" do
+          span.glyphicon.glyphicon-pencil
+          span  Manage Players
+        - 4.times do
+          hr
+          
+  .col-sm-6
+    .well
+      h2.text-center
+        span.glyphicon.glyphicon-upload
+        span  Import Players
+      hr
+      .well
+        = form_tag(players_import_path, multipart: true, class: "form-horizontal") do
+          .form-group 
+            label.col-sm-3.control-label Select Teams
+            .col-sm-9
+              = select_tag :teams, options_from_collection_for_select(@account.teams, :id, :name), class: 'form-control chosen-select', multiple: true, "data-placeholder" => "Please select the Player's Team"
+
+          .form-group
+            label.col-sm-3.control-label Select CSV File
+            .col-sm-9
+              = file_field_tag "csv_players", class: "form-control"
+
+          = button_to "Import", nil, :class => 'btn btn-primary pull-right'
+          .clearfix

@@ -5,9 +5,9 @@
     h1= "Players for " + @account.name
 
 - if current_user.coach?
-  = link_to t('.new', :default => t("helpers.links.new")), new_player_path(session[:account]), :class => 'btn btn-info'
+  = link_to t('.new', :default => t("helpers.links.new")), new_player_path(session[:account]), :class => 'btn btn-primary'
 - else
-  = link_to t('.new', :default => t("helpers.links.new")), new_player_path(session[:account]), :class => 'btn btn-info'
+  = link_to t('.new', :default => t("helpers.links.new")), new_player_path(session[:account]), :class => 'btn btn-primary'
 table class= 'table table-striped'
   thead
     tr
