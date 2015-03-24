@@ -1,0 +1,25 @@
+#!/bin/bash
+
+clear
+
+# Merge repository branches
+git checkout master
+git merge develop
+git checkout develop
+
+# Enable maintenance mode
+heroku maintenance:on --app soccer-app
+
+# Update repositories
+git push origin master
+git push origin develop
+git push heroku master
+
+# Give some time for the server to restart, then run migrations
+sleep 15
+
+heroku run rake db:migrate --app soccer-app
+
+#Let the migrations run, then turn off maintenance mode
+sleep 15
+heroku maintenance:off --app soccer-app
