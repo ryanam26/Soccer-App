@@ -19,7 +19,7 @@ a {
   color: #EE1414;
   text-decoration: none;
 }
-a.btn-primary:visited, a.btn-secondary:visited {
+a.btn-primary:visited, a.btn-secondary:visited, a.btn-danger:visited, a.btn-info:visited {
   color: #FFF;
 }
 
