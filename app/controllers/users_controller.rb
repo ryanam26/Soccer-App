@@ -57,8 +57,16 @@ before_action :charge_teams
     @account = Account.find(params[:id])
     session[:account] = @account
     @categories = Category.all
+    # @players = Player.joins(:teams).where("teams.account_id = ?", session[:account]).order(:first_name)
+    # @tests = @categories.first.tests
+  end
+
+  def coach_admin_controls
+    @account = Account.find(params[:id])
+    session[:account] = @account
+    @categories = Category.all
     @players = Player.joins(:teams).where("teams.account_id = ?", session[:account]).order(:first_name)
-    @tests = @categories.first.tests
+    # @tests = @categories.first.tests
   end
   
 private

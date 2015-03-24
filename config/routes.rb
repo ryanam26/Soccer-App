@@ -34,6 +34,7 @@ SoccerApp::Application.routes.draw do
   post 'manage_scores' => 'scores#manage', as: :manage_scores
   post 'scores' => 'scores#index', as: :scores
   get 'coach/:id' => 'users#coach_profile', as: :coach
+  get 'coach_admin/:id' => 'users#coach_admin_controls', as: :coach_admin
   get 'account_error' => 'users#account_error', as: :account_error
   get 'account_select' => 'users#account_select', as: :account_select
 #  get '/players/new/:id' => 'players#new', as: :new_player
