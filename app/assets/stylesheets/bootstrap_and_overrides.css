@@ -81,5 +81,11 @@ a.list-group-item:focus {
   color: #a32430;
 }
 .text-orange {
-  color: #e5a430
+  color: #e5a430;
+}
+h1 {
+  color: #e5a430;
+}
+h2 {
+  color: #a32430;
 }
