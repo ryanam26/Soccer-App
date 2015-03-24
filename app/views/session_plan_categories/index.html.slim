@@ -16,7 +16,7 @@ table class="table table-striped"
         - if current_user.admin?
           td= link_to session_plan_category.id, session_plan_category_session_plans_path(session_plan_category)
         td= session_plan_category.name
-        td= link_to 'View Session Plans', session_plan_category_session_plans_path(session_plan_category)
+        td= link_to 'View Session Plans', session_plan_category_session_plans_path(session_plan_category), :class => 'btn btn-info'
         td
           - if current_user.admin?
               = link_to t('.edit', :default => t("helpers.links.edit")), edit_session_plan_category_path(session_plan_category), :class => 'btn btn-default btn-xs'

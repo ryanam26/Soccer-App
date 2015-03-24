@@ -17,8 +17,8 @@ table class="table table-striped"
       tr
         td= test.name
         td= Level.key_for(test.level)
-        td= link_to "Download Test PDF", test.file.url, :target => ':_blank' if test.file?
-        td= link_to "Watch Video", test.link, :target => ":_blank" if test.link?
+        td= link_to "Download Test PDF", test.file.url, :target => ':_blank', :class => 'btn btn-danger' if test.file?
+        td= link_to "Watch Video", test.link, :target => ":_blank", :class => 'btn btn-info' if test.link?
         td
           - if current_user.admin?
             = link_to t('.edit', :default => t("helpers.links.edit")), edit_category_test_path(@category, test), :class => 'btn btn-default btn-xs'
