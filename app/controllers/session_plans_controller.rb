@@ -56,7 +56,7 @@ class SessionPlansController < ApplicationController
   def destroy
     @session_plan.destroy
     respond_to do |format|
-      format.html { redirect_to session_plans_url }
+      format.html { redirect_to session_plans_url, notice: 'Session Plan was successfully removed.'}
       format.json { head :no_content }
     end
   end

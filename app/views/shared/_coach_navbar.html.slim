@@ -56,7 +56,7 @@
 /   li
       = link_to 'Add new Scores', new_score_path
       
-- if @account.nil?
+- if session[:account].nil?
   li
     = link_to "Select account", account_select_path
 - else

@@ -1,5 +1,5 @@
 .page-header
-  h1 Add new Player
+  h1 Add New Player
 = form_tag("/players", method: 'post', id: 'add_player' , class: 'form-horizontal') do
  
   - unless @player.errors.empty?
