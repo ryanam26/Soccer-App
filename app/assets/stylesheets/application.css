@@ -72,5 +72,9 @@ footer{
     border-color: red !important;
 }
 
+.error {
+    color: red;
+}
+
 
 

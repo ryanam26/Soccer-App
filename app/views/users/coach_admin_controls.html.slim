@@ -91,10 +91,19 @@ h1 Admin Control Panel
         hr
         .well
           = form_tag(team_report_path, method: 'post', class: "form-horizontal")
-            .form-group
-              label.col-sm-3.control-label Select Teams
-              .col-sm-9
-                = grouped_collection_select(:team, :id, Account.all, :teams, :name, :id, :name, {}, {:class => 'form-control chosen-select', :multiple => true, "data-placeholder" => "Please select the Player's Team"})
+            - if flash[:teams]
+              .form-group.field_with_errors
+                label.col-sm-3.control-label Select Teams
+                .col-sm-9
+                  = grouped_collection_select(:team, :id, Account.all, :teams, :name, :id, :name, {}, {:class => 'form-control chosen-select', :multiple => true, "data-placeholder" => "Please select the Player's Team"})
+                  span class="error"
+                    = flash[:teams]
+
+            - else
+              .form-group
+                label.col-sm-3.control-label Select Teams
+                .col-sm-9
+                  = grouped_collection_select(:team, :id, Account.all, :teams, :name, :id, :name, {}, {:class => 'form-control chosen-select', :multiple => true, "data-placeholder" => "Please select the Player's Team"})
 
             .form-group
               label.col-sm-3.control-label Choose Date
@@ -110,10 +119,19 @@ h1 Admin Control Panel
                     - category.tests.each do |test|
                       option value="#{test.id}"  #{test.name}
 
-            .form-group
-              label.col-sm-3.control-label Year of birth
-              .col-sm-9
-                = number_field_tag "year", '', placeholder: 'Enter year of birth', class: 'form-control'
+            - if flash[:year]
+              .form-group.field_with_errors
+                label.col-sm-3.control-label Year of birth
+                .col-sm-9
+                  = number_field_tag "year", '', placeholder: 'Enter year of birth', class: 'form-control'
+                  span class="error"
+                    = flash[:year]
+
+            - else
+              .form-group
+                label.col-sm-3.control-label Year of birth
+                .col-sm-9
+                  = number_field_tag "year", '', placeholder: 'Enter year of birth', class: 'form-control'
 
             = button_to "Create Report", nil, :class => 'btn btn-primary pull-right'
             .clearfix
