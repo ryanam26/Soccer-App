@@ -47,6 +47,8 @@ SoccerApp::Application.routes.draw do
   post '/players/search/' => 'players#search', as: :players_search
   get '/player/:id/players_scores' => 'players#players_scores', as: :players_scores
 
+  post 'teams/report' => 'teams#team_report', as: :team_report
+  post 'tests/report' => 'tests#tests_report', as: :tests_report
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -9,20 +9,41 @@ table class="table table-striped"
       th= model_class.human_attribute_name(:name)
       th= model_class.human_attribute_name(:level)
       th= model_class.human_attribute_name(:file)
-      th= model_class.human_attribute_name(:link)
-      - if current_user.admin?
+      /!th= model_class.human_attribute_name(:link)
+      - if current_user.admin? || current_user.coach?
         th=t '.actions', :default => t("helpers.actions")
   tbody
     - @category.tests.order(:level).each do |test|
       tr
         td= test.name
         td= Level.key_for(test.level)
-        td= link_to "Download Test PDF", test.file.url, :target => ':_blank', :class => 'btn btn-danger' if test.file?
-        td= link_to "Watch Video", test.link, :target => ":_blank", :class => 'btn btn-info' if test.link?
+        td= link_to "Download Test PDF", (test.file.url + "?" + 10.times.map { [*'0'..'9'].sample }.join), :target => ':_blank', :class => 'btn btn-danger' if test.file?
+        /!td= link_to "Watch Video", test.link, :target => ":_blank", :class => 'btn btn-info' if test.link?
         td
+          - if (current_user.admin? || current_user.coach?) && !session[:account].nil?
+            = link_to 'Score sheet', '', :id => test.id, :class => 'btn btn-info btn-xs score-sheet', 'data-toggle' => 'modal', 'data-target' => 'mymodal'
+            '
           - if current_user.admin?
             = link_to t('.edit', :default => t("helpers.links.edit")), edit_category_test_path(@category, test), :class => 'btn btn-default btn-xs'
             '
             = link_to t('.destroy', :default => t("helpers.links.destroy")), category_test_path(@category, test), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
 
 
+/! Modal
+- if !session[:account].nil?
+  = form_tag(tests_report_path, class: "form-horizontal", id: "form-score-sheet")
+    div class="modal fade" id="mymodal" tabindex="-1" role="dialog"
+      div class="modal-dialog" role="document"
+        div class="modal-content"
+          div class="modal-header"
+            button type="button" class="close" data-dismiss="modal" aria-label="Close"
+              span aria-hidden="true" &times;
+            h4 class="modal-title" Score sheet
+          div class="modal-body"
+            .form-group
+              label.col-sm-3.control-label Select Team
+              .col-sm-9
+                = select_tag "teams", options_from_collection_for_select(@account.teams, :id, :name), { class: 'form-control' }
+
+          div class="modal-footer"
+            = button_to "Generate score sheet", nil, :class => 'btn btn-primary', :id => 'submit-score-sheet' , :onclick => "modal_close();"

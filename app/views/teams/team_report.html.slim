@@ -3,8 +3,8 @@
 
 = hidden_field_tag "test_name", "#{@test.name} Test"
 .page-header
-  h1 
-    small  ="#{@test.name} Test"
+  h1
+    small ="#{@test.name} Test"
 
 table class="table table-striped datetable"
   thead
@@ -15,22 +15,12 @@ table class="table table-striped datetable"
       th Team
   tbody
     - @players_scores.each_with_index do |player, index|
-      -unless player.nil?
+      - unless player.nil?
         tr
           td= index + 1
           td= player[0]
           - if @test.time?
-              td= Time.parse(player[1][0]).strftime("%H:%M:%S")
+            td= Time.parse(player[1][0]).strftime("%H:%M:%S")
           - else
-              td= player[1][0].round(2)
+            td= player[1][0].round(2)
           td= player[1][1]
-.col-sm-12
-  - @position_average.each do |key, value|
-    .col-sm-12
-      h1 =key
-    .col-sm-6
-      .well
-        h3 = "Team Average Score = #{value[1]}"
-    .col-sm-6
-      .well
-        h3= "Team Rank In System = #{value[0]} Position"

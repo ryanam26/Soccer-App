@@ -1,0 +1,23 @@
+- content_for :head do
+  = javascript_include_tag "report.js"
+
+= hidden_field_tag "team_name", "Team #{@team.name}"
+= hidden_field_tag "test_name", "#{@test.name} Test"
+.page-header
+  h1
+    ="Team #{@team.name}"
+    small =" - #{@test.name} Test"
+
+table class="table table-striped datetable"
+  thead
+    tr
+      th Number
+      th Player Name
+      th Score
+  tbody
+    - @team_players.each_with_index do |player, index|
+      -unless player.nil?
+        tr
+          td= index + 1
+          td= player.full_name
+          td

@@ -5,6 +5,7 @@ table class="table table-striped"
       th Test name
       th High Score
       th Team Average
+      th Age Average
       th Age Rank
       th Overall Rank
       th History
@@ -13,4 +14,4 @@ table class="table table-striped"
         = render partial: 'test_content_table', collection: category.tests, as: :test
     - else
         tr
-          td.text-center colspan="6" No found Tests
+          td.text-center colspan="7" No found Tests

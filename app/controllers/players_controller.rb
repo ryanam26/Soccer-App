@@ -54,7 +54,7 @@ class PlayersController < ApplicationController
       @user.type_user = Role::STANDARD
       @user.save!
     end
-    @player = @user.players.new(player_params)
+    @player = @user.players.new(player_params_create)
     @player.team_ids = params[:teams]
     @player.birthday = Date.new params[:birthday]['(1i)'].to_i, params[:birthday]['(2i)'].to_i, params[:birthday]['(3i)'].to_i
 
@@ -99,7 +99,8 @@ class PlayersController < ApplicationController
       team = Team.find(team_id)
       @player.teams << team
     end
-    if @player.update(player_params)
+    @player.birthday = Date.new params[:birthday]['(1i)'].to_i, params[:birthday]['(2i)'].to_i, params[:birthday]['(3i)'].to_i
+    if @player.update(player_params_update)
       redirect_to player_path(@player), :notice => "Player updated successfully"
     else
       render 'edit'
@@ -107,27 +108,31 @@ class PlayersController < ApplicationController
   end
 
   def coach_report
-    @team = Team.find(params[:teams])
     @test = Test.find(params[:tests])
     ps = Hash.new
-    @team.players.each do |player|
-      if player.has_scores?(@test.id)
-        if @test.time?
-          score = player.high_time_score(@test.id, params[:date])
-          unless score.nil?
-            ps[player.full_name] = score
-          end
-        else
-          score = player.high_numeric_score(@test.id, params[:date])
-          unless score.nil?
-            ps[player.full_name] = score
+    @position_average = Hash.new
+    if !params[:teams].nil?
+      params[:teams].each do |team_id|
+        team = Team.find_by(id: team_id)
+        team.players.each do |player|
+          if player.has_scores?(@test.id)
+            if @test.time?
+              score = player.high_time_score(@test.id, params[:date])
+              unless score.nil?
+                ps[player.full_name] = [score, team.name]
+              end
+            else
+              score = player.high_numeric_score(@test.id, params[:date])
+              unless score.nil?
+                ps[player.full_name] = [score, team.name]
+              end
+            end
           end
         end
+        @position_average[team.name] = [@test.type_unit == Unit::TIME ? team.team_system_rank_time(@test.id) : team.team_system_rank_numeric(@test.id).to_i.ordinalize, @test.type_unit == Unit::TIME ? team.team_average_time(@test.id) : team.team_average_numeric(@test.id)]
       end
     end
     @players_scores = Hash[ps.sort_by{|k,v| v}.reverse]
-    @position = @test.type_unit == Unit::TIME ? @team.team_system_rank_time(@test.id) : @team.team_system_rank_numeric(@test.id).to_i.ordinalize
-    @average = @test.type_unit == Unit::TIME ? @team.team_average_time(@test.id) : @team.team_average_numeric(@test.id)
   end
 
   def compare_players
@@ -233,8 +238,12 @@ class PlayersController < ApplicationController
   
   private
   
-  def player_params
-    params.permit(:teams, :birthday, :first_name, :last_name, :user_id)
+  def player_params_create
+    params.permit(:teams, :first_name, :last_name, :birthday, :user_id)
+  end
+
+  def player_params_update
+    params.require(:player).permit(:first_name, :last_name, :user_id)
   end
   
   def check_user_type

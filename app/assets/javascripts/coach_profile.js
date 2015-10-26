@@ -6,5 +6,19 @@ $(function(){
 		$.post( test_get_tests_path, function( data ) {
   			$( "#tests" ).html( data );
 		});
-	}); 
+	});
+
+    $('.score-sheet').click(function() {
+        $('#tests').remove();
+        $('<input>').attr({
+            type: 'hidden',
+            id: 'tests',
+            name: 'tests',
+            value: $(this).attr('id')
+        }).appendTo('#form-score-sheet');
+        $('#mymodal').modal('show');
+    });
+    $('#submit-score-sheet').click(function() {
+       $('#mymodal').modal('hide');
+    });
 });

@@ -15,6 +15,9 @@ hr
     .panel-heading Manage Users
     ul.list-group
       - @account.users.each do |user|
-        li.list-group-item 
-          span.badge = "Last login = #{user.last_sign_in_at.strftime("%A %B %Y at %H:%M")}"
+        li.list-group-item
+          - if user.last_sign_in_at
+              span.badge = "Last login = #{user.last_sign_in_at.strftime("%A %B %Y at %H:%M")}"
+          - else
+              span.badge = "Last login = Never"
           = "#{user.full_name} - Coach manager"

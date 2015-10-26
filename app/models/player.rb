@@ -16,6 +16,10 @@ class Player < ActiveRecord::Base
     ((DateTime.now - birthday) / 365.25).to_i
   end
 
+  def year_of_birth
+    birthday.year
+  end
+
   def list_teams
     str = ""
     teams.each do |team|
@@ -29,6 +33,8 @@ class Player < ActiveRecord::Base
     # self.connection.execute(sql).to_a[0]["time"]
     if date.eql? 'Today'
       date = 24.hours.ago
+    elsif date.eql? 'This Month'
+      date = (Time.now().day - 1).days.ago
     else
       date = 100.years.ago
     end
@@ -39,6 +45,8 @@ class Player < ActiveRecord::Base
   def high_numeric_score(test_id, date)
     if date.eql? 'Today'
       time = 24.hours.ago
+    elsif date.eql? 'This Month'
+      time = (Time.now().day - 1).days.ago
     else
       time = 100.years.ago
     end
@@ -89,7 +97,19 @@ class Player < ActiveRecord::Base
 
 #Todo
   def user_for_age
-    sql = "SELECT * FROM (SELECT EXTRACT(year from AGE(NOW(), birthday)) as age from players) as h where age = #{age}"
+    #sql = "SELECT * FROM (SELECT EXTRACT(year from AGE(NOW(), birthday)) as age from players) as h where age = #{age}"
+    sql = "SELECT * FROM players p WHERE EXTRACT(YEAR FROM p.birthday) = #{year_of_birth}"
     connection.execute(sql).to_a
   end
+
+  def age_average_numeric(test_id)
+    sql = "SELECT avg(s.value) as average from scores s, players p where s.test_id = #{test_id} and s.player_id = p.id and EXTRACT(year from AGE(NOW(), p.birthday)) = #{age}"
+    connection.execute(sql).to_a[0]["average"].to_f.round(2)
+  end
+
+  def age_average_time(test_id)
+    sql = "SELECT to_char(to_timestamp(avg(s.value)) AT TIME ZONE 'UTC','HH24:MI:SS') as average from scores s, players p where s.test_id = #{test_id} and s.player_id = p.id and EXTRACT(year from AGE(NOW(), p.birthday)) = #{age}"
+    connection.execute(sql).to_a[0]["average"]
+  end
+
 end

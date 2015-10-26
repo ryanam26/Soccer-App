@@ -80,3 +80,40 @@ h1 Admin Control Panel
 
           = button_to "Import", nil, :class => 'btn btn-primary pull-right'
           .clearfix
+
+- if current_user.admin?
+  .row
+    .col-sm-6
+      .well
+        h2.text-center
+          span.glyphicon.glyphicon-th-list
+          span  Create Reports
+        hr
+        .well
+          = form_tag(team_report_path, method: 'post', class: "form-horizontal")
+            .form-group
+              label.col-sm-3.control-label Select Teams
+              .col-sm-9
+                = grouped_collection_select(:team, :id, Account.all, :teams, :name, :id, :name, {}, {:class => 'form-control chosen-select', :multiple => true, "data-placeholder" => "Please select the Player's Team"})
+
+            .form-group
+              label.col-sm-3.control-label Choose Date
+              .col-sm-9
+                = select_tag "date", options_for_select(['Today', 'This Month', 'All Time'], params[:date]), {class: 'form-control'}
+
+            .form-group
+              label.col-sm-3.control-label Select Test
+              .col-sm-9
+                select#tests name="tests" class="form-control"
+                  - @categories.each do |category|
+                    optgroup label=(category.name)
+                    - category.tests.each do |test|
+                      option value="#{test.id}"  #{test.name}
+
+            .form-group
+              label.col-sm-3.control-label Year of birth
+              .col-sm-9
+                = number_field_tag "year", '', placeholder: 'Enter year of birth', class: 'form-control'
+
+            = button_to "Create Report", nil, :class => 'btn btn-primary pull-right'
+            .clearfix

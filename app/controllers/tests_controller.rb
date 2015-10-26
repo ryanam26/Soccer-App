@@ -2,6 +2,9 @@ class TestsController < ApplicationController
   before_action :set_category
 
   def index
+    if !session[:account].nil?
+      @account = Account.find_by(id: session[:account].id)
+    end
   end
 
   def new
@@ -38,6 +41,12 @@ class TestsController < ApplicationController
   
   def get_tests
     @tests = Category.find(params[:category_id]).tests
+  end
+
+  def tests_report
+    @team = Team.find(params[:teams])
+    @test = Test.find(params[:tests])
+    @team_players = @team.players.order("first_name")
   end
 
 private

@@ -21,19 +21,20 @@ $(document).ready(function() {
                 "bSelectedOnly": true,
                 "oSelectorOpts": { filter: 'applied', order: 'current' },
                 "sFileName": "Team Report.pdf",
-                "sPdfMessage": "Team Report"
+                "sTitle": $('#team_name').length ? $('#team_name').val() : ' ',
+                "sPdfMessage": $('#test_name').val()
             },
             {
                 "sExtends": "print",
                 "bSelectedOnly": true,
-                "oSelectorOpts": { filter: 'applied', order: 'current' },
+                "oSelectorOpts": { filter: 'applied', order: 'current' }
             }
-            ],
+            ]
             
         },
         "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
         "iDisplayLength": 50
       });
-    $(".DTTT").addClass("pull-right");    
+    $(".DTTT").addClass("pull-right");
 
 } );
