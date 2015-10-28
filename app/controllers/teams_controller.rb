@@ -90,11 +90,15 @@ before_action :set_account
       flash[:teams] = "You must select at least one team"
       pass = false
     end
-    if !year.empty? && !year.is_a?(Numeric)
+    if !year.empty? && !is_number?(year)
       flash[:year] = "Date of birth only numbers are accepted"
       pass = false
     end
     return pass
+  end
+
+  def is_number? string
+    true if Float(string) rescue false
   end
 
 end
