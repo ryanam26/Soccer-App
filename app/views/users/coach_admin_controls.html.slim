@@ -135,3 +135,55 @@ h1 Admin Control Panel
 
             = button_to "Create Report", nil, :class => 'btn btn-primary pull-right'
             .clearfix
+
+    .col-sm-6
+      .well
+        h2.text-center
+          span.glyphicon.glyphicon-th-list
+          span  Compare Scores
+        hr
+        .well
+          = form_tag(compare_players_path, method: 'post', id: "compare_players", class: "form-horizontal")
+            .form-group
+              label.col-sm-3.control-label Select Test
+              .col-sm-9
+                select#tests name="test" class="form-control"
+                  - @categories.each do |category|
+                    optgroup label=(category.name)
+                    - category.tests.each do |test|
+                      option value="#{test.id}"  #{test.name}
+
+            .form-group
+              label.col-sm-3.control-label Select player
+              .col-sm-9
+                select#player_1 name="player_1" class="form-control"
+                  - @account.teams.each do |team|
+                    optgroup label=(team.name)
+                    - team.players.each do |player|
+                      option value="#{player.id}"  #{player.full_name}
+
+            .form-group
+              label.col-sm-3.control-label Select player to compare
+              .col-sm-9
+                select#player_2 name="player_2" class="form-control"
+                  - @account.teams.each do |team|
+                    optgroup label=(team.name)
+                    - team.players.reverse.each do |player|
+                      option value="#{player.id}" #{player.full_name}
+            hr
+            hr
+            .col-md-12
+              = button_to "Compare Scores", nil, :class => 'btn btn-primary pull-right'
+          .clearfix
+
+javascript:
+  $(document).ready(function(){
+    $('#player_1').change(function(){
+      $('#player_2 option').prop('disabled', false);
+      $('#player_2 option[value="'+ $(this).val() +'"]').prop('disabled', true);
+    });
+    $('#player_2').change(function(){
+      $('#player_1 option').prop('disabled', false);
+      $('#player_1 option[value="'+ $(this).val() +'"]').prop('disabled', true);
+    });
+  });

@@ -136,9 +136,13 @@ class PlayersController < ApplicationController
   end
 
   def compare_players
-    @player = Player.find(params[:player])
-    @player_compare = Player.find(params[:player_compare])
-    @test = Test.find(params[:test])
+    if params[:player_1].nil? || params[:player_2].nil? || params[:test].nil?
+      redirect_to :back
+    else
+      @player = Player.find(params[:player_1])
+      @player_compare = Player.find(params[:player_2])
+      @test = Test.find(params[:test])
+    end
   end
 
   def import
