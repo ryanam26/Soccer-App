@@ -9,7 +9,7 @@ table class="table table-striped"
       th= model_class.human_attribute_name(:name)
       th= model_class.human_attribute_name(:level)
       th= model_class.human_attribute_name(:file)
-      /!th= model_class.human_attribute_name(:link)
+      th= model_class.human_attribute_name(:link)
       - if current_user.admin? || current_user.coach?
         th=t '.actions', :default => t("helpers.actions")
   tbody

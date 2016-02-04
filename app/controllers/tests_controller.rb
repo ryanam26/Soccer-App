@@ -19,7 +19,7 @@ class TestsController < ApplicationController
 
   def update
     if @category.tests.find(params[:id]).update(test_params)
-      redirect_to category_tests_path(@category), notice: "test updated successfully."
+      redirect_to category_tests_path(@category), notice: "Test updated successfully."
     else
       render 'edit'
     end

@@ -8,6 +8,7 @@ table class="table table-striped"
     tr
       th= model_class.human_attribute_name(:name)
       th= model_class.human_attribute_name(:file)
+      th= model_class.human_attribute_name(:link)
       - if current_user.admin?
         th=t '.actions', :default => t("helpers.actions")
   tbody
