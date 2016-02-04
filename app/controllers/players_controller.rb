@@ -119,12 +119,12 @@ class PlayersController < ApplicationController
             if @test.time?
               score = player.high_time_score(@test.id, params[:date])
               unless score.nil?
-                ps[player.full_name] = [score, team.name]
+                ps[player.full_name] = [score, team.name, player.birthday.year]
               end
             else
               score = player.high_numeric_score(@test.id, params[:date])
               unless score.nil?
-                ps[player.full_name] = [score, team.name]
+                ps[player.full_name] = [score, team.name, player.birthday.year]
               end
             end
           end
