@@ -42,7 +42,7 @@ class SessionPlansController < ApplicationController
   def update
     respond_to do |format|
       if @session_plan.update(session_plan_params)
-        format.html { redirect_to session_plan_categories_session_plan_path(@session_plan), notice: 'Session plan was successfully updated.' }
+        format.html { redirect_to session_plan_category_session_plan_path(@session_plan), notice: 'Session plan was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
