@@ -24,6 +24,7 @@ p
 	    tr
         th Name
         th File
+        th Link
         - if current_user.admin?
           th=t '.actions', :default => t("helpers.actions")
       tbody
@@ -31,6 +32,8 @@ p
 	      tr
 	        td= session_plan.name
             td= link_to "Download Documentation", session_plan.file.url, :target => ':_blank' if session_plan.file?
+            td= link_to "Video link", session_plan.link, :target => ":_blank" if session_plan.link.nil?
+            
 	        td
 	          - if current_user.admin?
                 = link_to t('.edit', :default => t("helpers.links.edit")), edit_session_plan_category_session_plan_path(@session_plan_category, session_plan), :class => 'btn btn-default btn-xs'

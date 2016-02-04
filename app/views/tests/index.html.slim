@@ -18,7 +18,7 @@ table class="table table-striped"
         td= test.name
         td= Level.key_for(test.level)
         td= link_to "Download Test PDF", (test.file.url + "?" + 10.times.map { [*'0'..'9'].sample }.join), :target => ':_blank', :class => 'btn btn-danger' if test.file?
-        /!td= link_to "Watch Video", test.link, :target => ":_blank", :class => 'btn btn-info' if test.link?
+        td= link_to "Watch Video", test.link, :target => ":_blank", :class => 'btn btn-info' if test.link?
         td
           - if (current_user.admin? || current_user.coach?) && !session[:account].nil?
             = link_to 'Score sheet', '', :id => test.id, :class => 'btn btn-info btn-xs score-sheet', 'data-toggle' => 'modal', 'data-target' => 'mymodal'

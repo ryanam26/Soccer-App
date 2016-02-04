@@ -43,7 +43,7 @@ class SessionPlanCategoriesController < ApplicationController
   private
 
     def validate_visibility
-      unless current_user.session_plans_visible
+      unless current_user.admin?
         redirect_to root_path, notice: 'You do not have the required permissions to view this page.'
       end
     end

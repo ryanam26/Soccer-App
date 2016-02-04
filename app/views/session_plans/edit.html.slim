@@ -1,8 +1,26 @@
-h1 Editing session_plan
+h1 Editing Session Plan
 
-== render 'form'
+= form_for ([@session_plan_category, @session_plan]), :html => { :class => "form-horizontal" } do |f|
 
-= link_to 'Show', @session_plan
+  .form-group
+    = f.label :name, :class => 'control-label'
+    .controls
+      = f.text_field :name, :class => 'form-control'
+  .form-group
+    = f.label :file, :class => 'control-label'
+    .controls
+      = f.file_field :file, :class => 'form-control'
+  .form-group
+    = f.label :link, :class => 'control-label'
+    .controls
+      = f.text_field :link, :class => 'form-control'   
+
+  = f.submit nil, :class => 'btn btn-primary'
+  '
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), session_plan_category_session_plans_path(@session_plan_category), :class => 'btn'
+
+
+= link_to 'Show', @session_plan_category_session_plan
 '|
 = link_to 'Back', session_plan_category_session_plans_path
 

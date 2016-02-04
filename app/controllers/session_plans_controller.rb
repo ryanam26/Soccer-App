@@ -80,6 +80,6 @@ class SessionPlansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def session_plan_params
-      params.require(:session_plan).permit(:name, :file)
+      params.require(:session_plan).permit(:name, :file, :link)
     end
 end

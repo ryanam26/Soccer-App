@@ -15,6 +15,7 @@ table class="table table-striped"
       tr
         td= session_plan.name
         td= link_to "Download PDF", session_plan.file.url, :target => ':_blank', :class => 'btn btn-danger' if session_plan.file?
+        td= link_to "Watch Video", session_plan.link, :target => ":_blank", :class => 'btn btn-info' if session_plan.link?
         td
           - if current_user.admin?
             = link_to t('.edit', :default => t("helpers.links.edit")), edit_session_plan_category_session_plan_path(@session_plan_category, session_plan), :class => 'btn btn-default btn-xs'
