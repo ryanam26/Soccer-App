@@ -21,6 +21,4 @@ table class="table table-striped"
           - if current_user.admin?
             = link_to t('.edit', :default => t("helpers.links.edit")), edit_session_plan_category_session_plan_path(@session_plan_category, session_plan), :class => 'btn btn-default btn-xs'
             '
-            = link_to t('.destroy', :default => t("helpers.links.destroy")), session_plan_category_path(@session_plan_category, session_plan), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
-
-
+            = link_to t('.destroy', :default => t("helpers.links.destroy")), session_plan_category_session_plan_path(@session_plan_category, session_plan), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'

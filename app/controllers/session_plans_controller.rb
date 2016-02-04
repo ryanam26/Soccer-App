@@ -28,7 +28,7 @@ class SessionPlansController < ApplicationController
 
     respond_to do |format|
       if @session_plan.save
-        format.html { redirect_to @session_plan_category, notice: 'Session plan was successfully created.' }
+        format.html { redirect_to session_plan_category_session_plans_path(@session_plan_category), notice: 'Session plan was successfully created.' }
         format.json { render action: 'show', status: :created, location: @session_plan }
       else
         format.html { render action: 'new' }
@@ -40,23 +40,19 @@ class SessionPlansController < ApplicationController
   # PATCH/PUT /session_plans/1
   # PATCH/PUT /session_plans/1.json
   def update
-    respond_to do |format|
-      if @session_plan.update(session_plan_params)
-        format.html { redirect_to session_plan_category_session_plan_path(@session_plan), notice: 'Session plan was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @session_plan.errors, status: :unprocessable_entity }
-      end
+    if @session_plan_category.session_plans.find(params[:id]).update(session_plan_params)
+      redirect_to session_plan_category_session_plans_path(@session_plan_category), notice: "Session Plan updated successfully."
+    else
+      render 'edit'
     end
   end
 
   # DELETE /session_plans/1
   # DELETE /session_plans/1.json
   def destroy
-    @session_plan.destroy
+    @session_plan_category.session_plans.find(params[:id]).destroy
     respond_to do |format|
-      format.html { redirect_to session_plans_url, notice: 'Session Plan was successfully removed.'}
+      format.html { redirect_to session_plan_category_session_plans_path(@session_plan_category), notice: 'Session Plan was successfully removed.'}
       format.json { head :no_content }
     end
   end
