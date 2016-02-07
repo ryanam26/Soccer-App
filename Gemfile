@@ -53,6 +53,12 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :development do
+  gem 'pry-rails'
+  gem 'byebug'
+  gem 'pry-byebug'
+end
+
 group :test do
   gem 'sqlite3'
 end
