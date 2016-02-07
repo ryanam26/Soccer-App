@@ -39,8 +39,22 @@ class Player < ActiveRecord::Base
       date = 100.years.ago
     end
 
-    get_score_test.where('updated_at > ? ', date).minimum("value").to_s.to_time
+    Time.at(get_score_test(test_id).where('updated_at > ? ', date).minimum("value")).strftime("%H:%M:%S")
   end
+  
+   def low_time_score(test_id, date)
+    # sql = "select min(to_char(to_timestamp(value) AT TIME ZONE 'UTC','HH24:MI:SS')) as time from scores where player_id = #{id} and test_id = #{test_id}"
+    # self.connection.execute(sql).to_a[0]["time"]
+    if date.eql? 'Today'
+      date = 24.hours.ago
+    elsif date.eql? 'This Month'
+      date = (Time.now().day - 1).days.ago
+    else
+      date = 100.years.ago
+    end
+
+    Time.at(get_score_test(test_id).where('updated_at > ? ', date).maximum("value")).strftime("%H:%M:%S")
+  end 
 
   def high_numeric_score(test_id, date)
     if date.eql? 'Today'
@@ -59,6 +73,23 @@ class Player < ActiveRecord::Base
     end
   end
   
+    def low_numeric_score(test_id, date)
+    if date.eql? 'Today'
+      time = 24.hours.ago
+    elsif date.eql? 'This Month'
+      time = (Time.now().day - 1).days.ago
+    else
+      time = 100.years.ago
+    end
+
+    scores = get_score_test(test_id).where('updated_at > ?', time)
+    if scores.empty?
+      nil
+    else
+      scores.minimum("value").to_f
+    end
+  end
+  
 #Todo
   def pos_age_rank_numeric(test_id, age)
     sql = "select * from (SELECT row_number() OVER (order by avg(s.value) DESC) as pos, EXTRACT(year from AGE(NOW(), u.birthday)) as age, u.first_name as name, avg(s.value) as average, t.id as test_id, u.id as player_id from players u, scores s, tests t where s.player_id = u.id and s.test_id = t.id and t.id = #{test_id} and EXTRACT(year from AGE(NOW(), u.birthday)) = #{age} group by u.birthday, u.first_name, t.id, u.id) as h where player_id = #{id};"
@@ -73,8 +104,9 @@ class Player < ActiveRecord::Base
 
 #Todo
   def pos_overall_time_rank(test_id)
-    sql = "SELECT * from (SELECT row_number() OVER (order by to_char(to_timestamp(avg(value)) AT TIME ZONE 'UTC','HH24:MI:SS') ASC) as pos, to_char(to_timestamp(avg(value)) AT TIME ZONE 'UTC +4:30','HH24:MI:SS'), player_id from scores where test_id = #{test_id} group by player_id) as h where user_id = #{id};"
+    sql = "SELECT * from (SELECT row_number() OVER (order by to_char(to_timestamp(avg(value)) AT TIME ZONE 'UTC','HH24:MI:SS') ASC) as pos, to_char(to_timestamp(avg(value)) AT TIME ZONE 'UTC +4:30','HH24:MI:SS'), player_id from scores where test_id = #{test_id} group by player_id) as h where player_id = #{id};"
     connection.execute(sql).to_a[0]["pos"]
+    
   end
 
 #Todo
