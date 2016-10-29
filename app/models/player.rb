@@ -7,6 +7,7 @@ class Player < ActiveRecord::Base
   
   validates_presence_of :user, :first_name, :last_name, :birthday, :teams
   
+  before_save :change_birth_year
   
   def full_name
     "#{first_name} #{last_name}".titleize
@@ -18,6 +19,12 @@ class Player < ActiveRecord::Base
 
   def year_of_birth
     birthday.year
+  end
+  
+  def change_birth_year
+    if self.birthday.year < 1920
+      self.birthday += 2000.years
+    end
   end
 
   def list_teams
