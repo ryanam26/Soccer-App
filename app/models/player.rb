@@ -71,13 +71,12 @@ class Player < ActiveRecord::Base
     if date.eql? 'Today'
       time = 24.hours.ago
     elsif date.eql? 'Last 7 Days'
-      date = 7.days.ago
+      time = 7.days.ago
     elsif date.eql? 'This Month'
       time = (Time.now().day - 1).days.ago
     else
       time = 100.years.ago
     end
-
     scores = get_score_test(test_id).where('updated_at > ?', time)
     if scores.empty?
       nil
@@ -90,7 +89,7 @@ class Player < ActiveRecord::Base
     if date.eql? 'Today'
       time = 24.hours.ago
     elsif date.eql? 'Last 7 Days'
-      date = 7.days.ago
+      time = 7.days.ago
     elsif date.eql? 'This Month'
       time = (Time.now().day - 1).days.ago
     else

@@ -66,6 +66,7 @@ before_action :set_account
                     ps[player.full_name] = [score, team.name, player.birthday.year]
                   end
                 else
+
                   score = player.high_numeric_score(@test.id, params[:date])
                   unless score.nil?
                     ps[player.full_name] = [score, team.name, player.birthday.year]
