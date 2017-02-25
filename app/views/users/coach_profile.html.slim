@@ -57,7 +57,7 @@ h1 Coach Control Panel
           .form-group
             label.col-sm-3.control-label Choose Date
             .col-sm-9
-              = select_tag "date", options_for_select(['Today', 'This Month', 'All Time'], params[:date]), {class: 'form-control'}
+              = select_tag "date", options_for_select(['Today', 'Last 7 Days', 'This Month', 'All Time'], params[:date]), {class: 'form-control'}
             
           .form-group
             label.col-sm-3.control-label Select Test

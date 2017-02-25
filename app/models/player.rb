@@ -40,6 +40,8 @@ class Player < ActiveRecord::Base
     # self.connection.execute(sql).to_a[0]["time"]
     if date.eql? 'Today'
       date = 24.hours.ago
+    elsif date.eql? 'Last 7 Days'
+      date = 7.days.ago
     elsif date.eql? 'This Month'
       date = (Time.now().day - 1).days.ago
     else
@@ -54,6 +56,8 @@ class Player < ActiveRecord::Base
     # self.connection.execute(sql).to_a[0]["time"]
     if date.eql? 'Today'
       date = 24.hours.ago
+    elsif date.eql? 'Last 7 Days'
+      date = 7.days.ago      
     elsif date.eql? 'This Month'
       date = (Time.now().day - 1).days.ago
     else
@@ -66,6 +70,8 @@ class Player < ActiveRecord::Base
   def high_numeric_score(test_id, date)
     if date.eql? 'Today'
       time = 24.hours.ago
+    elsif date.eql? 'Last 7 Days'
+      date = 7.days.ago
     elsif date.eql? 'This Month'
       time = (Time.now().day - 1).days.ago
     else
@@ -83,6 +89,8 @@ class Player < ActiveRecord::Base
     def low_numeric_score(test_id, date)
     if date.eql? 'Today'
       time = 24.hours.ago
+    elsif date.eql? 'Last 7 Days'
+      date = 7.days.ago
     elsif date.eql? 'This Month'
       time = (Time.now().day - 1).days.ago
     else
