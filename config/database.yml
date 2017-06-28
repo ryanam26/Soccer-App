@@ -1,10 +1,10 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: soccer_development
+  database: postgres
   host: localhost
   pool: 5
-  username: postgres
+  username: michellemancuso
   password: 1234
 
 test:
@@ -14,7 +14,7 @@ test:
   timeout: 5000
 
 production:
-  adapter: sqlite3
+  adapter: postgresql
   database: db/production.sqlite3
   pool: 5
   timeout: 5000
