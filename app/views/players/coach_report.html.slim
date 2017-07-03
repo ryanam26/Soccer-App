@@ -26,13 +26,13 @@ table class="table table-striped datetable"
           - else
               td= player[1][0].round(2)
           td= player[1][1]
-.col-sm-12
-  - @position_average.each do |key, value|
-    .col-sm-12
-      h1 =key
-    .col-sm-6
-      .well
-        h3 = "Team Average Score = #{value[1]}"
-    .col-sm-6
-      .well
-        h3= "Team Rank In System = #{value[0]} Position"
+/.col-sm-12
+  /- @position_average.each do |key, value|
+    /.col-sm-12
+      /h1 =key
+    /.col-sm-6
+      /.well
+        /h3 = "Team Average Score = #{value[1]}"
+    /.col-sm-6
+      /.well
+        /h3= "Team Rank In System = #{value[0]} Position"
